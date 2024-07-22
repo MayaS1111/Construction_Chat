@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :user_chats
   resources :chats
   devise_for :users
   resources :projects

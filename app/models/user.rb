@@ -28,5 +28,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  has_many :own_projects, class_name: "Project", foreign_key: "owner_id"       
+  has_many :own_projects, class_name: "Project", foreign_key: "owner_id"   
+  has_many :chats, class_name: "Chat", foreign_key: "chat_id"      
 end
