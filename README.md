@@ -1,92 +1,54 @@
-# Rails Template
-
-This is a base Ruby on Rails repository configured for learning with Codespaces (and Gitpod).
-
-- Ruby version: `3.2.1`
-- Rails version: `7.1.3.3`
+# Construction_Chat
 
 
-We've added additional Ruby gems and other software that aren't automatically available in a new Rails app, and configured 
+## Description
+Construction Chat is a easy to use live chat for contruction and managment teams.
+- Multiple chats will be hosted within one construstion project
+- Users name, contact information, and job titles are displayed
+- Job description can be sent easily through chats
 
-### UJS and Turbo
 
-In Rails version 7, support for Unobtrusive JavaScript (UJS) is not the default. Rather, [this has been replaced with Turbo](https://guides.rubyonrails.org/working_with_javascript_in_rails.html#turbo).
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
 
-However, in AppDev, we typically want to first demonstrate UJS and then enable Turbo manually when we want it.
 
-Therefore, UJS has been pre-configured here with these steps: 
+## Installation
+1. Clone the repository:
+`git clone https://github.com/MayaS1111/Construction_Chat.git`
 
-- Pin UJS + jQuery in `config/importmap.rb` by running:
+2. Navigate to the project directory:
+`cd Construction_Chat`
 
-    ```
-    % ./bin/importmap pin @rails/ujs
-    % ./bin/importmap pin jquery
-    ```
+3. Install the required gems:
+`bundle install`
 
-- Add UJS + jQuery via:
+4. Set up the database:
+`rails db:setup`
 
-    ```js
-    // app/javascript/application.js
-    import jquery from "jquery";
-    window.jQuery = jquery;
-    window.$ = jquery;
-    import Rails from "@rails/ujs"
-    Rails.start();
-    ```
+5. Start the server:
+`bin/dev`
 
-UJS and Turbo can co-exist side-by-side with [these instructions, which we already implemented here](https://github.com/hotwired/turbo-rails/blob/main/UPGRADING.md#upgrading-from-rails-ujs--turbolinks-to-turbo).
 
-By default, Turbo is disabled via:
+## Usage
+1. Start the server:
+`bin/dev`
 
-```js
-// app/javascript/application.js
-import { Turbo } from "@hotwired/turbo-rails"
-Turbo.session.drive = false
-```
+2. Open your browser and navigate to http://localhost:3000
+Follow the on-screen instructions to use the application
 
-Set it to `true` to enable Turbo everywhere, or you can use `data-turbo="true"` to enable Drive on a per-element basis while leaving it globally `false`.
 
-### Additional gems:
+## Contributing
+Contributions are welcome! Please follow these guidelines:
 
-- [`appdev_support`](https://github.com/firstdraft/appdev_support)
-- [`annotate`](https://github.com/ctran/annotate_models)
-- [`awesome_print`](https://github.com/awesome-print/awesome_print)
-- [`better_errors`](https://github.com/BetterErrors/better_errors)
-- [`binding_of_caller`](https://github.com/banister/binding_of_caller)
-- [`dotenv-rails`](https://github.com/bkeepers/dotenv)
-- [`draft_generators`](https://github.com/firstdraft/draft_generators/)
-- [`draft_matchers`](https://github.com/jelaniwoods/draft_matchers/)
-- [`devise`](https://github.com/heartcombo/devise)
-- [`faker`](https://github.com/faker-ruby/faker)
-- [`grade_runner`](https://github.com/firstdraft/grade_runner/)
-- [`htmlbeautifier`](https://github.com/threedaymonk/htmlbeautifier/)
-- [`http`](https://github.com/httprb/http)
-- [`pry_rails`](https://github.com/pry/pry-rails)
-- [`rails_db`](https://github.com/igorkasyanchuk/rails_db)
-- [`rails-erd`](https://github.com/voormedia/rails-erd)
-- [`rspec-html-matchers`](https://github.com/kucaahbe/rspec-html-matchers)
-- [`rspec-rails`](https://github.com/rspec/rspec-rails)
-- [`rufo`](https://github.com/ruby-formatter/rufo)
-- [`specs_to_readme`](https://github.com/firstdraft/specs_to_readme)
-- [`table_print`](https://github.com/arches/table_print)
-- [`web_git`](https://github.com/firstdraft/web_git)
-- [`webmock`](https://github.com/bblimke/webmock)
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature-branch`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature-branch`)
+5. Open a pull request
 
-### Additional software:
-- OS Ubuntu 20.04.5 LTS
-- Chromedriver
-- Fly.io's `flyctl`
-- Google Chrome (headless browser)
-- Graphviz
-- Node JS 18
-- NPM 8.19.3
-- Postgresql 12
-- Redis
-- Yarn
 
-### VS Code extensions:
-- vortizhe.simple-ruby-erb
-- mbessey.vscode-rufo
-- aliariff.vscode-erb-beautify
-- eamodio.gitlens
-- setobiralo.erb-commenter
+## Contact
+- Maya Sheriff - [maysheriff2018@gmail.com](mailto:maysheriff2018@gmail.com)
+- Project Link: [https://github.com/MayaS1111/Construction_Chat](https://github.com/MayaS1111/Construction_Chat)
