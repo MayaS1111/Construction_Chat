@@ -4,8 +4,8 @@
 #
 #  id                     :integer          not null, primary key
 #  admin                  :boolean
-#  email                  :string           default("")
-#  encrypted_password     :string           default("")
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
 #  first_name             :string
 #  job_title              :string
 #  last_name              :string
