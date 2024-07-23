@@ -2,6 +2,7 @@ desc "Fill the database tables with some sample data"
 task({ :sample_data => :environment }) do
   starting = Time.now
 
+  Message.delete_all
   UserChat.delete_all
   Chat.delete_all
   Project.delete_all
@@ -92,9 +93,9 @@ task({ :sample_data => :environment }) do
     # name = user.fetch(:first_name)
     num = rand(1..3)
     num2 = rand(3..5)
-    
+    users_in_chat = []
+
     num.times do
-      users_in_chat = []
       role = Faker::Construction.role
       chat = Chat.create(
         project_id: project.id,
@@ -104,25 +105,23 @@ task({ :sample_data => :environment }) do
       num.times do
         added_user = User.all.sample #make sure to have no repeating names
         users_in_chat << added_user
+
         user_chat = UserChat.create(
           chat_id: chat.id,
           user_id: added_user.id,
         )
-      end
-      
-      message = Message.create(
+
+        message = Message.create(
         user_chat_id: user_chat.id,
-        body: Faker::Hacker.say_something_smart
+        body: Faker::Hacker.say_something_smart,
+        sender_id: added_user.id
       )
-
-
-
-
-
+      end
     end
   end
   p "There are now #{Chat.count} chats."
   p "There are now #{UserChat.count} user_chats."
+  p "There are now #{Message.count} messages."
   
 
 
