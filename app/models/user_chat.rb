@@ -21,4 +21,5 @@
 class UserChat < ApplicationRecord
   belongs_to :chat
   belongs_to :user
+  has_many :messages, class_name: "Message", foreign_key: "user_chat_id" 
 end
