@@ -14,5 +14,5 @@
 #
 class Message < ApplicationRecord
   belongs_to :user_chat
+  belongs to :sender, class_name: "User"
 end
-  
