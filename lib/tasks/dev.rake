@@ -2,6 +2,7 @@ desc "Fill the database tables with some sample data"
 task({ :sample_data => :environment }) do
   starting = Time.now
 
+  UserChat.delete_all
   Chat.delete_all
   Project.delete_all
   User.delete_all
@@ -68,20 +69,50 @@ task({ :sample_data => :environment }) do
   p "There are now #{Project.count} projects."
 
 
-  private_projects = Project.where(project_type: "private")
+  # private_projects = Project.where(project_type: "private")
+  # private_projects.each do |project|
+  #   # name = user.fetch(:first_name)
+  #   num = rand(1..3)
+  #   num.times do
+  #     added_user = User.all.sample #make sure to have no repeating names
+  #     chat = Chat.create(
+  #       project_id: project.id,
+  #       name: "Chat with #{added_user.first_name}",
+  #       description: "nil",
+  #     )
+  #     user_chat = UserChat.create(
+  #       chat_id: chat.id,
+  #       user_id: added_user.id,
+  #     )
+  #   end
+  # end
+
+  private_projects = Project.where(project_type: "public")
   private_projects.each do |project|
     # name = user.fetch(:first_name)
     num = rand(1..3)
+    num2 = rand(3..5)
+    
     num.times do
-       member2 = User.all.sample.first_name #make sure to have no repeating names
+      role = Faker::Construction.role
       chat = Chat.create(
         project_id: project.id,
-        name: "Chat with #{member2}",
-        description: "nil",
+        name: "#{role}'s ##{Faker::Number.number(digits: 1)}",
+        description: "This chat is for #{role}s",
       )
+      num.times do
+        added_user = User.all.sample #make sure to have no repeating names
+        user_chat = UserChat.create(
+          chat_id: chat.id,
+          user_id: added_user.id,
+        )
+      end
     end
   end
   p "There are now #{Chat.count} chats."
+  p "There are now #{UserChat.count} user_chats."
+
+
   
 
   ending = Time.now
