@@ -2,7 +2,7 @@ desc "Fill the database tables with some sample data"
 task({ :sample_data => :environment }) do
   starting = Time.now
 
-  
+  Chat.delete_all
   Project.delete_all
   User.delete_all
   
@@ -21,10 +21,8 @@ task({ :sample_data => :environment }) do
 
   image_name = ["Buddy","Mimi","Abby","Jack","Lily","Lucy","Jasmine","Bear","Loki","Dusty","Maggie","Milo","Lucky","Pepper","Baby","Boo","Sammy","Coco","Mittens","Socks"]
 
-  image_name =
   people.each do |person|
     name = person.fetch(:first_name).downcase
-
     user = User.create(
       admin: [true, false].sample,
       email: "#{name}@example.com",
@@ -39,10 +37,9 @@ task({ :sample_data => :environment }) do
   end
 
   users = User.all
-
   users.each do |user|
     name = user.fetch(:first_name)
-    project = Project.create(
+    projects1 = Project.create(
       owner_id: user.id,
       name: "#{name}'s DMs",
       description: "nil", 
@@ -51,13 +48,14 @@ task({ :sample_data => :environment }) do
       member_count: "2"
     )
   end
+  p "There are now #{User.count} users."
+
 
   admin_users = User.where(admin: "true")
-
   admin_users.each do |user|
     num = rand(1..3)
     num.times do
-      project = Project.create(
+      projects2 = Project.create(
         owner_id: user.id,
         name: "#{Faker::Construction.subcontract_category} #{Faker::Number.number(digits: 4)}",
         description: "This project needs #{Faker::Construction.heavy_equipment}s and #{Faker::Construction.trade}. We will be using #{Faker::Construction.material} for the length of #{Faker::Measurement.length}", 
@@ -67,11 +65,28 @@ task({ :sample_data => :environment }) do
       )
     end  
   end
+  p "There are now #{Project.count} projects."
+
+
+  private_projects = Project.where(project_type: "private")
+  private_projects.each do |project|
+    # name = user.fetch(:first_name)
+    num = rand(1..3)
+    num.times do
+       member2 = User.all.sample.first_name #make sure to have no repeating names
+      chat = Chat.create(
+        project_id: project.id,
+        name: "Chat with #{member2}",
+        description: "nil",
+      )
+    end
+  end
+  p "There are now #{Chat.count} chats."
   
 
   ending = Time.now
-  p "It took #{(ending - starting).to_i} seconds to create sample data."
-  p "There are now #{User.count} users."
-  p "There are now #{Project.count} projects."
+  p "Done! It took #{(ending - starting).to_i} seconds to create sample data."
+  
+  
 end
 # Faker::Hacker.say_something_smart
