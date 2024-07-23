@@ -94,6 +94,7 @@ task({ :sample_data => :environment }) do
     num2 = rand(3..5)
     
     num.times do
+      users_in_chat = []
       role = Faker::Construction.role
       chat = Chat.create(
         project_id: project.id,
@@ -102,15 +103,27 @@ task({ :sample_data => :environment }) do
       )
       num.times do
         added_user = User.all.sample #make sure to have no repeating names
+        users_in_chat << added_user
         user_chat = UserChat.create(
           chat_id: chat.id,
           user_id: added_user.id,
         )
       end
+      
+      message = Message.create(
+        user_chat_id: user_chat.id,
+        body: Faker::Hacker.say_something_smart
+      )
+
+
+
+
+
     end
   end
   p "There are now #{Chat.count} chats."
   p "There are now #{UserChat.count} user_chats."
+  
 
 
   
@@ -120,4 +133,3 @@ task({ :sample_data => :environment }) do
   
   
 end
-# Faker::Hacker.say_something_smart
