@@ -74,62 +74,70 @@ task({ :sample_data => :environment }) do
   private_projects.each do |project|
     # name = user.fetch(:first_name)
     num = rand(1..3)
-    users_in_chat = []
-
+    user_set = Set.new()
+    
     num.times do
-      added_user = User.all.sample #make sure to have no repeating names
-      users_in_chat << added_user
+      added_user = User.where.not(id: project.owner.id).sample 
+      user_set << added_user
+    end
+    p "set"
+    p user_set
 
+    
+    user_set.each do |user|
+      p "user"
+      p user
       chat = Chat.create(
         project_id: project.id,
-        name: "Chat with #{added_user.first_name}",
+        name: "Chat with #{user.first_name}",
         description: "nil",
       )
       user_chat = UserChat.create(
         chat_id: chat.id,
-        user_id: added_user.id,
-      )
-
-      message = Message.create(
-        user_chat_id: user_chat.id,
-        body: Faker::Hacker.say_something_smart,
-        sender_id: added_user.id
-      )
-      end
-    end 
-  end
-
-  private_projects = Project.where(project_type: "public")
-  private_projects.each do |project|
-    # name = user.fetch(:first_name)
-    num = rand(1..3)
-    num2 = rand(3..5)
-    users_in_chat = []
-
-    num.times do
-      role = Faker::Construction.role
-      chat = Chat.create(
-        project_id: project.id,
-        name: "#{role}'s ##{Faker::Number.number(digits: 1)}",
-        description: "This chat is for #{role}s",
+        user_id: user.id,
       )
       num.times do
-        added_user = User.all.sample #make sure to have no repeating names
-        users_in_chat << added_user
-
-        user_chat = UserChat.create(
-          chat_id: chat.id,
-          user_id: added_user.id,
-        )
-
         message = Message.create(
-        user_chat_id: user_chat.id,
-        body: Faker::Hacker.say_something_smart,
-        sender_id: added_user.id
-      )
+          user_chat_id: user_chat.id,
+          body: Faker::Hacker.say_something_smart,
+          sender_id: user.id
+        )
       end
     end
+    
   end
+
+  # private_projects = Project.where(project_type: "public")
+  # private_projects.each do |project|
+  #   # name = user.fetch(:first_name)
+  #   num = rand(1..3)
+  #   num2 = rand(3..5)
+  #   users_in_chat = []
+
+  #   num.times do
+  #     role = Faker::Construction.role
+  #     chat = Chat.create(
+  #       project_id: project.id,
+  #       name: "#{role}'s ##{Faker::Number.number(digits: 1)}",
+  #       description: "This chat is for #{role}s",
+  #     )
+  #     num.times do
+  #       added_user = User.all.sample #make sure to have no repeating names
+  #       users_in_chat << added_user
+
+  #       user_chat = UserChat.create(
+  #         chat_id: chat.id,
+  #         user_id: added_user.id,
+  #       )
+
+  #       message = Message.create(
+  #       user_chat_id: user_chat.id,
+  #       body: Faker::Hacker.say_something_smart,
+  #       sender_id: added_user.id
+  #     )
+  #     end
+  #   end
+  # end
   p "There are now #{Chat.count} chats."
   p "There are now #{UserChat.count} user_chats."
   p "There are now #{Message.count} messages."
