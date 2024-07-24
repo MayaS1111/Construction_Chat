@@ -70,23 +70,34 @@ task({ :sample_data => :environment }) do
   p "There are now #{Project.count} projects."
 
 
-  # private_projects = Project.where(project_type: "private")
-  # private_projects.each do |project|
-  #   # name = user.fetch(:first_name)
-  #   num = rand(1..3)
-  #   num.times do
-  #     added_user = User.all.sample #make sure to have no repeating names
-  #     chat = Chat.create(
-  #       project_id: project.id,
-  #       name: "Chat with #{added_user.first_name}",
-  #       description: "nil",
-  #     )
-  #     user_chat = UserChat.create(
-  #       chat_id: chat.id,
-  #       user_id: added_user.id,
-  #     )
-  #   end
-  # end
+  private_projects = Project.where(project_type: "private")
+  private_projects.each do |project|
+    # name = user.fetch(:first_name)
+    num = rand(1..3)
+    users_in_chat = []
+
+    num.times do
+      added_user = User.all.sample #make sure to have no repeating names
+      users_in_chat << added_user
+
+      chat = Chat.create(
+        project_id: project.id,
+        name: "Chat with #{added_user.first_name}",
+        description: "nil",
+      )
+      user_chat = UserChat.create(
+        chat_id: chat.id,
+        user_id: added_user.id,
+      )
+
+      message = Message.create(
+        user_chat_id: user_chat.id,
+        body: Faker::Hacker.say_something_smart,
+        sender_id: added_user.id
+      )
+      end
+    end 
+  end
 
   private_projects = Project.where(project_type: "public")
   private_projects.each do |project|
