@@ -29,7 +29,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  has_many :own_projects, class_name: "Project", foreign_key: "owner_id"   
-  has_many :chats, class_name: "Chat", foreign_key: "user_id"      
-  has_many :messages, class_name: "Message", foreign_key: "sender_id"      
+  has_many :projects, class_name: "Project", foreign_key: "owner_id"      
+  has_many :messages, class_name: "Message", foreign_key: "sender_id"    
+  has_many :user_chats, class_name: "UserChat", foreign_key: "user_id", dependent: :destroy  
+
+  # has_many :chats, class_name: "Chat", foreign_key: "user_id"   
 end

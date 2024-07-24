@@ -19,6 +19,9 @@
 #
 class Chat < ApplicationRecord
   belongs_to :project
-  has_many :users, class_name: "User", foreign_key: "user_id" 
+  
+  belongs_to :project, required: true, class_name: "Project", foreign_key: "project_id"
+  
+  # has_many :users, class_name: "User", foreign_key: "user_id" 
   # has_many :messages, class_name: "Message", foreign_key: "chat_id"    
 end

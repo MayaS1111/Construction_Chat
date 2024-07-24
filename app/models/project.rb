@@ -21,6 +21,6 @@
 #  owner_id  (owner_id => users.id)
 #
 class Project < ApplicationRecord
-  belongs_to :owner, class_name: "User"
+  belongs_to :owner, required: true, class_name: "User", foreign_key: "owner_id"
   has_many :chats, class_name: "Chat", foreign_key: "project_id"
 end
