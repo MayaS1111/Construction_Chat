@@ -10,6 +10,7 @@
               <ul class="list-unstyled mb-0">
                   <% @projects.each do |project| %>
                     <%= render "projects/project", project: project %>
+                    <hr>
                   <% end %>
               </ul>
             </div>
@@ -23,6 +24,7 @@
               <ul class="list-unstyled mb-0">
                   <% @chats.each do |chat| %>
                     <%= render "chats/chat", chat: chat %>
+                    <hr>
                   <% end %>
               </ul>
             </div>
