@@ -1,12 +1,14 @@
+<h3 class="text-center">Home Page</h3>
+<hr>
 <div id="full_chat_container">
   <section class="gradient-custom">
     <div class="container py-1">
 
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 ">
           <h5 class="font-weight-bold mb-3 text-center text-black">Projects</h5>
           <div class="card mask-custom">
-            <div class="card-body overflow-auto" style= "max-height: 85vh">
+            <div class="card-body">
               <ul class="list-unstyled mb-0">
                   <% @projects.each do |project| %>
                     <%= render "projects/project", project: project %>
@@ -19,7 +21,7 @@
         <div class="col-md-3">
           <h5 class="font-weight-bold mb-3 text-center text-black">Chats</h5>
           <div class="card mask-custom">
-            <div class="card-body overflow-auto" style= "max-height: 85vh">
+            <div class="card-body">
               <ul class="list-unstyled mb-0">
                   <% @chats.each do |chat| %>
                     <%= render "chats/chat", chat: chat %>
@@ -32,20 +34,18 @@
         <div class="col">
           <h5 class="font-weight-bold mb-3 text-center text-black">Chat Name...</h5>
           <ul class="list-unstyled text-black">
-            <div class="container overflow-auto" style= "max-height: 58vh">
-              <% @messages.each do |message| %>
-                <%= render "messages/message", message: message %>
-              <% end %>
-            </div>
+            <% @messages.each do |message| %>
+              <%= render "messages/message", message: message %>
+            <% end %>
             <li class="mb-3">
               <div data-mdb-input-init class="form-outline form-black">
                 <textarea class="form-control" id="textAreaExample3" rows="4"></textarea>
                 <label class="form-label" for="textAreaExample3">Message</label>
               </div>
-              <button  
-                type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-rounded float-end">Send
-              </button>
             </li>
+            <button  
+              type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-rounded float-end">Send
+            </button>
           </ul>
         </div>
       </div>
