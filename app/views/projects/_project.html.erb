@@ -14,9 +14,11 @@
           <p class="small text-black"><%=project.description%></p>
         <% end %>  
       </div>
-      <div class="d-flex">
-       <%= render "projects/dropdown_button", project: project%>
-      </div>
+      <% if project.project_type == "public"%>
+        <div class="d-flex">
+        <%= render "projects/dropdown_button", project: project%>
+        </div>
+      <% end %>  
     </div>
   </a>
 </li>
