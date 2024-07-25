@@ -10,7 +10,7 @@
       <ul class="navbar-nav mr-auto">
         <% if user_signed_in? %>
         <li class="nav-item">
-            <%= link_to projects_path, class: "nav-link" do %>
+            <%= link_to chats_path, class: "nav-link" do %>
               <i class="fas fa-users fa-fw"></i></i>
 
               Chat Here
@@ -22,7 +22,7 @@
     <ul class="navbar-nav">
       <% if user_signed_in? %>
         <li class="nav-item">
-          <%= link_to chats_path, class: "nav-link" do %>
+          <%= link_to projects_path, class: "nav-link" do %>
             <i class="fas fa-home fa-fw"></i>
 
             Your profile
