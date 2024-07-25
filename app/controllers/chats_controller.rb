@@ -72,6 +72,6 @@ class ChatsController < ApplicationController
     #   params.fetch(:chat, {})
     # end
     def chat_params
-      params.require(:chat).permit(:project_id,:chat_id)
+      params.require(:chat).permit(:project_id, :chat_id)
     end
 end
