@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
   <div class="container">
-    <%= link_to "Contruction Chat", root_path, class: "navbar-brand" %>
+    <%= link_to "Contruction Chat", projects_path, class: "navbar-brand" %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -13,14 +13,7 @@
             <%= link_to projects_path, class: "nav-link" do %>
               <i class="fas fa-users fa-fw"></i></i>
 
-              Projects
-            <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to chats_path, class: "nav-link" do %>
-              <i class="fas fa-users fa-fw"></i></i>
-
-              Chats
+              Chat Here
             <% end %>
           </li>
         <% end %>
