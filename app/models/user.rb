@@ -33,5 +33,9 @@ class User < ApplicationRecord
   has_many :messages, class_name: "Message", foreign_key: "sender_id"    
   has_many :user_chats, class_name: "UserChat", foreign_key: "user_id", dependent: :destroy  
 
+  def name
+   "#{self.first_name} #{self.last_name}"
+  end
+
   # has_many :chats, class_name: "Chat", foreign_key: "user_id"   
 end
