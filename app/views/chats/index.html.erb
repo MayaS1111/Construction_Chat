@@ -1,5 +1,5 @@
-<h1>Chat Page</h1>
-
+<h3>Chat Page</h3>
+<hr>
 <div id="full_chat_container">
   <section class="gradient-custom">
     <div class="container py-1">
@@ -31,7 +31,8 @@
           </div>
         </div>
         <%# ------ %>
-        <div class="col container py-5">
+        <div class="col">
+          <h5 class="font-weight-bold mb-3 text-center text-black">Chat Name...</h5>
           <ul class="list-unstyled text-black">
             <% @messages.each do |message| %>
               <%= render "messages/message", message: message %>
