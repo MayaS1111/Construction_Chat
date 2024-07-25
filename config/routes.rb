@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   get "/chat/:project_id"  => "chats#index"
   get "/chat/:project_id/:chat_id"  => "chats#index"
   get ":user" => "users#profile", as: :profile
+  get "/allusers" => "users#user_list", as: :all_users
 end
