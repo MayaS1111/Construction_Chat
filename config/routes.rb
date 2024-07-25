@@ -9,12 +9,13 @@ Rails.application.routes.draw do
   resources :chats
   resources :projects
 
-  get "/:user" => "users#profile", as: :profile
-  get "/chats/:project/:chat" => "chats#home", as: :home
+  get "/chat/:project_id"  => "chats#index"
+  get "/chat/:project_id/:chat_id"  => "chats#index"
+  get ":user" => "users#profile", as: :profile
+  get ":user/:project/:chat" => "chats#home", as: :home
  
 
-  # get ":project_num" => "chats#show", as: :project
-  # get ":project_num/:chat_num" => "chats#chat", as: :chat
+
 
   # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
   # get "/your_first_screen" => "pages#first"
