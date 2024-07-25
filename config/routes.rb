@@ -14,6 +14,6 @@ Rails.application.routes.draw do
   get "/all_users" => "users#all_users", as: :all_users
   get "/members" => "users#members", as: :members
   get ":user" => "users#profile", as: :profile
- 
+  get ":user/home"  => "users#home", as: :home
   
 end

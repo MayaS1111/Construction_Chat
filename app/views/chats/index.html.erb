@@ -3,33 +3,9 @@
     <div class="container py-1">
 
       <div class="row">
-        <div class="col-md-3">
-          <h5 class="font-weight-bold mb-3 text-center text-black">Projects</h5>
-          <div class="card mask-custom">
-            <div class="card-body overflow-auto" style= "max-height: 85vh">
-              <ul class="list-unstyled mb-0">
-                  <% @projects.each do |project| %>
-                    <%= render "projects/project", project: project %>
-                    <hr>
-                  <% end %>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <%= render "projects/project_column", projects: @projects%>
         <%# ------ %>
-        <div class="col-md-3">
-          <h5 class="font-weight-bold mb-3 text-center text-black">Chats</h5>
-          <div class="card mask-custom">
-            <div class="card-body overflow-auto" style= "max-height: 85vh">
-              <ul class="list-unstyled mb-0">
-                  <% @chats.each do |chat| %>
-                    <%= render "chats/chat", chat: chat %>
-                    <hr>
-                  <% end %>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <%= render "chats/chat_column", chats: @chats%>
         <%# ------ %>
         <div class="col">
           <h5 class="font-weight-bold mb-3 text-center text-black">Chat Name...</h5>
