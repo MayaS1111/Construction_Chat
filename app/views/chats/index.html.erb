@@ -1,2 +1,54 @@
-
 <h1>Chat Page</h1>
+
+<div id="full_chat_container">
+  <section class="gradient-custom">
+    <div class="container py-1">
+
+      <div class="row">
+        <div class="col">
+          <h5 class="font-weight-bold mb-3 text-center text-black">Projects</h5>
+          <div class="card mask-custom">
+            <div class="card-body">
+              <ul class="list-unstyled mb-0">
+                  <% @projects.each do |project| %>
+                    <%= render "projects/project", project: project %>
+                  <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <%# ------ %>
+        <div class="col">
+          <h5 class="font-weight-bold mb-3 text-center text-black">Chats</h5>
+          <div class="card mask-custom">
+            <div class="card-body">
+              <ul class="list-unstyled mb-0">
+                  <% @chats.each do |chat| %>
+                    <%= render "chats/chat", chat: chat %>
+                  <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <%# ------ %>
+        <div class="col container py-5">
+          <ul class="list-unstyled text-black">
+            <% @messages.each do |message| %>
+              <%= render "messages/message", message: message %>
+            <% end %>
+            <li class="mb-3">
+              <div data-mdb-input-init class="form-outline form-black">
+                <textarea class="form-control" id="textAreaExample3" rows="4"></textarea>
+                <label class="form-label" for="textAreaExample3">Message</label>
+              </div>
+            </li>
+            <button  
+              type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-rounded float-end">Send
+            </button>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>

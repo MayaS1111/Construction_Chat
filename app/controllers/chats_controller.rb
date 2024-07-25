@@ -4,7 +4,13 @@ class ChatsController < ApplicationController
   # GET /chats or /chats.json
   def index
     @chats = Chat.all
+
+    @messages = Message.all
+    @user = current_user
+
     @projects = Project.all
+    @private_projects = Project.where(project_type: "private")
+    @public_projects = Project.where(project_type: "public")
   end
 
   # GET /chats/1 or /chats/1.json

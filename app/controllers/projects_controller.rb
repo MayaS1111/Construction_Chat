@@ -4,12 +4,6 @@ class ProjectsController < ApplicationController
   # GET /projects or /projects.json
   def index
     @projects = Project.all
-    @private_projects = Project.where(project_type: "private")
-    @public_projects = Project.where(project_type: "public")
-    @chats = Chat.all
-    @messages = Message.all
-    @user = current_user
-
   end
 
   # GET /projects/1 or /projects/1.json
