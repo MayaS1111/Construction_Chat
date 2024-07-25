@@ -9,13 +9,21 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <% if user_signed_in? %>
-        <li class="nav-item">
+          <li class="nav-item">
             <%= link_to chats_path, class: "nav-link" do %>
-              <i class="fas fa-users fa-fw"></i></i>
+              <i class="fa-solid fa-comments"></i>
               Chat Here
             <% end %>
           </li>
-        <% end %>
+          <% if current_user.admin?%>
+            <li class="nav-item">
+              <%= link_to "/all_users", class: "nav-link" do %>
+                <i class="fas fa-users fa-fw"></i></i>
+                All Users
+              <% end %>
+            </li>
+          <% end%>
+        <% end %>  
       </ul>
     </div>
     <ul class="navbar-nav">
