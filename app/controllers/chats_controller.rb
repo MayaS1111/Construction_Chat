@@ -8,6 +8,7 @@ class ChatsController < ApplicationController
     @user = current_user
     @projects = Project.all
     @current_project = Project.find(params[:project_id])
+    @current_chat = Chat.find(params[:chat_id])
   end
 
   # GET /chats/1 or /chats/1.json
@@ -66,8 +67,6 @@ class ChatsController < ApplicationController
     def set_chat
       @chat = Chat.find(params[:id])
     end
-
-
 
     # Only allow a list of trusted parameters through.
     def chat_params
