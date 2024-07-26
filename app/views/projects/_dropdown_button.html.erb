@@ -2,10 +2,31 @@
     <a class="nav-link dropdown-toggle  ml-auto p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     </a>
     <div class="dropdown-menu">
-      <%= link_to "Info", "/projects/#{project.id}", class: "dropdown-item" %>
+      <div class="ps-3">
+      <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Info
+      </a>
+      </div>
       <%= link_to "Members", projects_path, class: "dropdown-item" %>
       <%= link_to "Edit Project", "/projects/#{project.id}/edit", class: "dropdown-item" %>
       <%= link_to "Add User", "/all_users", class: "dropdown-item" %>
       <%= link_to "Delete Project", projects_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
     </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"> <%=project.name%></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%=project.description%>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
