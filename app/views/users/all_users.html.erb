@@ -1,0 +1,7 @@
+<h3 class="pt-1 d-flex justify-content-center">All Users</h3>
+
+<div class="row card-deck">
+  <% @users.each do |user| %>
+    <%= render "users/users", user: user%>
+  <% end %>
+</div>

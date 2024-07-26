@@ -23,4 +23,9 @@
 class Project < ApplicationRecord
   belongs_to :owner, class_name: "User"
   has_many :chats, class_name: "Chat", foreign_key: "project_id"
+ 
+
+  def private_projects?
+    Project.where(project_type: "private")
+  end
 end

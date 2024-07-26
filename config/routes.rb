@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
  
-  root to: "chats#index"
+  root to: "users#home"
 
   devise_for :users 
 
@@ -9,8 +9,11 @@ Rails.application.routes.draw do
   resources :chats
   resources :projects
 
-  get "/chat/:project_id"  => "chats#index"
   get "/chat/:project_id/:chat_id"  => "chats#index"
+  get "/all_users" => "users#all_users", as: :all_users
+  get "/members" => "users#members", as: :members
+  get "/home"  => "users#home", as: :home
   get ":user" => "users#profile", as: :profile
-  get "/allusers" => "users#user_list", as: :all_users
+ 
+  
 end

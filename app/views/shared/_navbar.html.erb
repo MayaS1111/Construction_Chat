@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
   <div class="container">
-    <%= link_to "Contruction Chat", projects_path, class: "navbar-brand" %>
+    <%= link_to "Construction Chat", "/", class: "navbar-brand" %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,13 +9,27 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <% if user_signed_in? %>
-        <li class="nav-item">
-            <%= link_to chats_path, class: "nav-link" do %>
-              <i class="fas fa-users fa-fw"></i></i>
+          <li class="nav-item">
+            <%= link_to "/", class: "nav-link" do %>
+              <i class="fa-solid fa-house"></i>
+              Home
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", class: "nav-link" do %>
+              <i class="fa-solid fa-comments"></i>
               Chat Here
             <% end %>
           </li>
-        <% end %>
+          <% if current_user.admin?%>
+            <li class="nav-item">
+              <%= link_to "/all_users", class: "nav-link" do %>
+                <i class="fas fa-users fa-fw"></i></i>
+                All Users
+              <% end %>
+            </li>
+          <% end%>
+        <% end %>  
       </ul>
     </div>
     <ul class="navbar-nav">

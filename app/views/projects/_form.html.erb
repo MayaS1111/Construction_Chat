@@ -1,47 +1,36 @@
 <%= form_with(model: project) do |form| %>
-  <% if project.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
-      <ul>
-        <% project.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <div class="col-xl-8">
+    <div class="card mb-4">
+      <div class="card-header"><h3>Editing Project</h3></div>
+        <div class="card-body">
+          <form>
+            <div class="row gx-3 mb-3">
+              <div class="md-6"> 
+                <div>
+                  <%= form.label :name, style: "display: block", class:"small mb-1"%>
+                  <%= form.text_field :name, class: "form-control"%>
+                </div>
+              </div>
+            </div>
+            <div class="row gx-3 mb-3">
+              <div class="mb-3"> 
+                <div>
+                  <%= form.label :description, style: "display: block", class:"small mb-1" %>
+                  <%= form.text_area :description, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="row gx-3 mb-3">
+              <div class="mb-3"> 
+                <div>
+                  <%= form.label :location, style: "display: block", class:"small mb-1" %>
+                  <%= form.text_field :location, class: "form-control" %>
+                </div>
+            </div>
+            <%= form.submit "Save changes", class:"btn btn-primary" %>
+          </form>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :owner_id, style: "display: block" %>
-    <%= form.text_field :owner_id %>
-  </div>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div>
-    <%= form.label :location, style: "display: block" %>
-    <%= form.text_field :location %>
-  </div>
-
-  <div>
-    <%= form.label :member_count, style: "display: block" %>
-    <%= form.number_field :member_count %>
-  </div>
-
-  <div>
-    <%= form.label :project_type, style: "display: block" %>
-    <%= form.text_field :project_type %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
+  </div> 
 <% end %>
