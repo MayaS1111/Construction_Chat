@@ -3,7 +3,7 @@
   <div class="card mask-custom">
     <div class="card-body overflow-auto" style= "max-height: 85vh">
       <ul class="list-unstyled mb-0">
-          <% projects.each do |project| %>
+          <% user.projects.each do |project| %>
             <%= render "projects/project", project: project %>
             <hr>
           <% end %>

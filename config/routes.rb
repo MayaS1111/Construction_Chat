@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   get "/chat/:project_id/:chat_id"  => "chats#index"
   get "/all_users" => "users#all_users", as: :all_users
   get "/members" => "users#members", as: :members
+  get "/home"  => "users#home", as: :home
   get ":user" => "users#profile", as: :profile
-  get ":user/home"  => "users#home", as: :home
+ 
   
 end

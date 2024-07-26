@@ -99,10 +99,10 @@ task({ :sample_data => :environment }) do
         )
       end
     end
-    
+  end
 
-  private_projects = Project.where(project_type: "public")
-  private_projects.each do |project|
+  public_projects = Project.where(project_type: "public")
+  public_projects.each do |project|
     # name = user.fetch(:first_name)
     users_in_project = Set.new()
     num = rand(1..3)
@@ -114,7 +114,8 @@ task({ :sample_data => :environment }) do
         name: "#{role}'s ##{Faker::Number.number(digits: 1)}",
         description: "This chat is for #{role}s",
       )
-
+      
+    
       users_in_chat = Set.new()
       users_in_chat << project.owner
 
@@ -130,6 +131,7 @@ task({ :sample_data => :environment }) do
           chat_id: chat.id,
           user_id: user.id,
         )
+        
 
         num3 = rand(1..2)
         num3.times do
@@ -140,7 +142,7 @@ task({ :sample_data => :environment }) do
           )
         end
       end
-    end
+    
 
       main = Chat.create(
         project_id: project.id,
@@ -169,12 +171,6 @@ task({ :sample_data => :environment }) do
   p "There are now #{UserChat.count} user_chats."
   p "There are now #{Message.count} messages."
   
-
-
-  
-
   ending = Time.now
   p "Done! It took #{(ending - starting).to_i} seconds to create sample data."
-  
-  
 end
