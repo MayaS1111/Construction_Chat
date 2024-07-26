@@ -7,7 +7,9 @@ class ChatsController < ApplicationController
     @messages = Message.all
     @user = current_user
     @projects = Project.all
-    @current_project = Project.find(params[:project_id])
+    if params[:project_id].present?
+      @current_project = Project.find(params[:project_id])
+    end
     if params[:chat_id].present?
       @current_chat = Chat.find(params[:chat_id])
     end

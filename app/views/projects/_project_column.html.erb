@@ -4,8 +4,8 @@
     <div class="card-body overflow-auto" style= "max-height: 85vh">
       <ul class="list-unstyled mb-0">
           <% user.projects.each do |project| %>
-            <%= render "projects/project", project: project %>
-            <hr>
+            <%= render "projects/project", project: project %>    
+              <hr>
           <% end %>
       </ul>
     </div>
