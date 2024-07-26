@@ -8,7 +8,9 @@ class ChatsController < ApplicationController
     @user = current_user
     @projects = Project.all
     @current_project = Project.find(params[:project_id])
-    @current_chat = Chat.find(params[:chat_id])
+    if params[:chat_id].present?
+      @current_chat = Chat.find(params[:chat_id])
+    end
   end
 
   # GET /chats/1 or /chats/1.json
