@@ -3,9 +3,9 @@
     </a>
     <div class="dropdown-menu">
       <div class="ps-3">
-      <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Info
-      </a>
+        <a type="button" data-bs-toggle="modal" data-bs-target="#<%=project.id%>_info_Modal">
+          Info
+        </a>
       </div>
       <%= link_to "Members", projects_path, class: "dropdown-item" %>
       <%= link_to "Edit Project", "/projects/#{project.id}/edit", class: "dropdown-item" %>
@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="<%=project.id%>_info_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">

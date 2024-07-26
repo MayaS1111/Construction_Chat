@@ -13,6 +13,15 @@
           <p class="small text-black"><%=chat.description%></p>
         <% end %>  
       </div>
+      
+      <div class="col">
+        <% if chat.project.project_type == "public"%>
+          <div class="d-flex d-flex justify-content-center">
+            <a type="button" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_info_Modal">
+              <i class="fa-solid fa-circle-info"></i>
+            </a>
+          </div>
+        <% end %>
       <div class="d-flex">
        <%= render "chats/dropdown_button", chat: chat%>
       </div>
