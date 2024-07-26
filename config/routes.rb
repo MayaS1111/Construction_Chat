@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
  
-  root to: "chats#index"
+  root to: "users#home"
 
   devise_for :users 
 
