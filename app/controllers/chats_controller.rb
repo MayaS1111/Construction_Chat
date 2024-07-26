@@ -1,5 +1,5 @@
 class ChatsController < ApplicationController
-  before_action :set_chat, only: %i[ show edit update destroy]
+  before_action :set_chat, only: %i[ show edit update destroy ]
 
   # GET /chats or /chats.json
   def index
@@ -7,7 +7,7 @@ class ChatsController < ApplicationController
     @messages = Message.all
     @user = current_user
     @projects = Project.all
-
+    @current_project = Project.find(params[:project_id])
   end
 
   # GET /chats/1 or /chats/1.json
@@ -67,8 +67,10 @@ class ChatsController < ApplicationController
       @chat = Chat.find(params[:id])
     end
 
+
+
     # Only allow a list of trusted parameters through.
     def chat_params
-      params.require(:chat).permit(:project_id, :chat_id)
+      params.require(:chat).permit(:user, :project_id, :chat_id)
     end
 end

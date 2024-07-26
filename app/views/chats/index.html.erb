@@ -3,9 +3,9 @@
     <div class="container py-1">
 
       <div class="row">
-        <%= render "projects/project_column", projects: @projects%>
+        <%= render "projects/project_column", projects: @projects, user: current_user%>
         <%# ------ %>
-        <%= render "chats/chat_column", chats: @chats%>
+        <%= render "chats/chat_column", project: @current_project, chats: @chats, user: current_user%>
         <%# ------ %>
         <div class="col">
           <h5 class="font-weight-bold mb-3 text-center text-black">Chat Name...</h5>
