@@ -18,8 +18,8 @@ task({ :sample_data => :environment }) do
 
   people << { first_name: "Alice", last_name: "Smith" }
   people << { first_name: "Bob", last_name: "James" }
-  people << { first_name: "Carol", last_name: "Clark" }
-  people << { first_name: "Doug", last_name: "Williams" }
+  people << { first_name: "Adam", last_name: "Clark" }
+  people << { first_name: "Shelly", last_name: "Williams" }
 
   image_name = ["Buddy","Mimi","Abby","Jack","Lily","Lucy","Jasmine","Bear","Loki","Dusty","Maggie","Milo","Lucky","Pepper","Baby","Boo","Sammy","Coco","Mittens","Socks"]
 
