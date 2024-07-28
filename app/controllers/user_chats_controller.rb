@@ -4,6 +4,7 @@ class UserChatsController < ApplicationController
   # GET /user_chats or /user_chats.json
   def index
     @user_chats = UserChat.all
+    @users = User.all
   end
 
   # GET /user_chats/1 or /user_chats/1.json
@@ -13,6 +14,12 @@ class UserChatsController < ApplicationController
   # GET /user_chats/new
   def new
     @user_chat = UserChat.new
+    @user_chats = UserChat.all
+    @users = User.all
+    @chats = Chat.all
+    @own_projects = Project.where(owner_id: current_user)
+    # @own_chats =  @own_chats.where(project_id: ?) 
+    
   end
 
   # GET /user_chats/1/edit
@@ -25,7 +32,7 @@ class UserChatsController < ApplicationController
 
     respond_to do |format|
       if @user_chat.save
-        format.html { redirect_to user_chat_url(@user_chat), notice: "User chat was successfully created." }
+        format.html { redirect_to "/home", notice: "User was successfully added." }
         format.json { render :show, status: :created, location: @user_chat }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +45,7 @@ class UserChatsController < ApplicationController
   def update
     respond_to do |format|
       if @user_chat.update(user_chat_params)
-        format.html { redirect_to user_chat_url(@user_chat), notice: "User chat was successfully updated." }
+        format.html { redirect_to "/all_users", notice: "User chat was successfully updated." }
         format.json { render :show, status: :ok, location: @user_chat }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,6 +72,6 @@ class UserChatsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_chat_params
-      params.fetch(:user_chat, {})
+      params.require(:user_chat).permit(:user_id, :chat_id)
     end
 end

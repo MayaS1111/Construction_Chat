@@ -1,6 +1,7 @@
-<h1>Editing user chat</h1>
-
-<%= render "form", user_chat: @user_chat %>
+ <div class="col-xl-8" >
+    <div class="card mb-4 ">
+      <div class="card-header"><h3>Editing User Chat</h3></div>
+      <%= render "form", user_chat: @user_chat, users: @users %>
 
 <br>
 

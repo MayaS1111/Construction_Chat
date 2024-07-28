@@ -1,17 +1,56 @@
 <%= form_with(model: user_chat) do |form| %>
-  <% if user_chat.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(user_chat.errors.count, "error") %> prohibited this user_chat from being saved:</h2>
-
-      <ul>
-        <% user_chat.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <div class="col-xl-8" >
+    <div class="card mb-4 ">
+      <div class="card-header"><h3>Editing User Chat</h3></div>
+        <div class="card-body">
+          <form>
+            <div class="row gx-3 mb-3">
+              <div class="md-6"> 
+              </div>
+            </div>
+            <div class="row gx-3 mb-3">
+              <div class="md-6"> 
+                <div>
+                  <%= form.label :user_id, style: "display: block", class:"small mb-1"%>
+                  <div class="dropdown show ml-auto p-2">
+                    <a class="nav-link dropdown-toggle  ml-auto p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    </a>
+                    <div class="dropdown-menu">
+                      <% users.each do |user|%>
+                        <button class="dropdown-item" type="button">
+                          <input type="checkbox"><%= user.id%> 
+                        </button>
+                      <% end %> 
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="row gx-3 mb-3">
+                <div class="mb-3"> 
+                  <div>
+                    <%= form.label :chat_id, style: "display: block", class:"small mb-1"%>
+                    <div class="dropdown show ml-auto p-2">
+                    <a class="nav-link dropdown-toggle  ml-auto p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    </a>
+                    <div class="dropdown-menu">
+                      <% chats.each do |chat|%>
+                        <button class="dropdown-item" type="button">
+                          <input type="checkbox"><%= chat.id%> 
+                        </button>
+                      <% end %> 
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            <div class="row gx-3 mb-3">
+              <div class="mb-3"> 
+            </div>
+            <%= form.submit "Save changes", class:"btn btn-primary" %>
+          </form>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.submit %>
-  </div>
+  </div> 
 <% end %>

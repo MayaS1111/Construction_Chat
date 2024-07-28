@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ profile all_users members]
+  before_action :set_user, only: %i[ profile all_users members ]
   
 
 
