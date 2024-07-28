@@ -10,13 +10,16 @@
     <div class="container mt-1">
       <div data-mdb-input-init class="form-outline form-black">
         <textarea class="form-control" id="textAreaExample3" rows="4"></textarea>
+        <% message_new = Message.new%> 
         <div class="container mt-1">
-          <label class="form-label" for="textAreaExample3">Message</label>
-          <button  
-            type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-rounded float-end">Send
-          </button>
+          <% render "messages/form", message: message_new%>
         </div>
       </div>
     </div>
   </li>
 </ul>
+
+<label class="form-label" for="textAreaExample3">Message</label>
+          <button  
+            type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-rounded float-end">Send
+          </button>
