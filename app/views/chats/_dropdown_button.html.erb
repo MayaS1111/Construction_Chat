@@ -21,8 +21,8 @@
             Add User
           </a>
         </div>
-      <%# <%= link_to "Add User", "/all_users", class: "dropdown-item" %> 
-      <%= link_to "Delete Chat", chats_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
+      <%= link_to "Delete Chat", chat, data: { turbo_method: :delete },  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
+      <%# <%= link_to 'Destroy', photo, data: { turbo_method: :delete }, data: { confirm: 'Are you sure?' } %> 
     </div>
 </div>
 
