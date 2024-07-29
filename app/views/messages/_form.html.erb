@@ -3,10 +3,10 @@
 
   <div class="mb-3">
     <%= form.label :body, class: "sr-only" %>
-    <%= form.text_area :body, class: "form-control" %>
+    <%= form.text_area :body, class: "form-control", style:"height: 100px"%>
   </div>
 
   <div class="actions">
-    <%= form.submit class: "btn btn-dark btn-lg btn-rounded float-end" %>
+    <%= form.submit "Send", class: "btn btn-dark btn-lg btn-rounded float-end" %>
   </div>
 <% end %>

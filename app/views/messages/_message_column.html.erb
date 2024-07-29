@@ -9,11 +9,10 @@
   <li class="mb-3">
     <div class="container mt-1">
       <div data-mdb-input-init class="form-outline form-black">
-        <div class="container mt-1">
-          <% message = chat.messages.new %>
+        <% message = chat.messages.new %>
           <% user_chat = chat.user_chats.find_by(user: current_user) %>
-          <% debugger %>
           <%= render "messages/form", message:, user_chat: %>
+        <div class="container mt-1">
         </div>
       </div>
     </div>
