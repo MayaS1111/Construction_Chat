@@ -32,6 +32,7 @@ class ChatsController < ApplicationController
   def create
     @chat = Chat.new(chat_params)
 
+
     respond_to do |format|
       if @chat.save
         format.html { redirect_to chat_url(@chat), notice: "Chat was successfully created." }
@@ -58,10 +59,26 @@ class ChatsController < ApplicationController
 
   # DELETE /chats/1 or /chats/1.json
   def destroy
-    @chat.destroy!
+    @user_chat_id_to_delete = UserChat.where(chat_id: @chat.id)
+    @messages_to_delete = Message.where(user_chat_id: @user_chat_id_to_delete)
+
+    @messages_to_delete.each do |message|
+      message.destroy!
+    end
+    @user_chat_id_to_delete.each do |user_chat|
+      user_chat.destroy!
+    end
+
+    @chat_list = Chat.where(project_id: @chat.project_id)
+    @chat_list_ids = []
+
+    @chat_list.each do |chat|
+      @chat_list_ids << chat.id
+    end
 
     respond_to do |format|
-      format.html { redirect_to chats_url, notice: "Chat was successfully destroyed." }
+        format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat_list_ids[0]}", notice: "Chat was successfully destroyed." }
+        @chat.destroy!
       format.json { head :no_content }
     end
   end
