@@ -1,8 +1,10 @@
 class ChatsController < ApplicationController
+  before_action :set_project
   before_action :set_chat, only: %i[ show edit update destroy ]
 
   # GET /chats or /chats.json
   def index
+    # @chats = @project.chats.all
     @chats = Chat.all
     @messages = Message.all
     @user = current_user
@@ -90,6 +92,10 @@ class ChatsController < ApplicationController
       @chat = Chat.find(params[:id])
     end
 
+    def set_project
+      @projects = Project.find(params[:project_id])
+    end
+  
     # Only allow a list of trusted parameters through.
     def chat_params
       params.require(:chat).permit(:user, :project_id, :chat_id, :name, :description)

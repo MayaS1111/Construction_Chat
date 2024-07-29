@@ -21,8 +21,8 @@ class MessagesController < ApplicationController
 
   # POST /messages or /messages.json
   def create
-    @message = Message.new(message_params)
-
+    @message = current_user.messages.new(message_params)
+    debugger
     respond_to do |format|
       if @message.save
         format.html { redirect_to message_url(@message), notice: "Message was successfully created." }
@@ -65,6 +65,6 @@ class MessagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def message_params
-      params.require(:message).permit(:user_chat_id, :sender)
+      params.require(:message).permit(:user_chat_id, :body)
     end
 end

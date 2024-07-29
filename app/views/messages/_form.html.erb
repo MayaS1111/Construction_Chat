@@ -1,5 +1,5 @@
 <%= form_with(model: message) do |form| %>
-  <%= form.hidden_field :sender_id %>
+  <%= form.hidden_field :user_chat_id, value: user_chat.id %>
 
   <div class="mb-3">
     <%= form.label :body, class: "sr-only" %>
@@ -7,6 +7,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit class: "btn btn-outline-secondary btn-block" %>
+    <%= form.submit class: "btn btn-dark btn-lg btn-rounded float-end" %>
   </div>
 <% end %>

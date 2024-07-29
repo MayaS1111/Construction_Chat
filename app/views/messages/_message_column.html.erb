@@ -9,17 +9,13 @@
   <li class="mb-3">
     <div class="container mt-1">
       <div data-mdb-input-init class="form-outline form-black">
-        <textarea class="form-control" id="textAreaExample3" rows="4"></textarea>
-        <% message_new = Message.new%> 
         <div class="container mt-1">
-          <% render "messages/form", message: message_new%>
+          <% message = chat.messages.new %>
+          <% user_chat = chat.user_chats.find_by(user: current_user) %>
+          <% debugger %>
+          <%= render "messages/form", message:, user_chat: %>
         </div>
       </div>
     </div>
   </li>
 </ul>
-
-<label class="form-label" for="textAreaExample3">Message</label>
-<button  
-  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-rounded float-end">Send
-</button>
