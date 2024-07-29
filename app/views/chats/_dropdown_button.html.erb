@@ -21,7 +21,7 @@
             Add User
           </a>
         </div>
-      <%= link_to "Delete Chat", chat, data: { turbo_method: :delete },  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
+      <%= link_to "Delete Chat", "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", data: { turbo_method: :delete },  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
       <%# <%= link_to 'Destroy', photo, data: { turbo_method: :delete }, data: { confirm: 'Are you sure?' } %> 
     </div>
 </div>
