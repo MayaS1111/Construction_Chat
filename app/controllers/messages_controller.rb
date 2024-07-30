@@ -22,10 +22,12 @@ class MessagesController < ApplicationController
   # POST /messages or /messages.json
   def create
     @message = current_user.messages.new(message_params)
+    @chat = @message.user_chat.chat
+    @project = @chat.project
   
     respond_to do |format|
       if @message.save
-        format.html { redirect_to message_url(@message), notice: "Message was successfully created." }
+        format.html { redirect_to "/chat/#{@project.id}/#{@chat.id}", notice: "Message was successfully created." }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new, status: :unprocessable_entity }
