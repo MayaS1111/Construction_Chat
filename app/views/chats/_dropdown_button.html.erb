@@ -4,11 +4,90 @@
     </a>
     <div class="dropdown-menu">
       <% if chat.project.project_type == "public"%>
-        <%= link_to "Info", "/chats/#{chat.id}", class: "dropdown-item" %>
+        <div class="ps-3">
+          <a type="button" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_info_Modal">
+            Info
+          </a>
+        </div>
+        <div class="ps-3">
+        <a type="button" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_members_Modal">
+            Members
+          </a>
+        </div>
       <% end %>
-      <%= link_to "Members", chats_path, class: "dropdown-item" %>
       <%= link_to "Edit Chat", "/chats/#{chat.id}/edit", class: "dropdown-item" %>
-      <%= link_to "Add User", chats_path, class: "dropdown-item" %>
-      <%= link_to "Delete Chat", chats_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
+       <%# "/projects/#{chat.project.id}/chats/#{chat.id}/edit" %>
+        <div class="ps-3">
+        <a type="button" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_add_user_Modal">
+            Add User
+          </a>
+        </div>
+      <%= link_to "Delete Chat", "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", data: { turbo_method: :delete },  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
+      <%# <%= link_to 'Destroy', photo, data: { turbo_method: :delete }, data: { confirm: 'Are you sure?' } %> 
     </div>
+</div>
+
+
+<!-- Modals -->
+<div class="modal fade" id="<%=chat.id%>_info_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"> <%=chat.name%></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%=chat.description%>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="<%=chat.id%>_members_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><%=chat.name%></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Member Count: <%=chat.members.count%> 
+      </div>
+      <div class="modal-body">
+        Member List: 
+      </div>
+      <div class="ps-4">
+        <% chat.members.each do |member|%>
+          <div class="modal-body">
+            <%=member.name%> 
+          </div>
+        <%end%>
+      </div>  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="<%=chat.id%>_add_user_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><%=chat.name%></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <% users = User.all%>
+      <% user_chat_new = UserChat.new%> 
+      <div class= "container">
+      <%= render "user_chats/form_new",  users: users, user_chat: user_chat_new, chat: chat%>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,5 +1,5 @@
 
-<h5 class="font-weight-bold mb-3 text-center text-black"><%=chat.name%></h5>
+<h4 class="font-weight-bold mb-3 text-center text-black"><%=chat.name%></h5>
 <ul class="list-unstyled text-black">
   <div class="container overflow-auto" style= "max-height: 58vh">
     <% chat.messages.each do |message| %>
@@ -9,12 +9,10 @@
   <li class="mb-3">
     <div class="container mt-1">
       <div data-mdb-input-init class="form-outline form-black">
-        <textarea class="form-control" id="textAreaExample3" rows="4"></textarea>
+        <% message = chat.messages.new %>
+          <% user_chat = chat.user_chats.find_by(user: current_user) %>
+          <%= render "messages/form", message:, user_chat: %>
         <div class="container mt-1">
-          <label class="form-label" for="textAreaExample3">Message</label>
-          <button  
-            type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-rounded float-end">Send
-          </button>
         </div>
       </div>
     </div>

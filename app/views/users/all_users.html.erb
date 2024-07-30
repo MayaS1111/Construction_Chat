@@ -2,6 +2,6 @@
 
 <div class="row card-deck">
   <% @users.each do |user| %>
-    <%= render "users/users", user: user%>
+    <%= render "users/users", user: user,  users: @users, user_chat: @user_chat%>
   <% end %>
 </div>
