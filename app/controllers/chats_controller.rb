@@ -11,10 +11,13 @@ class ChatsController < ApplicationController
     @projects = Project.all
 
     @private_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.project_type = ?', "private")
+    @public_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.id = ?', params[:project_id])
+
+    # Project.joins(:users).where(user: {under_18: <Bool>, active: <Bool>})
 
     @public_projects = Project.where(project_type: "public")
+
     @users_user_chats = UserChat.where(user_id: current_user.id)
-    # @user_projects = Project.where(id: )
 
     if params[:project_id].present?
       @current_project = Project.find(params[:project_id])

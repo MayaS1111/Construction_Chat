@@ -3,7 +3,11 @@
     <div class="container py-1">
       <div class="row">
         <%= render "projects/project_column", user_chats: @users_user_chats%>
-        <%= render "chats/chat_column", private_chats:  @private_chats %>
+        <% if @current_project.project_type == "private" %>
+          <%= render "chats/chat_column_private", private_chats: @private_chats %>
+        <% elsif @current_project.project_type == "public" %>
+          <%= render "chats/chat_column_public", public_chats: @public_chats %>
+        <% end %>
         <div class="col">
         <%= render "messages/message_column", chat: @current_chat, user: current_user%>
         </div>
