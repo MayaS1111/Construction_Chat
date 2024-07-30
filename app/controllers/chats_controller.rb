@@ -9,6 +9,10 @@ class ChatsController < ApplicationController
     @messages = Message.all
     @user = current_user
     @projects = Project.all
+
+    @users_user_chats = UserChat.where(user_id: current_user)
+    # @user_projects = Project.where(id: )
+
     if params[:project_id].present?
       @current_project = Project.find(params[:project_id])
     end
