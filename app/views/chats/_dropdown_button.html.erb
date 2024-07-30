@@ -16,6 +16,7 @@
         </div>
       <% end %>
       <%= link_to "Edit Chat", "/chats/#{chat.id}/edit", class: "dropdown-item" %>
+       <%# "/projects/#{chat.project.id}/chats/#{chat.id}/edit" %>
         <div class="ps-3">
         <a type="button" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_add_user_Modal">
             Add User
