@@ -10,8 +10,10 @@
   <div class="card mask-custom">
     <div class="card-body overflow-auto" style= "max-height: 85vh">
       <ul class="list-unstyled mb-0">
+          private_projects
 
-          <% private_chats.each do |chat| %>
+          <% private_projects.each do |project| %>
+            
             <%= render "chats/chat", chat: chat %>
             <hr>
           <% end %>

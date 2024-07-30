@@ -3,7 +3,7 @@
     <div class="container py-1">
       <div class="row">
         <%= render "projects/project_column", user_chats: @users_user_chats%>
-        <%= render "chats/chat_column", private_project: @private_projects, chats:  @all_chats %>
+        <%= render "chats/chat_column", private_chats:  @private_chats %>
         <div class="col">
         <%= render "messages/message_column", chat: @current_chat, user: current_user%>
         </div>

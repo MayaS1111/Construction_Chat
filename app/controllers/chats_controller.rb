@@ -9,9 +9,10 @@ class ChatsController < ApplicationController
     @messages = Message.all
     @user = current_user
     @projects = Project.all
-    
-    @private_projects = Project.where(project_type: "private")
 
+    @private_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.project_type = ?', "private")
+
+    @public_projects = Project.where(project_type: "public")
     @users_user_chats = UserChat.where(user_id: current_user.id)
     # @user_projects = Project.where(id: )
 
