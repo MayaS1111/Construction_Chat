@@ -10,7 +10,7 @@ class ChatsController < ApplicationController
     @user = current_user
     @projects = Project.all
 
-    @users_user_chats = UserChat.where(user_id: current_user)
+    @users_user_chats = UserChat.where(user_id: current_user.id)
     # @user_projects = Project.where(id: )
 
     if params[:project_id].present?
