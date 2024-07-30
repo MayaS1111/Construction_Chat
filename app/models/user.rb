@@ -32,6 +32,7 @@ class User < ApplicationRecord
   has_many :projects, class_name: "Project", foreign_key: "owner_id"      
   has_many :messages, class_name: "Message", foreign_key: "sender_id"    
   has_many :user_chats, class_name: "UserChat", foreign_key: "user_id", dependent: :destroy  
+  has_many :chats, through: :user_chats
 
   def name
    "#{self.first_name} #{self.last_name}"

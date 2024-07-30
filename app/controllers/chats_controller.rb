@@ -9,6 +9,8 @@ class ChatsController < ApplicationController
     @messages = Message.all
     @user = current_user
     @projects = Project.all
+    
+    @private_projects = Project.where(project_type: "private")
 
     @users_user_chats = UserChat.where(user_id: current_user.id)
     # @user_projects = Project.where(id: )

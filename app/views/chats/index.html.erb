@@ -2,8 +2,8 @@
   <section class="gradient-custom">
     <div class="container py-1">
       <div class="row">
-        <%= render "projects/project_column", projects: @projects, user: current_user, user_chats: @users_user_chats%>
-        <%= render "chats/chat_column", project: @current_project, user: current_user %>
+        <%= render "projects/project_column", user_chats: @users_user_chats%>
+        <%= render "chats/chat_column", private_project: @private_projects, chats:  @all_chats %>
         <div class="col">
         <%= render "messages/message_column", chat: @current_chat, user: current_user%>
         </div>
@@ -12,4 +12,5 @@
   </section>
 </div>
 
-<%# The list of projects they have a user_chat_id with BUT for private chats just show the chats they are in within their dms %>
+<%# action cable %>
+<%# good job %>
