@@ -91,6 +91,11 @@ task({ :sample_data => :environment }) do
         chat_id: chat.id,
         user_id: user.id,
       )
+      user_chat_owner = UserChat.create(
+        chat_id: chat.id,
+        user_id: project.owner.id,
+      )
+      
       num.times do
         message = Message.create(
           user_chat_id: user_chat.id,
@@ -151,7 +156,6 @@ task({ :sample_data => :environment }) do
 
    
     users_in_project.each do |user|
-      p user.id
       user_chat2 = UserChat.create(
         chat_id: main.id,
         user_id: user.id,
