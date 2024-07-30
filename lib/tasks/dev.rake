@@ -107,6 +107,12 @@ task({ :sample_data => :environment }) do
     users_in_project = Set.new()
     num = rand(1..3)
 
+    main = Chat.create(
+      project_id: project.id,
+      name: "Main",
+      description: "This chat is for all users",
+    )
+
     num.times do
       role = Faker::Construction.role
       chat = Chat.create(
@@ -114,8 +120,7 @@ task({ :sample_data => :environment }) do
         name: "#{role}'s ##{Faker::Number.number(digits: 1)}",
         description: "This chat is for #{role}s",
       )
-      
-    
+   
       users_in_chat = Set.new()
       users_in_chat << project.owner
 
@@ -123,50 +128,46 @@ task({ :sample_data => :environment }) do
       num2.times do
         added_user = User.where.not(id: project.owner.id).sample 
         users_in_chat << added_user
-        users_in_project << added_user
       end
-    
+  
       users_in_chat.each do |user|
+        users_in_project << user
+
         user_chat = UserChat.create(
           chat_id: chat.id,
           user_id: user.id,
         )
         
-
         num3 = rand(1..2)
         num3.times do
           message = Message.create(
-          user_chat_id: user_chat.id,
-          body: Faker::Hacker.say_something_smart,
-          sender_id: user.id
-          )
-        end
-      end
-    
-
-      main = Chat.create(
-        project_id: project.id,
-        name: "Main",
-        description: "This chat is for all users",
-      )
-      
-      users_in_project.each do |user|
-        user_chat2 = UserChat.create(
-          chat_id: main.id,
-          user_id: user.id,
-        )
-
-        num3 = rand(1..2)
-        num3.times do
-          message = Message.create(
-            user_chat_id: user_chat2.id,
+            user_chat_id: user_chat.id,
             body: Faker::Hacker.say_something_smart,
             sender_id: user.id
           )
         end
       end
     end
+
+   
+    users_in_project.each do |user|
+      p user.id
+      user_chat2 = UserChat.create(
+        chat_id: main.id,
+        user_id: user.id,
+      )
+
+      num3 = rand(1..2)
+      num3.times do
+        message = Message.create(
+          user_chat_id: user_chat2.id,
+          body: Faker::Hacker.say_something_smart,
+          sender_id: user.id
+        )
+      end
+    end
   end
+
   p "There are now #{Chat.count} chats."
   p "There are now #{UserChat.count} user_chats."
   p "There are now #{Message.count} messages."

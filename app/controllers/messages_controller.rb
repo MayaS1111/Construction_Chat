@@ -22,7 +22,7 @@ class MessagesController < ApplicationController
   # POST /messages or /messages.json
   def create
     @message = current_user.messages.new(message_params)
-    debugger
+  
     respond_to do |format|
       if @message.save
         format.html { redirect_to message_url(@message), notice: "Message was successfully created." }
