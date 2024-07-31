@@ -4,21 +4,16 @@ class ChatsController < ApplicationController
 
   # GET /chats or /chats.json
   def index
-    # @chats = @project.chats.all
-    @chats = Chat.all
-    @messages = Message.all
-    @user = current_user
-    @projects = Project.all
-
-    @users_user_chats = UserChat.where(user_id: current_user)
-    # @user_projects = Project.where(id: )
-
     if params[:project_id].present?
       @current_project = Project.find(params[:project_id])
     end
     if params[:chat_id].present?
       @current_chat = Chat.find(params[:chat_id])
     end
+    
+    @private_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.project_type = ?', "private")
+    @public_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.id = ?', @current_project)
+    @users_user_chats = UserChat.where(user_id: current_user.id)
   end
 
   # GET /chats/1 or /chats/1.json

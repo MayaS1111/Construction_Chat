@@ -1,7 +1,7 @@
 <div class="col-md-3">
   <div class="row px-4">
     <div class="col d-flex justify-content-start">
-      <h4 class="font-weight-bold mb-3 text-center text-black">Projects</h5>
+      <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h5>
     </div>
      <div class="col d-flex justify-content-end">
       <i class="fa-solid fa-plus" style="font-size: 25px; width: 30px"></i>
@@ -10,15 +10,10 @@
   <div class="card mask-custom">
     <div class="card-body overflow-auto" style= "max-height: 85vh">
       <ul class="list-unstyled mb-0">
-        <% projects_displayed = Set.new() %>
-
-        <% user_chats.each do |user_chat|%>
-          <% projects_displayed << user_chat.chat.project %>
-        <% end%>
-
-        <% projects_displayed.each do |project|%>
-          <%= render "projects/project", project: project%> 
-        <% end%> 
+          <% public_chats.each do |chat| %>
+            <%= render "chats/chat", chat: chat %>
+            <hr>
+          <% end %>
       </ul>
     </div>
   </div>
