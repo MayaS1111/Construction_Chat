@@ -60,26 +60,28 @@ class ChatsController < ApplicationController
 
   # DELETE /chats/1 or /chats/1.json
   def destroy
-    @user_chat_id_to_delete = UserChat.where(chat_id: @chat.id)
-    @messages_to_delete = Message.where(user_chat_id: @user_chat_id_to_delete)
+    user_chats_to_delete = UserChat.where(chat_id: @chat.id)
+    messages_to_delete = Message.where(user_chat_id: user_chats_to_delete)
 
-    @messages_to_delete.each do |message|
+    messages_to_delete.each do |message|
       message.destroy!
     end
-    @user_chat_id_to_delete.each do |user_chat|
+    user_chats_to_delete.each do |user_chat|
       user_chat.destroy!
     end
 
+    #TO DO: Refactor this section (use a set)
     @chat_list = Chat.where(project_id: @chat.project_id)
     @chat_list_ids = []
 
     @chat_list.each do |chat|
       @chat_list_ids << chat.id
     end
+    # @chat_list_ids = Chat.where(project_id: @chat.project_id).id
 
     respond_to do |format|
-        @chat.destroy!
-        format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat_list_ids[0]}", notice: "Chat was successfully destroyed." }
+      @chat.destroy!
+      format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat_list_ids[0]}", notice: "Chat was successfully destroyed." }
        
       format.json { head :no_content }
     end

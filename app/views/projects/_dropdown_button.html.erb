@@ -2,14 +2,10 @@
     <a class="nav-link dropdown-toggle  ml-auto p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     </a>
     <div class="dropdown-menu">
-      <div class="ps-3">
-        <a type="button" data-bs-toggle="modal" data-bs-target="#<%=project.id%>_info_Modal">
-          Info
-        </a>
-      </div>
+      
       <%= link_to "Edit Project", "/projects/#{project.id}/edit", class: "dropdown-item" %>
       <%# <%= link_to "Add User", "/all_users", class: "dropdown-item" %> 
-      <%= link_to "Delete Project", projects_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
+     <%= link_to "Delete Poject", "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", data: { turbo_method: :delete },  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
     </div>
 </div>
 
@@ -24,6 +20,9 @@
       </div>
       <div class="modal-body">
         <%=project.description%>
+      </div>
+      <div class="modal-body">
+        Location: <%=project.location%>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

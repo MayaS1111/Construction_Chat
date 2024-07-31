@@ -50,11 +50,30 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1 or /projects/1.json
   def destroy
-    @project.destroy!
+    chats_to_delete = Chat.where(project_id: @project.id)
+    user_chats_to_delete = []
+    messages_to_delete  = []
+
+    chats_to_delete.each do |chat|
+      user_chats_to_delete = UserChat.where(chat_id: chat.id)
+    end
+    user_chats_to_delete.each do |user_chat|
+      messages_to_delete = Message.where(user_chat_id: user_chats_to_delete)
+    end
+
+    messages_to_delete.each do |message|
+      message.destroy!
+    end
+    user_chats_to_delete.each do |user_chat|
+      user_chat.destroy!
+    end
+
+    @chat_list_ids = Chat.where(project_id: @chat.project_id).id
 
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: "Project was successfully destroyed." }
+      format.html { redirect_to "/chat/#{@project.id}/#{@chat_list_ids[0]}", notice: "Project was successfully destroyed." }
       format.json { head :no_content }
+      @project.destroy!
     end
   end
 
