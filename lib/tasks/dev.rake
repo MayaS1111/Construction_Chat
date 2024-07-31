@@ -84,7 +84,7 @@ task({ :sample_data => :environment }) do
     user_set.each do |user|
       chat = Chat.create(
         project_id: project.id,
-        name: "Chat with #{user.first_name}",
+        name: "#{project.owner.first_name} & #{user.first_name}",
         description: "nil",
       )
       user_chat = UserChat.create(
