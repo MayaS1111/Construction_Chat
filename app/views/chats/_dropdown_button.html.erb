@@ -76,13 +76,13 @@
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel"><%=chat.name%></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <% users = User.all%>
-      <% user_chat_new = UserChat.new%> 
-      <div class= "container">
-      <%= render "user_chats/form_new",  users: users, user_chat: user_chat_new, chat: chat%>
-      </div>
-      <div class="modal-footer">
+          </div>
+            <% users = User.all%>
+            <% user_chat_new = UserChat.new%> 
+          <div class= "container ">
+            <%= render "user_chats/form_new",  users: users, user_chat: user_chat_new, chat: chat%>
+          </div>
+          <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
