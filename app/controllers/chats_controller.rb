@@ -49,7 +49,7 @@ class ChatsController < ApplicationController
   def update
     respond_to do |format|
       if @chat.update(chat_params)
-        format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat.id}", notice: "Chat was successfully updated." }
+        format.html { redirect_to "/projects/#{@chat.project_id}/chats/#{@chat.id}", notice: "Chat was successfully updated." }
         format.json { render :show, status: :ok, location: @chat }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -72,7 +72,7 @@ class ChatsController < ApplicationController
 
     #TO DO: Refactor this section (use a set)
     @chat_list = Chat.where(project_id: @chat.project_id)
-    @chat_list_ids = []
+    @chat_list_ids = [].reverse
 
     @chat_list.each do |chat|
       @chat_list_ids << chat.id
@@ -81,6 +81,7 @@ class ChatsController < ApplicationController
 
     respond_to do |format|
       @chat.destroy!
+
       format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat_list_ids[0]}", notice: "Chat was successfully destroyed." }
       format.json { head :no_content }
     end

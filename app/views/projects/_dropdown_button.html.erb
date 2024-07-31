@@ -5,7 +5,7 @@
       
       <%= link_to "Edit Project", "/projects/#{project.id}/edit", class: "dropdown-item" %>
       <%# <%= link_to "Add User", "/all_users", class: "dropdown-item" %> 
-     <%= link_to "Delete Poject", "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", data: { turbo_method: :delete },  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
+     <%= link_to "Delete Poject", project_path(project),  method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
     </div>
 </div>
 

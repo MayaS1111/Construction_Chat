@@ -11,14 +11,15 @@
           </a>
         </div>
       <% end %>
-      <%= link_to "Edit Chat", "/chats/#{chat.id}/edit", class: "dropdown-item" %>
-       <%# "/projects/#{chat.project.id}/chats/#{chat.id}/edit" %>
+      <%# TO DO: fix form_with(model: chat)%>
+      <%= link_to "Edit Chat", "/projects/#{chat.project_id}/chats/#{chat.id}/edit", class: "dropdown-item" %>
+       
         <div class="ps-3">
         <a type="button" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_add_user_Modal">
             Add User
           </a>
         </div>
-      <%= link_to "Delete Chat", "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", data: { turbo_method: :delete },  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
+      <%= link_to "Delete Chat", project_chat_path(chat.project, chat), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
       <%# <%= link_to 'Destroy', photo, data: { turbo_method: :delete }, data: { confirm: 'Are you sure?' } %> 
     </div>
 </div>
