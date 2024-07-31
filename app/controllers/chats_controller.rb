@@ -82,7 +82,6 @@ class ChatsController < ApplicationController
     respond_to do |format|
       @chat.destroy!
       format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat_list_ids[0]}", notice: "Chat was successfully destroyed." }
-       
       format.json { head :no_content }
     end
   end

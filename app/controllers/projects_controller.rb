@@ -68,12 +68,12 @@ class ProjectsController < ApplicationController
       user_chat.destroy!
     end
 
-    @chat_list_ids = Chat.where(project_id: @chat.project_id).id
-
+    first_project = current_user.projects.first
+    first_chat = first.project.chats.first
     respond_to do |format|
-      format.html { redirect_to "/chat/#{@project.id}/#{@chat_list_ids[0]}", notice: "Project was successfully destroyed." }
+      format.html { redirect_to "/chat/#{first_project.id}/#{first_chat.id}", notice: "Project was successfully destroyed." }
       format.json { head :no_content }
-      @project.destroy!
+    
     end
   end
 
