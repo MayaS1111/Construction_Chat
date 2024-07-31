@@ -71,6 +71,7 @@ class ProjectsController < ApplicationController
     first_project = current_user.projects.first
     first_chat = first.project.chats.first
     respond_to do |format|
+      @project.destroy!
       format.html { redirect_to "/chat/#{first_project.id}/#{first_chat.id}", notice: "Project was successfully destroyed." }
       format.json { head :no_content }
     
