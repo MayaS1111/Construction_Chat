@@ -41,13 +41,14 @@ task({ :sample_data => :environment }) do
   users = User.all
   users.each do |user|
     name = user.fetch(:first_name)
-    projects1 = Project.create(
+    projects = Project.create(
       owner_id: user.id,
       name: "#{name}'s DMs",
       description: "nil", 
       location: "nil",
       project_type: "private",
-      member_count: "2"
+      member_count: "2",
+      status: "nil"
     )
   end
   p "There are now #{User.count} users."
@@ -55,15 +56,17 @@ task({ :sample_data => :environment }) do
 
   admin_users = User.where(admin: "true")
   admin_users.each do |user|
-    num = rand(1..3)
+    num = rand(3..5)
     num.times do
-      projects2 = Project.create(
+      projects = Project.create(
         owner_id: user.id,
         name: "#{Faker::Construction.subcontract_category} #{Faker::Number.number(digits: 4)}",
         description: "This project needs #{Faker::Construction.heavy_equipment}s and #{Faker::Construction.trade}. We will be using #{Faker::Construction.material} for the length of #{Faker::Measurement.length}", 
         location: Faker::Address.full_address,
         project_type: "public",
-        member_count: "00"
+        member_count: "0",
+        status: {'Open' => 20, 'In Progress' => 80, 'Closed' => 100}.find{|key, value| rand* 100 <= value}.first
+        
       )
     end  
   end
@@ -110,7 +113,7 @@ task({ :sample_data => :environment }) do
   public_projects.each do |project|
     # name = user.fetch(:first_name)
     users_in_project = Set.new()
-    num = rand(1..3)
+    num = rand(3..5)
 
     main = Chat.create(
       project_id: project.id,
