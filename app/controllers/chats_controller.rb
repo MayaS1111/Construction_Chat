@@ -13,7 +13,9 @@ class ChatsController < ApplicationController
     
     @private_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.project_type = ?', "private")
     @public_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.id = ?', @current_project)
+    # public = Project.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.id = ? AND status = ? OR status = ?', @current_projec, "Open", "In Progress")
     @users_user_chats = UserChat.where(user_id: current_user.id)
+
   end
 
   # GET /chats/1 or /chats/1.json
