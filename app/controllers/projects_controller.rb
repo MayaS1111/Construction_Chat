@@ -37,6 +37,7 @@ class ProjectsController < ApplicationController
 
   # PATCH/PUT /projects/1 or /projects/1.json
   def update
+    @project.status = params.fetch("status")
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to "/chat/#{@project.id}/#{current_user.projects.first.chats.first.id}", notice: "Project was successfully updated." }
