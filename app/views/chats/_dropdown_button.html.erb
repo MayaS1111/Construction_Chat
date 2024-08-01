@@ -3,13 +3,14 @@
     <a class="nav-link dropdown-toggle  ml-auto p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     </a>
     <div class="dropdown-menu">
-      <div class="ps-3">
-      <a type="button" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_members_Modal">
-          Members
-        </a>
-      </div>
+        <div class="ps-3">
+        <a type="button" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_members_Modal">
+            Members
+          </a>
+        </div>
       <%# TO DO: fix form_with(model: chat)%>
       <%= link_to "Edit Chat", "/projects/#{chat.project_id}/chats/#{chat.id}/edit", class: "dropdown-item" %>
+       
         <div class="ps-3">
         <a type="button" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_add_user_Modal">
             Add User
@@ -54,10 +55,15 @@
       </div>
       <div class="ps-4">
         <% chat.members.each do |member|%>
-          <div class="modal-body">
-            <a href="/<%=member.id%>"><%=member.name%></a>
-            
-          </div>
+          <% if member != current_user %>
+            <div class="modal-body">
+              <a href="/<%=member.id%>"><%=member.name%></a>
+            </div>
+          <%else%> 
+            <div class="modal-body">
+              <a href="/<%=member.id%>">Me</a>
+            </div>
+          <% end %>
         <%end%>
       </div>  
       <div class="modal-footer">
