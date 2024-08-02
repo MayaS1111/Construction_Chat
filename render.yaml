@@ -1,4 +1,4 @@
-services:
+services: builtbetter
   - type: web
     name: my-app-name # the name of this service, eg hello-world
     env: ruby # this app is written in ruby
