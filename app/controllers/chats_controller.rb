@@ -13,7 +13,9 @@ class ChatsController < ApplicationController
     
     @private_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.project_type = ?', "private")
     @public_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.id = ?', @current_project)
+    # public = Project.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.id = ? AND status = ? OR status = ?', @current_projec, "Open", "In Progress")
     @users_user_chats = UserChat.where(user_id: current_user.id)
+
   end
 
   # GET /chats/1 or /chats/1.json
@@ -49,7 +51,7 @@ class ChatsController < ApplicationController
   def update
     respond_to do |format|
       if @chat.update(chat_params)
-        format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat.id}", notice: "Chat was successfully updated." }
+        format.html { redirect_to "/projects/#{@chat.project_id}/chats/#{@chat.id}", notice: "Chat was successfully updated." }
         format.json { render :show, status: :ok, location: @chat }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,27 +62,29 @@ class ChatsController < ApplicationController
 
   # DELETE /chats/1 or /chats/1.json
   def destroy
-    @user_chat_id_to_delete = UserChat.where(chat_id: @chat.id)
-    @messages_to_delete = Message.where(user_chat_id: @user_chat_id_to_delete)
+    user_chats_to_delete = UserChat.where(chat_id: @chat.id)
+    messages_to_delete = Message.where(user_chat_id: user_chats_to_delete)
 
-    @messages_to_delete.each do |message|
+    messages_to_delete.each do |message|
       message.destroy!
     end
-    @user_chat_id_to_delete.each do |user_chat|
+    user_chats_to_delete.each do |user_chat|
       user_chat.destroy!
     end
 
+    #TO DO: Refactor this section (use a set)
     @chat_list = Chat.where(project_id: @chat.project_id)
-    @chat_list_ids = []
+    @chat_list_ids = [].reverse
 
     @chat_list.each do |chat|
       @chat_list_ids << chat.id
     end
+    # @chat_list_ids = Chat.where(project_id: @chat.project_id).id
 
     respond_to do |format|
-        @chat.destroy!
-        format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat_list_ids[0]}", notice: "Chat was successfully destroyed." }
-       
+      @chat.destroy!
+
+      format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat_list_ids[0]}", notice: "Chat was successfully destroyed." }
       format.json { head :no_content }
     end
   end

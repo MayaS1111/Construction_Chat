@@ -1,64 +1,73 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+<nav class="navbar navbar-light  navbar-expand-lg mb-4" style="background-color: #f2f2f2;">
   <div class="container">
-    <%= link_to "Construction Chat", "/", class: "navbar-brand" %>
+    <%= link_to "BuiltBetter", "/", class: "navbar-brand" %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <% if user_signed_in? %>
-          <li class="nav-item">
-            <%= link_to "/", class: "nav-link" do %>
-              <i class="fa-solid fa-house"></i>
-              Home
+      <div class="d-flex justify-content-between">
+          <ul class="navbar-nav mr-auto">
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to "/", class: "nav-link" do %>
+                   <i class="fa-solid fa-house-chimney"></i>
+                  Home
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", class: "nav-link" do %>
+                  <i class="fa-solid fa-comments"></i>
+                  Chat Here
+                <% end %>
+              </li>
+              <% if current_user.admin?%>
+                <li class="nav-item">
+                  <%= link_to "/all_users", class: "nav-link" do %>
+                    <i class="fas fa-users fa-fw"></i></i>
+                    All Users
+                  <% end %>
+                </li>
+              <% end%>
+            <% end %>  
+          </ul>
+        </div>
+        </div>
+        <div>
+          <ul class="navbar-nav">
+            <% if user_signed_in? %>
+              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <%= current_user.first_name %>
+                </a>
+                <div class="dropdown-menu">
+                  <%= link_to "/#{current_user.id}", class: "dropdown-item" do %>
+                    <i class="fa-solid fa-house-chimney"></i>
+                    Your profile
+                  <% end %>
+                  <%= link_to edit_user_registration_path, class: "dropdown-item"  do%>
+                    <i class="fa-solid fa-gear"></i>
+                    Edit profile
+                  <% end %>
+                  <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" do%>
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Sign out
+                  <% end%>
+                </div>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to "Sign in", new_user_session_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
+              </li>
             <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", class: "nav-link" do %>
-              <i class="fa-solid fa-comments"></i>
-              Chat Here
-            <% end %>
-          </li>
-          <% if current_user.admin?%>
-            <li class="nav-item">
-              <%= link_to "/all_users", class: "nav-link" do %>
-                <i class="fas fa-users fa-fw"></i></i>
-                All Users
-              <% end %>
-            </li>
-          <% end%>
-        <% end %>  
-      </ul>
-    </div>
-    <ul class="navbar-nav">
-      <% if user_signed_in? %>
-        <li class="nav-item">
-          <%= link_to "/#{current_user.id}", class: "nav-link" do %>
-            <i class="fas fa-home fa-fw"></i>
-            Your profile
-          <% end %>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= current_user.first_name %>
-          </a>
-          <div class="dropdown-menu">
-            <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
-            <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
-          </div>
-        </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to "Sign in", new_user_session_path, class: "nav-link" %>
-        </li>
-
-        <li class="nav-item">
-          <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
-        </li>
-      <% end %>
-    </ul>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

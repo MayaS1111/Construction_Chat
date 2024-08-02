@@ -8,6 +8,7 @@
 #  member_count :integer          default(0)
 #  name         :string
 #  project_type :string
+#  status       :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  owner_id     :integer          not null

@@ -37,6 +37,7 @@ class ProjectsController < ApplicationController
 
   # PATCH/PUT /projects/1 or /projects/1.json
   def update
+    @project.status = params.fetch("status")
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to "/chat/#{@project.id}/#{current_user.projects.first.chats.first.id}", notice: "Project was successfully updated." }
@@ -50,11 +51,36 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1 or /projects/1.json
   def destroy
-    @project.destroy!
+    debugger
+    chats_to_delete = Chat.where(project_id: @project.id)
+    user_chats_to_delete = []
+    messages_to_delete  = []
 
+    chats_to_delete.each do |chat|
+      user_chats_to_delete = UserChat.where(chat_id: chat.id)
+    end
+    user_chats_to_delete.each do |user_chat|
+      messages_to_delete = Message.where(user_chat_id: user_chats_to_delete)
+    end
+
+    messages_to_delete.each do |message|
+      message.destroy!
+    end
+    user_chats_to_delete.each do |user_chat|
+      user_chat.destroy!
+    end
+
+    chats_to_delete.each do |chat|
+      chat.destroy!
+    end
+    
+    first_project = current_user.projects.first
+    first_chat = first.project.chats.first
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: "Project was successfully destroyed." }
+      @project.destroy!
+      format.html { redirect_to "/chat/#{first_project.id}/#{first_chat.id}", notice: "Project was successfully destroyed." }
       format.json { head :no_content }
+    
     end
   end
 
