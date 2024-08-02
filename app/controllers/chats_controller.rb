@@ -49,6 +49,7 @@ class ChatsController < ApplicationController
 
   # PATCH/PUT /chats/1 or /chats/1.json
   def update
+    
     respond_to do |format|
       if @chat.update(chat_params)
         format.html { redirect_to "/projects/#{@chat.project_id}/chats/#{@chat.id}", notice: "Chat was successfully updated." }

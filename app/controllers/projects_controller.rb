@@ -4,7 +4,6 @@ class ProjectsController < ApplicationController
   # GET /projects or /projects.json
   def index
     @projects = Project.all
-    
   end
 
   # GET /projects/1 or /projects/1.json
@@ -26,7 +25,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to project_url(@project), notice: "Project was successfully created." }
+        format.html { redirect_to "/home", notice: "Project was successfully created." }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,6 +37,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1 or /projects/1.json
   def update
     @project.status = params.fetch("status")
+    
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to "/chat/#{@project.id}/#{current_user.projects.first.chats.first.id}", notice: "Project was successfully updated." }
