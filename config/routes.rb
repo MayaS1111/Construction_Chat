@@ -2,7 +2,9 @@ Rails.application.routes.draw do
  
   root to: "users#home"
 
-  devise_for :users 
+  devise_for :users#, controllers: {
+    # registrations: 'users/registrations'
+  # }
 
   resources :messages
   resources :user_chats
