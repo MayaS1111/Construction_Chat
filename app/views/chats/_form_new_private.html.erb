@@ -20,7 +20,9 @@
                   </div>
                 </div>
               </div>
-              <% end %>
+            <% else %>
+              <%= form.hidden_field :description, value: "nil" %>
+            <% end %>
               
               <div class="row gx-3 mb-3">
                 <div class="mb-3"> 
