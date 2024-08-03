@@ -1,7 +1,7 @@
 <%= form_with(model: project) do |form| %>
 <%= form.hidden_field :owner_id, value: current_user.id %>
 <%= form.hidden_field :project_type, value: "public"%>
-  <div class="col-xl-8" >
+  <div>
     <div class="d-flex justify-content-center align-items-center ">
         <div class="card-body">
           <form>

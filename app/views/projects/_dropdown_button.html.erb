@@ -2,8 +2,27 @@
     <a class="nav-link dropdown-toggle  ml-auto p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     </a>
     <div class="dropdown-menu">
-      <%= link_to "Edit Project", "/projects/#{project.id}/edit", class: "dropdown-item" %>
+      <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=project.id%>_edit_Modal">
+        Edit Project
+      </a>
     </div>
+    
 </div>
 
-
+<!-- Modals -->
+<div class="modal fade" id="<%=project.id%>_edit_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Project</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render "projects/form", project: project %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,13 +4,13 @@
     </a>
     <div class="dropdown-menu">
       <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_members_Modal">
-          Members
-        </a>
+        Members
+      </a>
       <%# TO DO: fix form_with(model: chat)%>
       <%# <%= link_to "Edit Chat", "/projects/#{chat.project_id}/chats/#{chat.id}/edit", class: "dropdown-item" %> 
       <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_edit_Modal">
-          Edit Chat
-        </a>
+        Edit Chat
+       </a>
       <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_add_user_Modal">
         Add User
       </a>
@@ -73,7 +73,7 @@
   <div class="modal-dialog modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">New Chat</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Chat</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
