@@ -16,7 +16,6 @@ class ChatsController < ApplicationController
     # public = Project.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.id = ? AND status = ? OR status = ?', @current_projec, "Open", "In Progress")
     @users_user_chats = UserChat.where(user_id: current_user.id)
 
-
     @new_chat = @current_project.chats.new
   end
 
@@ -38,7 +37,7 @@ class ChatsController < ApplicationController
     if params[:project_id].present?
       @current_project = Project.find(params[:project_id])
     end
-    @chat = @current_project.chats.build(chat_params)
+    @chat = @current_project.chats.new(chat_params)
 
     respond_to do |format|
       if @chat.save
@@ -53,7 +52,6 @@ class ChatsController < ApplicationController
 
   # PATCH/PUT /chats/1 or /chats/1.json
   def update
-    
     respond_to do |format|
       if @chat.update(chat_params)
         format.html { redirect_to "/projects/#{@chat.project_id}/chats/#{@chat.id}", notice: "Chat was successfully updated." }
