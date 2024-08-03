@@ -27,13 +27,10 @@ class ProjectsController < ApplicationController
     @project.project_type = "public"
     @project.owner_id = current_user.id
 
-    @chat = Chat.new
-    @chat.name = "Main"
-    @chat.description = "For all"
-    @chat.project_id = "58"
-
     respond_to do |format|
       if @project.save
+        @chat = Chat.create(project_id: @project.id, name: "Main", description: "This chat is for all members")
+        UserChat.create(user_id: current_user.id, chat_id: @chat.id)
         format.html { redirect_to "/home", notice: "Project was successfully created." }
         format.json { render :show, status: :created, location: @project }
       else
