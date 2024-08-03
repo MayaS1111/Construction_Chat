@@ -23,6 +23,8 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.status = params.fetch("status")
+    @project.project_type = "public"
+    @project.owner_id = current_user.id
 
     respond_to do |format|
       if @project.save

@@ -19,6 +19,8 @@
 #  user_chat_id  (user_chat_id => user_chats.id)
 #
 class Message < ApplicationRecord
+  # validates :body, presence: true
+
   belongs_to :user_chat
   belongs_to :sender, class_name: "User"
 end
