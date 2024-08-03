@@ -22,6 +22,7 @@ class ProjectsController < ApplicationController
   # POST /projects or /projects.json
   def create
     @project = Project.new(project_params)
+    @project.status = params.fetch("status")
 
     respond_to do |format|
       if @project.save
@@ -37,7 +38,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1 or /projects/1.json
   def update
     @project.status = params.fetch("status")
-    
+
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to "/chat/#{@project.id}/#{current_user.projects.first.chats.first.id}", notice: "Project was successfully updated." }
@@ -92,6 +93,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:owner_id, :name, :description, :location, :member_count, :project_type)
+      params.require(:project).permit(:owner_id, :name, :description, :location, :member_count, :project_type, :status)
     end
 end
