@@ -16,6 +16,8 @@ class ChatsController < ApplicationController
     # public = Project.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.id = ? AND status = ? OR status = ?', @current_projec, "Open", "In Progress")
     @users_user_chats = UserChat.where(user_id: current_user.id)
 
+
+    @new_chat = @current_project.chats.new
   end
 
   # GET /chats/1 or /chats/1.json
@@ -33,12 +35,14 @@ class ChatsController < ApplicationController
 
   # POST /chats or /chats.json
   def create
-    @chat = Chat.new(chat_params)
-
+    if params[:project_id].present?
+      @current_project = Project.find(params[:project_id])
+    end
+    @chat = @current_project.chats.build(chat_params)
 
     respond_to do |format|
       if @chat.save
-        format.html { redirect_to chat_url(@chat), notice: "Chat was successfully created." }
+        format.html { redirect_to "/home", notice: "Chat was successfully created." }
         format.json { render :show, status: :created, location: @chat }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -102,6 +106,6 @@ class ChatsController < ApplicationController
   
     # Only allow a list of trusted parameters through.
     def chat_params
-      params.require(:chat).permit(:user, :project_id, :chat_id, :name, :description)
+      params.require(:chat).permit(:project_id, :name, :description)
     end
 end

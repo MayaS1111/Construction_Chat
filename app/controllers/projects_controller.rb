@@ -13,6 +13,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
+    @project.chats.new
   end
 
   # GET /projects/1/edit
@@ -25,6 +26,11 @@ class ProjectsController < ApplicationController
     @project.status = params.fetch("status")
     @project.project_type = "public"
     @project.owner_id = current_user.id
+
+    @chat = Chat.new
+    @chat.name = "Main"
+    @chat.description = "For all"
+    @chat.project_id = "58"
 
     respond_to do |format|
       if @project.save
@@ -95,6 +101,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:owner_id, :name, :description, :location, :member_count, :project_type, :status)
+      params.require(:project).permit(:owner_id, :name, :description, :location, :member_count, :project_type, :status, chats_attributes: [:name, :description, :project_id])
     end
 end
