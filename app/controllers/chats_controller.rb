@@ -41,6 +41,7 @@ class ChatsController < ApplicationController
 
     respond_to do |format|
       if @chat.save
+        UserChat.create(user_id: current_user.id, chat_id: @chat.id)
         format.html { redirect_to "/home", notice: "Chat was successfully created." }
         format.json { render :show, status: :created, location: @chat }
       else
