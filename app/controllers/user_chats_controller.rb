@@ -32,7 +32,7 @@ class UserChatsController < ApplicationController
     respond_to do |format|
       if @user_chat.save
         if User.where.not(id: "0").exists?
-          bot = User.create(id: 0, first_name: "BuiltBetter", last_name: "Bot", phone_number: "0000000000", email: "buildbetter@info.com", job_title: "Helper Bot", password: "password", admin: "true", profile_image: "https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&scale=70&shapeColor=50585D&backgroundColor=D2042D")
+          bot = User.create(id: 0, first_name: "BuiltBetter", last_name: "Bot", phone_number: "0000000000", email: "buildbetter@info.com", job_title: "Helper Bot", password: "password", admin: "true", profile_image: "https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&backgroundColor=D2042D&eyesColor=000000&mouthColor=000000&shapeColor=ffffff&scale=70")
         end
         Message.create(body: "#{@user_chat.user.name} has been added to chat by #{current_user.name}",  chat_id: @user_chat.chat.id , sender_id: "0")
         format.html { redirect_to "/home", notice: "User was successfully added." }
