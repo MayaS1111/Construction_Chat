@@ -6,15 +6,14 @@
       <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_members_Modal">
         Members
       </a>
-      <%# TO DO: fix form_with(model: chat)%>
-      <%# <%= link_to "Edit Chat", "/projects/#{chat.project_id}/chats/#{chat.id}/edit", class: "dropdown-item" %> 
       <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_chat_edit_Modal">
         Edit Chat
        </a>
       <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_add_user_Modal">
         Add User
-      </a>
-      <%# <%= link_to "Leave Chat", project_chat_path(chat.project, chat), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %> 
+      </a><% 
+      delete_user_chat = UserChat.find_by("user_id = ? AND chat_id = ?", current_user.id, chat.id) %>
+      <%= link_to "Leave Chat", user_chat_path(delete_user_chat), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
     </div>
 </div>
 

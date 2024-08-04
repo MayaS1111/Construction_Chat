@@ -2,12 +2,12 @@
 #
 # Table name: messages
 #
-#  id           :integer          not null, primary key
-#  body         :text
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  sender_id    :integer          not null
-#  user_chat_id :integer
+#  id         :integer          not null, primary key
+#  body       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  chat_id    :integer
+#  sender_id  :integer          not null
 #
 # Indexes
 #
@@ -15,8 +15,8 @@
 #
 # Foreign Keys
 #
-#  sender_id     (sender_id => users.id)
-#  user_chat_id  (user_chat_id => user_chats.id)
+#  chat_id    (chat_id => chats.id)
+#  sender_id  (sender_id => users.id)
 #
 class Message < ApplicationRecord
   # validates :body, presence: true

@@ -59,7 +59,7 @@ class UserChatsController < ApplicationController
     @user_chat.destroy!
 
     respond_to do |format|
-      format.html { redirect_to user_chats_url, notice: "User chat was successfully destroyed." }
+      format.html { redirect_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", notice: "User chat was successfully destroyed." }
       format.json { head :no_content }
     end
   end
