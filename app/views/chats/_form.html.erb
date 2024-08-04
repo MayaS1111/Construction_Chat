@@ -1,4 +1,4 @@
-<%= form_with(model: chat) do |form| %>
+<%= form_with(model: [chat.project, chat], local: true) do |form| %>
   <div class="col-xl-8">
     <div class="card mb-4">
       <div class="card-header"><h3>Editing Chat</h3></div>

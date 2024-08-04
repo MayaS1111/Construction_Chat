@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
    
-
   resources :messages
   resources :user_chats
   resources :projects do
