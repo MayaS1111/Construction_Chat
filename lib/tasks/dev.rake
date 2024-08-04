@@ -101,7 +101,7 @@ task({ :sample_data => :environment }) do
       
       num.times do
         message = Message.create(
-          user_chat_id: user_chat.id,
+          chat_id: chat.id,
           body: Faker::Hacker.say_something_smart,
           sender_id: user.id
         )
@@ -149,7 +149,7 @@ task({ :sample_data => :environment }) do
         num3 = rand(1..2)
         num3.times do
           message = Message.create(
-            user_chat_id: user_chat.id,
+            chat_id: chat.id,
             body: Faker::Hacker.say_something_smart,
             sender_id: user.id
           )
@@ -167,7 +167,7 @@ task({ :sample_data => :environment }) do
       num3 = rand(1..2)
       num3.times do
         message = Message.create(
-          user_chat_id: user_chat2.id,
+          chat_id: main.id,
           body: Faker::Hacker.say_something_smart,
           sender_id: user.id
         )
