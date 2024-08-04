@@ -29,9 +29,12 @@ class UserChatsController < ApplicationController
   # POST /user_chats or /user_chats.json
   def create
     @user_chat = UserChat.new(user_chat_params)
-
     respond_to do |format|
       if @user_chat.save
+        if User.where.not(id: "0").exists?
+          bot = User.create(id: 0, first_name: "BuiltBetter", last_name: "Bot", phone_number: "0000000000", email: "buildbetter@info.com", job_title: "Helper Bot", password: "password", admin: "true", profile_image: "https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&backgroundColor=D2042D&eyesColor=000000&mouthColor=000000&shapeColor=ffffff&scale=70")
+        end
+        Message.create(body: "#{@user_chat.user.name} has been added to chat by #{current_user.name}",  chat_id: @user_chat.chat.id , sender_id: "0")
         format.html { redirect_to "/home", notice: "User was successfully added." }
         format.json { render :show, status: :created, location: @user_chat }
       else
@@ -56,10 +59,16 @@ class UserChatsController < ApplicationController
 
   # DELETE /user_chats/1 or /user_chats/1.json
   def destroy
+    chat_id = @user_chat.chat.id
     @user_chat.destroy!
 
     respond_to do |format|
-      format.html { redirect_to user_chats_url, notice: "User chat was successfully destroyed." }
+      if User.where.not(id: "0").exists?
+        bot = User.create(id: 0000, first_name: "BuiltBetter", last_name: "Bot", phone_number: "0000000000", email: "buildbetter@info.com", job_title: "Helper Bot", password: "password", admin: "true", profile_image: "https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&scale=70&shapeColor=000000&backgroundColor=D2042D")
+      end
+      Message.create(body: "#{current_user.name} has left the chat",  chat_id: chat_id , sender_id: "0")
+
+      format.html { redirect_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", notice: "User chat was successfully destroyed." }
       format.json { head :no_content }
     end
   end
