@@ -7,9 +7,13 @@
       <h4>See your chats:</h4>
     </div>
     <div class="d-flex justify-content-center align-items-center">
-      <%= link_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", class: "nav-link" do %>
-        <i class="fa-solid fa-comments"></i>
-        Chat Here
+    <% if current_user&.projects&.first&.chats&.first %>
+        <%= link_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", class: "nav-link" do %> 
+          <i class="fa-solid fa-comments"></i>
+          Chat Here
+        <% end %> 
+      <% else %>
+        <p>No chats available.</p>
       <% end %>
     </div>
     </div>
