@@ -26,7 +26,6 @@ class Project < ApplicationRecord
   has_many :chats, class_name: "Chat", foreign_key: "project_id"
   
   accepts_nested_attributes_for :chats
- 
 
   def private_projects?
     Project.where(project_type: "private")

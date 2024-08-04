@@ -18,14 +18,13 @@
 #  project_id  (project_id => projects.id)
 #
 class Chat < ApplicationRecord
-  belongs_to :project
   belongs_to :project, required: true, class_name: "Project", foreign_key: "project_id"
+  has_many :messages, class_name: "Message", foreign_key: "chat_id"    
   has_many :user_chats
   has_many :chats, through: :user_chats
   has_many :members, through: :user_chats, source: :user
-  has_many :messages, through: :user_chats
+  
   
   
   # has_many :users, class_name: "User", foreign_key: "user_id" 
-  # has_many :messages, class_name: "Message", foreign_key: "chat_id"    
 end
