@@ -3,7 +3,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     Rails.logger.info("Custom user creation logic")
 
     super do |resource|
-      # Custom logic after user creation
       Rails.logger.info("Custom user creation logic")
       
       if resource.persisted?
@@ -13,7 +12,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
           UserChat.create!(user_id: resource.id, chat_id: chat.id)
         rescue StandardError => e
           Rails.logger.error("Error during custom user creation: #{e.message}")
-          # Handle errors or rollback transactions if needed
         end
       end
     end
