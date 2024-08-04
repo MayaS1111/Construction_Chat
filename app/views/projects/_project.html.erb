@@ -24,7 +24,7 @@
           <% if project.project_type == "public"%>
             <div class="col">
               <div class="d-flex d-flex justify-content-center">
-                <a type="button" data-bs-toggle="modal" data-bs-target="#<%=project.id%>_info_Modal">
+                <a type="button" data-bs-toggle="modal" data-bs-target="#<%=project.id%>_project_info_Modal">
                   <i class="fa-solid fa-circle-info"></i>
                 </a>
               </div>
@@ -41,7 +41,7 @@
 
 
 <!-- Modals -->
-<div class="modal fade" id="<%=project.id%>_info_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="<%=project.id%>_project_info_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
