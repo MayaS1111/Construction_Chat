@@ -4,7 +4,6 @@ class ProjectsController < ApplicationController
   # GET /projects or /projects.json
   def index
     @projects = Project.all
-    
   end
 
   # GET /projects/1 or /projects/1.json
@@ -14,6 +13,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
+    @project.chats.new
   end
 
   # GET /projects/1/edit
@@ -23,10 +23,15 @@ class ProjectsController < ApplicationController
   # POST /projects or /projects.json
   def create
     @project = Project.new(project_params)
+    @project.status = params.fetch("status")
+    @project.project_type = "public"
+    @project.owner_id = current_user.id
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to project_url(@project), notice: "Project was successfully created." }
+        chat = Chat.create(project_id: @project.id, name: "Main", description: "This chat is for all members")
+        UserChat.create(user_id: current_user.id, chat_id: chat.id)
+        format.html { redirect_to "/home", notice: "Project was successfully created." }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,6 +43,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1 or /projects/1.json
   def update
     @project.status = params.fetch("status")
+
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to "/chat/#{@project.id}/#{current_user.projects.first.chats.first.id}", notice: "Project was successfully updated." }
@@ -92,6 +98,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:owner_id, :name, :description, :location, :member_count, :project_type)
+      params.require(:project).permit(:owner_id, :name, :description, :location, :member_count, :project_type, :status, chats_attributes: [:name, :description, :project_id])
     end
 end

@@ -4,35 +4,21 @@
     </a>
     <div class="dropdown-menu">
       <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_members_Modal">
-          Members
-        </a>
+        Members
+      </a>
       <%# TO DO: fix form_with(model: chat)%>
-      <%= link_to "Edit Chat", "/projects/#{chat.project_id}/chats/#{chat.id}/edit", class: "dropdown-item" %>
+      <%# <%= link_to "Edit Chat", "/projects/#{chat.project_id}/chats/#{chat.id}/edit", class: "dropdown-item" %> 
+      <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_chat_edit_Modal">
+        Edit Chat
+       </a>
       <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_add_user_Modal">
         Add User
       </a>
-      <%= link_to "Leave Chat", project_chat_path(chat.project, chat), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
+      <%# <%= link_to "Leave Chat", project_chat_path(chat.project, chat), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %> 
     </div>
 </div>
 
 <!-- Modals -->
-<div class="modal fade" id="<%=chat.id%>_info_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"> <%=chat.name%></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%=chat.description%>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="modal fade" id="<%=chat.id%>_members_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -59,6 +45,23 @@
           <% end %>
         <%end%>
       </div>  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="<%=chat.id%>_chat_edit_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Chat</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render "chats/form", chat: chat %>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>

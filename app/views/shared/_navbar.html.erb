@@ -16,12 +16,21 @@
                   Home
                 <% end %>
               </li>
+              <% if current_user.projects.any? && current_user.projects.first.chats.any? %>
               <li class="nav-item">
                 <%= link_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", class: "nav-link" do %>
                   <i class="fa-solid fa-comments"></i>
                   Chat Here
                 <% end %>
               </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to "#", class: "nav-link disabled" do %>
+                  <i class="fa-solid fa-comments"></i>
+                  Chat Here
+                <% end %>
+              </li>
+            <% end %>
               <% if current_user.admin?%>
                 <li class="nav-item">
                   <%= link_to "/all_users", class: "nav-link" do %>

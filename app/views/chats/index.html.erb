@@ -2,11 +2,11 @@
   <section class="gradient-custom">
     <div class="container py-1">
       <div class="row">
-        <%= render "projects/project_column", user_chats: @users_user_chats%>
+        <%= render "projects/project_column", user_chats: @users_user_chats %>
         <% if @current_project.project_type == "private" %>
           <%= render "chats/chat_column_private", private_chats: @private_chats.order!(created_at: :desc) %>
         <% elsif @current_project.project_type == "public" %>
-          <%= render "chats/chat_column_public", public_chats: @public_chats.reverse %>
+          <%= render "chats/chat_column_public", public_chats: @public_chats.order!(created_at: :asc) %>
         <% end %>
         <div class="col">
         <%= render "messages/message_column", chat: @current_chat, user: current_user%>

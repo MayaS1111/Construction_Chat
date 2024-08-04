@@ -4,7 +4,9 @@
       <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h5>
     </div>
      <div class="col d-flex justify-content-end">
-      <i class="fa-solid fa-plus" style="font-size: 25px; width: 30px"></i>
+      <a type="button" data-bs-toggle="modal" data-bs-target="#create_public_chat_Modal">
+        <i class="fa-solid fa-plus" style="font-size: 25px; width: 30px"></i>
+      </a>
     </div>
   </div>
   <div class="card mask-custom">
@@ -15,6 +17,24 @@
             <hr>
           <% end %>
       </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Modals -->
+<div class="modal fade" id="create_public_chat_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New Chat</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render "chats/form_new_public", chat: @new_chat %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
 </div>
