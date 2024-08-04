@@ -40,13 +40,13 @@
                     <img src="<%=member.profile_image%>" alt="avatar" class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
                     <a><%=member.name%></a> 
                 </div>
-                <div class="col">
+                <div class="col p-1">
                   <a href="/<%=member.id%>" class="col btn btn btn-secondary d-flex justify-content-center align-items-center" type= "button">Profile</a> 
                 </div>
-                <div class="col">
+                <div class="col p-1">
                   <a href="#" class="btn btn-primary d-flex justify-content-center align-items-center" type= "button">Message</a> 
                 </div>
-                <div class="col btn btn-danger d-flex justify-content-center align-items-center" type= "button">
+                <div class="col p-1 py-2 m-1 btn btn-danger d-flex justify-content-center align-items-center" type= "button">
                   <% remove_user = UserChat.find_by("user_id = ? AND chat_id = ?", member.id, chat.id) %>
                   <%= link_to "Remove User", user_chat_path(remove_user), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item"  %>
                 </div>
