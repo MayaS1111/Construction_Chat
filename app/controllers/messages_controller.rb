@@ -22,7 +22,7 @@ class MessagesController < ApplicationController
   # POST /messages or /messages.json
   def create
     @message = current_user.messages.new(message_params)
-    @chat = @message.user_chat.chat
+    @chat = @message.chat
     @project = @chat.project
   
     respond_to do |format|
@@ -67,6 +67,6 @@ class MessagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def message_params
-      params.require(:message).permit(:user_chat_id, :body)
+      params.require(:message).permit(:chat_id, :body)
     end
 end
