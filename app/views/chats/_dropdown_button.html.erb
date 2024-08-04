@@ -11,10 +11,11 @@
        </a>
       <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_add_user_Modal">
         Add User
-      </a><% 
-      delete_user_chat = UserChat.find_by("user_id = ? AND chat_id = ?", current_user.id, chat.id) %>
-      <%= link_to "Leave Chat", user_chat_path(delete_user_chat), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
+      </a>
+      <% remove_self = UserChat.find_by("user_id = ? AND chat_id = ?", current_user.id, chat.id) %>
+      <%= link_to "Leave Chat", user_chat_path(remove_self), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
     </div>
+    
 </div>
 
 <!-- Modals -->
@@ -35,7 +36,9 @@
         <% chat.members.each do |member|%>
           <% if member != current_user %>
             <div class="modal-body">
-              <a href="/<%=member.id%>"><%=member.name%></a>
+              <a href="/<%=member.id%>"><%=member.name%></a> 
+              <% remove_user = UserChat.find_by("user_id = ? AND chat_id = ?", member.id, chat.id) %>
+              <%= link_to "Remove User", user_chat_path(remove_user), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
             </div>
           <%else%> 
             <div class="modal-body">
