@@ -46,9 +46,9 @@
         <div>
           <ul class="navbar-nav">
             <% if user_signed_in? %>
-              
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <li class="nav-item dropdown me-3">
+                <a class="nav-link dropdown-toggle d-flex justify-content-center align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="<%=current_user.profile_image%>" alt="avatar" class="rounded-circle d-flex align-self-start me-1 shadow-1-strong" width="40">
                   <%= current_user.first_name %>
                 </a>
                 <div class="dropdown-menu">
@@ -60,6 +60,12 @@
                     <i class="fa-solid fa-gear"></i>
                     Edit profile
                   <% end %>
+                  <% if current_user.admin? %>
+                    <%= link_to "/admin", class: "dropdown-item" do %>
+                      <i class="fa-solid fa-user-tie"></i>
+                      Admin Dashboard
+                    <% end %>
+                  <% end%>
                   <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" do%>
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Sign out
