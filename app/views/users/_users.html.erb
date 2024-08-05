@@ -4,14 +4,18 @@
     <div class="m-1 ">
       <div class="btn pt-3 mt-2 d-flex" style="background-color: #f2f2f2;">
         <i class="fa-solid fa-star" style="color: #D2042D; font-size: 20px; width: 30px"></i>
-        <p>Admin</p>
+        <a type="button" class="dropdown-item d-flex justify-content-start align-items-center" data-bs-toggle="modal" data-bs-target="#<%=user.id%>_admin_Modal">
+          Admin
+        </a>
       </div>
     </div>  
     <% else %>
     <div class="m-1">
       <div class="btn pt-3 mt-2 d-flex" style="background-color: #f2f2f2;">
         <i class="fa-regular fa-star" style="color: #D2042D; font-size: 20px; width: 30px"></i>
-        <p>Not Admin</p>
+        <a type="button" class="dropdown-item d-flex justify-content-start align-items-center" data-bs-toggle="modal" data-bs-target="#<%=user.id%>_admin_Modal">
+          Not Admin
+        </a>
       </div>
     </div>
     <% end %>
@@ -36,19 +40,25 @@
 </div>
 
 <!-- Modals -->
-<!--<div class="modal fade" id="<%=user.id%>_new_member_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="<%=user.id%>_admin_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"> <%=user.id%></h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><%=user.name%> <%=user.id%></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <%# <%= render "user_chats/form_new", user: user, users: users, user_chat: user_chat%> %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <h6 class="d-flex m-3 justify-content-center align-items-center">Are you sure you want to make <%=user.name%> a admin?</h6>
+        <div class="row ">
+          <div class="col mt-3 d-flex justify-content-end align-items-center">
+            <button type="button" class="btn btn-primary" style="min-width: 200px">Yes</button>
+          </div>
+          <div class="col mt-3 d-flex justify-content-start align-items-center">
+            <button type="button" class="btn btn-danger" style="min-width: 200px">Cancel</button>
+          </div>
+        </div>
+        <%# <%= render "user_chats/form_new", user: user, users: users, user_chat: user_chat%> 
       </div>
     </div>
   </div>
-</div>-->
+</div>
