@@ -40,5 +40,4 @@ FileUtils.chdir APP_ROOT do
   puts "\n== Creating test database =="
   system! "bundle exec rake db:create RAILS_ENV=test"
   puts "\n== Initial setup complete =="
-
 end
