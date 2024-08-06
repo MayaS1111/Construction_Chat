@@ -41,7 +41,4 @@ FileUtils.chdir APP_ROOT do
   system! "bundle exec rake db:create RAILS_ENV=test"
   puts "\n== Initial setup complete =="
 
-  puts "\n== Running Seed =="
-  system! "bin/rails db:seed"
-  puts "\n== Initial setup complete =="
 end
