@@ -9,8 +9,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if resource.persisted?
         begin
           project = Project.create!(owner_id: resource.id, name: "#{resource.first_name}'s DMs", description: "nil", location: "nil", project_type: "private", status: "nil")
-          chat = Chat.create!(project_id: project.id, name: "#{resource.first_name} & BuiltBetter.Info", description: "nil")
+
+          if User.where.not(id: "0").exists?
+            bot = User.create(id: 0, first_name: "BuiltBetter", last_name: "Bot", phone_number: "0000000000", email: "buildbetter@info.com", job_title: "Helper Bot", password: "password", admin: "true", profile_image: "https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&scale=70&shapeColor=000000&backgroundColor=D2042D")
+          end
+
+          chat = Chat.create!(project_id: project.id, name: "#{resource.first_name} & #{bot.name}", description: "nil")
           UserChat.create!(user_id: resource.id, chat_id: chat.id)
+          UserChat.create!(user_id: bot.id, chat_id: chat.id)
+          Message.create(body: "Welcome to BuiltBetter! Please message here for any help you my need with the application. Even application feedback is welcomed!", sender_id: bot.id, chat_id: chat.id)
+
         rescue StandardError => e
           Rails.logger.error("Error during custom user creation: #{e.message}")
         end
