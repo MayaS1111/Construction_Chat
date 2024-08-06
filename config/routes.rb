@@ -14,10 +14,8 @@ Rails.application.routes.draw do
   resources :projects do
     resources :chats
   end
- 
-  # /projects/:project_id/chats, to: "chats#index"
-  get "/chat/:project_id/:chat_id"  => "chats#index"
 
+  get "/chat/:project_id/:chat_id"  => "chats#index"
   get "/all_users" => "users#all_users", as: :all_users
   get "/members" => "users#members", as: :members
   get "/home"  => "users#home", as: :home
