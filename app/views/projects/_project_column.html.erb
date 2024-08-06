@@ -3,11 +3,13 @@
     <div class="col d-flex justify-content-start">
       <h4 class="font-weight-bold mb-3 text-center text-black">Projects</h5>
     </div>
-     <div class="col d-flex justify-content-end">
-      <a type="button" data-bs-toggle="modal" data-bs-target="#create_project_Modal">
-        <i class="fa-solid fa-plus" style="font-size: 25px; width: 30px"></i>
-      </a>
-    </div>
+    <% if current_user.admin?  %>
+      <div class="col d-flex justify-content-end">
+        <a type="button" data-bs-toggle="modal" data-bs-target="#create_project_Modal">
+          <i class="fa-solid fa-plus" style="font-size: 25px; width: 30px"></i>
+        </a>
+      </div>
+    <% end %>
   </div>
   <div class="card mask-custom">
     <div class="card-body overflow-auto" style= "max-height: 85vh">

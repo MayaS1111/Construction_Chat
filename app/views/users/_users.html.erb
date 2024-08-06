@@ -1,17 +1,28 @@
-<div class="card col-md-3 p-10">
+<div class="card col-md-3 my-3 p-10">
   <div class="row">
     <% if user.admin? %>
-    <div class="pt-3 d-flex ">
-      <i class="fa-solid fa-star" style="color: #D2042D; font-size: 20px; width: 30px"></i>
+    <div class="m-1 ">
+      <div class="btn pt-3 mt-2 d-flex" style="background-color: #f2f2f2;">
+        <i class="fa-solid fa-star" style="color: #D2042D; font-size: 20px; width: 30px"></i>
+        <a href= "/admin/user/<%=user.id%>/edit" type="button" class="dropdown-item d-flex justify-content-start align-items-center pb-1 " >
+          Admin
+        </a>
+      </div>
+    </div>  
+    <% else %>
+    <div class="m-1">
+      <div class="btn pt-3 mt-2 d-flex" style="background-color: #f2f2f2;">
+        <i class="fa-regular fa-star" style="color: #D2042D; font-size: 20px; width: 30px"></i>
+        <a href= "/admin/user/<%=user.id%>/edit" type="button" class="dropdown-item d-flex justify-content-start align-items-center pb-1 " >
+          Not Admin
+        </a>
+      </div>
     </div>
     <% end %>
-      <%# <a href= "/user_chats/new" class="pt-3 d-flex justify-content-end link-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#<%=user.id_new_member_Modal"> %>
-        <%# <i class="fa-solid fa-plus" style="font-size: 25px; width: 30px"></i> %>
-      <%# </a> %>
   </div>
 
-  <img src="<%=user.profile_image%>"alt="avatar"
-        class="pt-4 rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="100">
+  <img src="<%=user.profile_image%>" alt="avatar"
+      class="pt-4 rounded-circle d-flex align-self-center me-3 shadow-1-strong" height= "100" width="100">
   <div class="card-body">
     <div class="pt-1 d-flex justify-content-center align-items-center">
       <h5 class="card-title"><%=user.name%></h5>
@@ -20,28 +31,13 @@
       <p class="fw-bold mb-0"><%=user.job_title%></p>
     </div>
     <div class="pt-4 d-flex justify-content-center align-items-center">
-      <p class="small "><%=user.email%></p> 
+      <p class="small ">Email: <%=user.email%></p> 
     </div>
     <div class="d-flex justify-content-center align-items-center">
-      <p class="small "><%=user.phone_number%></p>
+      <p class="small ">Number: <%=user.phone_number%></p>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+      <p class="small ">ID: <%=user.employee_id%></p>
     </div>
   </div>
 </div>
-
-<!-- Modals -->
-<!--<div class="modal fade" id="<%=user.id%>_new_member_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"> <%=user.id%></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%# <%= render "user_chats/form_new", user: user, users: users, user_chat: user_chat%> %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>-->

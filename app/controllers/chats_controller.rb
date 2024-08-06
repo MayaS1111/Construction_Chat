@@ -16,6 +16,8 @@ class ChatsController < ApplicationController
     @users_user_chats = UserChat.where(user_id: current_user.id)
 
     @new_chat = @current_project.chats.new
+
+    @chat_bot = User.where(id: "0")
   end
 
   # GET /chats/1 or /chats/1.json
@@ -41,7 +43,7 @@ class ChatsController < ApplicationController
     respond_to do |format|
       if @chat.save
         UserChat.create(user_id: current_user.id, chat_id: @chat.id)
-        format.html { redirect_to "/home", notice: "Chat was successfully created." }
+        format.html { redirect_to "/chat/#{@chat.project.id}/#{@chat.id}", notice: "Chat was successfully created." }
         format.json { render :show, status: :created, location: @chat }
       else
         format.html { render :new, status: :unprocessable_entity }

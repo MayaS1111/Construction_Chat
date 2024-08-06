@@ -38,10 +38,14 @@ task({ :sample_data => :environment }) do
     )
   end
 
-  users = User.all
+  if User.where.not(id: "0").exists?
+    bot = User.create(id: 0, first_name: "BuiltBetter", last_name: "Bot", phone_number: "0000000000", email: "builtbetter@info.com", job_title: "Helper Bot", password: "password", admin: "true", profile_image: "https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&radius=50&scale=70&shapeColor=000000&backgroundColor=D2042D")
+  end
+
+  users = User.where.not(id: "0")
   users.each do |user|
     name = user.fetch(:first_name)
-    projects = Project.create(
+    project = Project.create(
       owner_id: user.id,
       name: "#{name}'s DMs",
       description: "nil", 
@@ -50,7 +54,14 @@ task({ :sample_data => :environment }) do
       member_count: "2",
       status: "nil"
     )
+    
+    chat_with_bot = Chat.create!(project_id: project.id, name: "#{user.first_name} & #{bot.name}", description: "nil")
+    UserChat.create!(user_id: user.id, chat_id: chat_with_bot.id)
+    UserChat.create!(user_id: bot.id, chat_id: chat_with_bot.id)
+
+    Message.create(body: "Welcome to BuiltBetter! Please message here for any help you my need with the application. Even application feedback is welcomed!", sender_id: bot.id, chat_id: chat_with_bot.id)
   end
+  
   p "There are now #{User.count} users."
 
 
@@ -90,6 +101,7 @@ task({ :sample_data => :environment }) do
         name: "#{project.owner.first_name} & #{user.first_name}",
         description: "nil",
       )
+      
       user_chat = UserChat.create(
         chat_id: chat.id,
         user_id: user.id,
