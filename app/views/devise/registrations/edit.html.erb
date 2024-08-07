@@ -27,6 +27,10 @@
                       required: true, 
                       label: false,
                       input_html: { class:"form__input", placeholder: "Last Name" }%>
+          <%= f.input :job_title,
+                      required: true ,
+                      label: false,
+                      input_html: { class:"form__input", placeholder: "Job Title" }%>
           <%= f.input :phone_number,
                       required: true ,
                       label: false,
@@ -35,6 +39,10 @@
                       required: true,
                       label: false,
 											input_html: { autocomplete: "email", class:"form__input", placeholder: "Email" }%>
+          <%= f.input :profile_image,
+                      required: true,
+                      label: false,
+                      input_html: { class:"form__input", placeholder: "Job Title" }%>
 
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
             <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
@@ -57,7 +65,7 @@
 				</div>
 
 				<div class="form-actions">
-					<input type="submit" value="Submit" class="btn">
+					<input type="submit" value="Save Changes" class="btn">
 				</div>
 			<% end %>
 
