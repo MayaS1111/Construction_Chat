@@ -7,16 +7,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= render "shared/cdn_assets" %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
     <%= render "shared/navbar" %>
-
     <div class="container">
       <div class="row mb-2">
           <% if notice.present? %>
@@ -26,9 +23,9 @@
             <%= render partial: "shared/flash", locals: { message: alert, css_class: "danger" } %>
           <% end %>
       </div>  
-
     <%= yield %>
     </div>
     <%= render "shared/footer" %>
   </body>
+  
 </html>

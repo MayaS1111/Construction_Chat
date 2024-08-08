@@ -16,7 +16,6 @@ class ChatsController < ApplicationController
     @users_user_chats = UserChat.where(user_id: current_user.id)
 
     @new_chat = @current_project.chats.new
-
     @chat_bot = User.where(id: "0")
   end
 

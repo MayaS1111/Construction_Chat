@@ -10,12 +10,11 @@
       <div class="pt-2">
         <h1 class="jumbotron-heading">BuiltBetter</h1>
       </div>
-      
       <div class="d-flex justify-content-center align-items-center">
-      <h4>See Your Chats:</h4>
+        <h4>See Your Chats:</h4>
     </div>
     <div class="d-flex justify-content-center align-items-center">
-    <% if current_user&.projects&.first&.chats&.first %>
+      <% if current_user&.projects&.first&.chats&.first %>
         <%= link_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", class: "nav-link" do %> 
           <i class="fa-solid fa-comments"></i>
           Chat Here
@@ -23,7 +22,6 @@
       <% else %>
         <p>No chats available.</p>
       <% end %>
-    </div>
     </div>
   </div>
 </section>
