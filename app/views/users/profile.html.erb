@@ -1,30 +1,21 @@
-<div class="row ">
-  <div class="col-md-3 pb-3">
-    <div class="card mb-4 mb-xl-0">
-      <div class="card-body text-center">
-        <img class="img-account-profile rounded-circle mb-2" src="<%=@user_profile.profile_image%>" >
-        </div>
-      </div>
+<div class="container ">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-4 mt-5">
+        <img src="<%=@user_profile.profile_image%>" class="rounded-circle d-flex me-3 shadow-1-strong" >
     </div>
+    <div class=" m-5">
+      <div class="pt-1 d-flex justify-content-center align-items-center">
+        <h1><%=@user_profile.name%></h1>
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        <h2 ><%=@user_profile.job_title%></h2>
+      </div>
+      <div class="pt-4 d-flex justify-content-center align-items-center">
+        <h4>Email: <%=@user_profile.email%></h4> 
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        <h4>Number: <%=@user_profile.phone_number%></h4>
+      </div>
+    </div> 
   </div>
-  <div class="col-md-6">
-    <div class="card mb-4">
-      <div class="card-body">     
-        <div class="card-body  my-3 p-10">
-          <div class="pt-1 d-flex justify-content-center align-items-center">
-            <h1><%=@user_profile.name%></h1>
-          </div>
-          <div class="d-flex justify-content-center align-items-center">
-            <h2 ><%=@user_profile.job_title%></h2>
-          </div>
-          <div class="pt-4 d-flex justify-content-center align-items-center">
-            <h4>Email: <%=@user_profile.email%></h4> 
-          </div>
-          <div class="d-flex justify-content-center align-items-center">
-            <h4>Number: <%=@user_profile.phone_number%></h4>
-          </div>
-        </div> 
-      </div>
-    </div>
-  </div> 
 </div>
