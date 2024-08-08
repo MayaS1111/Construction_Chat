@@ -48,6 +48,7 @@
                 </div>
                 <div class="col">
                   <a href="/<%=member.id%>" class="col btn btn-secondary d-flex justify-content-center align-items-center" type= "button">Profile</a> 
+                  
                 </div>
                 <div class="col">
                   <a href="#" class="btn btn-primary d-flex justify-content-center align-items-center" type= "button">Message</a> 
@@ -69,11 +70,15 @@
         </div>
         
       </div> 
-      <div class="col mx-2">
-        <a type="button" class="btn btn-primary d-flex justify-content-center align-items-center mb-4" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_add_user_Modal">
-          Add User
-        </a> 
-      </div>
+
+      <% if chat.project.project_type == "private" && chat.members.exists?(@chat_bot) %>
+      <% else %>
+        <div class="col mx-2">
+          <a type="button" class="btn btn-primary d-flex justify-content-center align-items-center mb-4" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_add_user_Modal">
+            Add User
+          </a> 
+        </div>
+      <% end %>
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
