@@ -17,7 +17,7 @@
         </a>
       <% end %>
       <% remove_self = UserChat.find_by("user_id = ? AND chat_id = ?", current_user.id, chat.id) %>
-      <%= link_to "Leave Chat", user_chat_path(remove_self), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item" %>
+      <%= link_to "Leave Chat", user_chat_path(remove_self), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item " %>
     
     <% end %>
   </div>
@@ -46,21 +46,22 @@
                     <img src="<%=member.profile_image%>" alt="avatar" class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
                     <a><%=member.name%></a> 
                 </div>
-                <div class="col p-1">
-                  <a href="/<%=member.id%>" class="col btn btn btn-secondary d-flex justify-content-center align-items-center" type= "button">Profile</a> 
+                <div class="col">
+                  <a href="/<%=member.id%>" class="col btn btn-secondary d-flex justify-content-center align-items-center" type= "button">Profile</a> 
+                  
                 </div>
-                <div class="col p-1">
+                <div class="col">
                   <a href="#" class="btn btn-primary d-flex justify-content-center align-items-center" type= "button">Message</a> 
                 </div>
-                <div class="col p-1 py-2 m-1 btn btn-danger d-flex justify-content-center align-items-center" type= "button">
+                <div class="col btn btn-danger d-flex justify-content-center align-items-center" type= "button">
                   <% remove_user = UserChat.find_by("user_id = ? AND chat_id = ?", member.id, chat.id) %>
-                  <%= link_to "Remove User", user_chat_path(remove_user), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item"  %>
+                  <%= link_to "Remove User", user_chat_path(remove_user), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item fw-medium"  %>
                 </div>
               </div>
             <%else%> 
               <div class="card col-md-6 p-2">
                 <div class="col d-flex justify-content-center align-items-center p-2">
-                  <img src="<%=member.profile_image%>" alt="avatar" class="rounded-circle d-flex  me-3 shadow-1-strong" width="60">
+                  <img src="<%=member.profile_image%>" alt="avatar" class="rounded-circle d-flex me-3 shadow-1-strong" width="60">
                   <a href="/<%=member.id%>">Me</a>
                 </div>
               </div>
@@ -69,9 +70,15 @@
         </div>
         
       </div> 
-      <a type="button" class="btn btn-primary d-flex justify-content-center align-items-center mx-2 mb-4 data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_add_user_Modal">
-        Add User
-      </a> 
+
+      <% if chat.project.project_type == "private" && chat.members.exists?(@chat_bot) %>
+      <% else %>
+        <div class="col mx-2">
+          <a type="button" class="btn btn-primary d-flex justify-content-center align-items-center mb-4" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_add_user_Modal">
+            Add User
+          </a> 
+        </div>
+      <% end %>
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
