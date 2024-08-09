@@ -49,9 +49,13 @@
                   <a href="/<%=member.id%>" class="col btn btn-secondary d-flex justify-content-center align-items-center" type= "button">Profile</a> 
                 </div>
                 <div class="col">
-                  <a href="#" id="private_message_<%= dom_id(member)%>_<%= dom_id(current_user)%>" onclick="myFunction()" class="btn btn-primary d-flex justify-content-center align-items-center"  type="button">Message</a> 
-                  
-                  
+                  <!--<a href="#" id="private_message_<%= dom_id(member)%>_<%= dom_id(current_user)%>" onclick="myFunction()" class="btn btn-primary d-flex justify-content-center align-items-center"  type="button">Message</a> -->
+                 <!-- <%= button_to 'Privately Message', '#', id: 'send-message-button', 
+                  data: { user_id: member.id, project_id: chat.project.id }, 
+                  method: :post, 
+                  class: 'btn btn-primary d-flex justify-content-center align-items-center' %> -->
+
+
                 </div>
                 <script>
                     function myFunction() {

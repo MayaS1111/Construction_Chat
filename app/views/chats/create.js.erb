@@ -1,2 +1,19 @@
-$("#private_message_<%= dom_id(@UserChat.user_id)%>_<%= dom_id(@UserChat.user_id)%>").hide();
-console.log("Hello form js.erb");
+$.ajax({
+  url: `/projects/${projectId}/chats/create_private_chat`,
+  method: 'POST',
+  data: {
+    user_id: userId,
+    authenticity_token: $('meta[name="csrf-token"]').attr('content') // Ensure this is included
+  },
+  dataType: 'json',
+  success: function(response) {
+    if (response.success) {
+      alert('Chat created successfully!');
+    } else {
+      alert('Error: ' + response.errors.join(', '));
+    }
+  },
+  error: function(xhr, status, error) {
+    alert('Request failed: ' + error);
+  }
+});
