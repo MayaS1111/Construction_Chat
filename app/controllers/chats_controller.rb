@@ -44,6 +44,7 @@ class ChatsController < ApplicationController
         UserChat.create(user_id: current_user.id, chat_id: @chat.id)
         format.html { redirect_to "/chat/#{@chat.project.id}/#{@chat.id}", notice: "Chat was successfully created." }
         format.json { render :show, status: :created, location: @chat }
+        format.js
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @chat.errors, status: :unprocessable_entity }
@@ -105,6 +106,6 @@ class ChatsController < ApplicationController
   
     # Only allow a list of trusted parameters through.
     def chat_params
-      params.require(:chat).permit(:project_id, :name, :description)
+      params.require(:chat).permit(:project_id, :name, :description, user_chats_attributes:[:chat_id, :user_id])
     end
 end

@@ -11,23 +11,13 @@
                 </div>
               </div>
             </div>
-            <% if chat.project.project_type == "public"%>
-              <div class="row gx-3 mb-3">
-                <div class="mb-3"> 
-                  <div>
-                    <%= form.label :description, style: "display: block", class:"small mb-1" %>
-                    <%= form.text_area :description, class: "form-control" %>
-                  </div>
-                </div>
-              </div>
-            <% else %>
+            
               <%= form.hidden_field :description, value: "nil" %>
-            <% end %>
               
               <div class="row gx-3 mb-3">
                 <div class="mb-3"> 
               </div>
-            <%= form.submit "Save changes", class:"btn btn-primary" %>
+            <%= form.submit "Create Chat", class:"btn btn-primary" %>
           </form>
         </div>
       </div>

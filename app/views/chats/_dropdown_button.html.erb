@@ -18,7 +18,6 @@
       <% end %>
       <% remove_self = UserChat.find_by("user_id = ? AND chat_id = ?", current_user.id, chat.id) %>
       <%= link_to "Leave Chat", user_chat_path(remove_self), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item " %>
-    
     <% end %>
   </div>
 </div>
@@ -48,11 +47,19 @@
                 </div>
                 <div class="col">
                   <a href="/<%=member.id%>" class="col btn btn-secondary d-flex justify-content-center align-items-center" type= "button">Profile</a> 
-                  
                 </div>
                 <div class="col">
-                  <a href="#" class="btn btn-primary d-flex justify-content-center align-items-center" type= "button">Message</a> 
+                  <a href="#" id="private_message_<%= dom_id(member)%>_<%= dom_id(current_user)%>" onclick="myFunction()" class="btn btn-primary d-flex justify-content-center align-items-center"  type="button">Message</a> 
+                  
+                  
                 </div>
+                <script>
+                    function myFunction() {
+
+                        console.log("Hello form script");
+
+                    }
+                    </script>
                 <div class="col btn btn-danger d-flex justify-content-center align-items-center" type= "button">
                   <% remove_user = UserChat.find_by("user_id = ? AND chat_id = ?", member.id, chat.id) %>
                   <%= link_to "Remove User", user_chat_path(remove_user), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item fw-medium"  %>
