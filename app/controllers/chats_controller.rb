@@ -17,6 +17,7 @@ class ChatsController < ApplicationController
 
     @new_chat = @current_project.chats.new
     @chat_bot = User.where(id: "0")
+
     @current_users_dm =  Project.find_by("project_type = ? AND owner_id = ?", "private", current_user.id)
   end
 
@@ -37,11 +38,6 @@ class ChatsController < ApplicationController
     project = Project.find_by(id: params[:project_id])
   
     user_to_chat_with = User.find_by(id: params[:user_id])
-    if user_to_chat_with.nil?
-      Rails.logger.debug "User not found as a member of chat with ID: #{params[:user_id]}"
-      render json: { success: false, errors: ["User not found as a member"] }
-      return
-    end
   
     @chat = Chat.new(
       description: "nil",
@@ -73,6 +69,7 @@ class ChatsController < ApplicationController
     respond_to do |format|
       if @chat.save
         UserChat.create(user_id: current_user.id, chat_id: @chat.id)
+        
         format.html { redirect_to "/chat/#{@chat.project.id}/#{@chat.id}", notice: "Chat was successfully created." }
         format.json { render :show, status: :created, location: @chat }
         format.js
