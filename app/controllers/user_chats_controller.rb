@@ -28,20 +28,33 @@ class UserChatsController < ApplicationController
 
   # POST /user_chats or /user_chats.json
   def create
-    @user_chat = UserChat.new(user_chat_params)
-    respond_to do |format|
-      if @user_chat.save
-        if User.where.not(id: "0").exists?
-          bot = User.create(id: 0, first_name: "BuiltBetter", last_name: "Bot", phone_number: "0000000000", email: "builtbetter@info.com", job_title: "Helper Bot", password: "password", admin: "true", profile_image: "https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&backgroundColor=D2042D&radius=50&eyesColor=000000&mouthColor=000000&shapeColor=ffffff&scale=70")
+    user = User.find_by(id: params.dig(:user_chat, :user_id)).id
+    chat = Chat.find(params.dig(:user_chat, :chat_id))
+    
+    if !chat.members.exists?(user)
+      @user_chat = UserChat.new(user_chat_params)
+
+      respond_to do |format|
+        if @user_chat.save
+          if User.where.not(id: "0").exists?
+            bot = User.create(id: 0, first_name: "BuiltBetter", last_name: "Bot", phone_number: "0000000000", email: "builtbetter@info.com", job_title: "Helper Bot", password: "password", admin: "true", profile_image: "https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&backgroundColor=D2042D&radius=50&eyesColor=000000&mouthColor=000000&shapeColor=ffffff&scale=70")
+          end
+          Message.create(body: "#{@user_chat.user.name} has been added by #{current_user.name}",  chat_id: @user_chat.chat.id , sender_id: "0")
+  
+          format.html { redirect_to "/chat/#{chat.project.id}/#{chat.id}", notice: "User was successfully added." }
+          format.json { render :show, status: :created, location: @user_chat }
+          format.js
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @user_chat.errors, status: :unprocessable_entity }
         end
-        Message.create(body: "#{@user_chat.user.name} has been added by #{current_user.name}",  chat_id: @user_chat.chat.id , sender_id: "0")
-        format.html { redirect_to "/home", notice: "User was successfully added." }
-        format.json { render :show, status: :created, location: @user_chat }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user_chat.errors, status: :unprocessable_entity }
       end
+    else
+      respond_to do |format|
+        format.html { redirect_to "/chat/#{chat.project.id}/#{chat.id}", alert: "User already in chat" }
+      end  
     end
+
   end
 
   # PATCH/PUT /user_chats/1 or /user_chats/1.json

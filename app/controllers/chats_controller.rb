@@ -36,24 +36,40 @@ class ChatsController < ApplicationController
 
   def create_private_chat
     project = Project.find_by(id: params[:project_id])
-  
     user_to_chat_with = User.find_by(id: params[:user_id])
-  
-    @chat = Chat.new(
-      description: "nil",
-      name: "#{current_user.first_name} & #{user_to_chat_with.first_name}",
-      project: project
-    )
-  
-    respond_to do |format|
-      if @chat.save
-        UserChat.create(chat: @chat, user: current_user)
-        UserChat.create(chat: @chat, user: user_to_chat_with)
-        
-        format.html { redirect_to "/chat/#{@chat.project.id}/#{@chat.id}", notice: "Chat was successfully created." }
-        format.js
-      else
-        render json: { success: false, errors: @chat.errors.full_messages }
+    current_private_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.project_type = ?', "private")
+    chats_with = Set.new()
+
+    current_private_chats.each do |chat|
+      chat.members.each do |user|
+        chats_with << user
+      end
+    end
+     
+    p chats_with
+
+    if !chats_with.include?(user_to_chat_with)
+    
+      @chat = Chat.new(
+        description: "nil",
+        name: "#{current_user.first_name} & #{user_to_chat_with.first_name}",
+        project: project
+      )
+    
+      respond_to do |format|
+        if @chat.save
+          UserChat.create(chat: @chat, user: current_user)
+          UserChat.create(chat: @chat, user: user_to_chat_with)
+          
+          format.html { redirect_to "/chat/#{@chat.project.id}/#{@chat.id}", notice: "Chat was successfully created." }
+          format.js
+        else
+          render json: { success: false, errors: @chat.errors.full_messages }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to "/home", alert: "You already have a private chat with this user" }
       end
     end
   end
