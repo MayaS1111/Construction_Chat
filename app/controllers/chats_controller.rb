@@ -45,8 +45,6 @@ class ChatsController < ApplicationController
         chats_with << user
       end
     end
-     
-    p chats_with
 
     if !chats_with.include?(user_to_chat_with)
     
@@ -68,8 +66,18 @@ class ChatsController < ApplicationController
         end
       end
     else
-      respond_to do |format|
-        format.html { redirect_to "/home", alert: "You already have a private chat with this user" }
+      #TODO: refactor into one line?
+      chats_with_user_to_chat_with = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', user_to_chat_with).joins(:project).where('projects.project_type = ?', "private")
+      chats_with_current_user = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.project_type = ?', "private")
+      common_chat_ids = chats_with_user_to_chat_with & chats_with_current_user
+
+      common_chat_ids.each do |chat|
+        if chat.members.size == "2"
+          respond_to do |format|
+            format.html { redirect_to "/chat/#{project.id}/#{chat.id}", alert: "You already have a private chat with this user" }
+            break
+          end
+        end
       end
     end
   end
