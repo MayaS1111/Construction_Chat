@@ -17,6 +17,7 @@ class ChatsController < ApplicationController
 
     @new_chat = @current_project.chats.new
     @chat_bot = User.where(id: "0")
+    @current_users_dm =  Project.find_by("project_type = ? AND owner_id = ?", "private", current_user.id)
   end
 
   # GET /chats/1 or /chats/1.json
@@ -33,52 +34,33 @@ class ChatsController < ApplicationController
   end
 
   def create_private_chat
-    # Log the parameters for debugging
-    Rails.logger.debug "Received Parameters: #{params.inspect}"
-  
-    # Find the project
     project = Project.find_by(id: params[:project_id])
   
-    # Check if the project exists
-    if project.nil?
-      Rails.logger.debug "Project not found with ID: #{params[:project_id]}"
-      render json: { success: false, errors: ["Project not found"] }
-      return
-    end
-  
-    # Find the chat based on project ID and other context if needed
-    chat = project.chats.find_by(id: params[:chat_id])
-    if chat.nil?
-      Rails.logger.debug "Chat not found in project with ID: #{params[:chat_id]}"
-      render json: { success: false, errors: ["Chat not found"] }
-      return
-    end
-  
-    # Check if the user is a member of the chat
-    user_to_chat_with = chat.members.find_by(id: params[:user_id])
+    user_to_chat_with = User.find_by(id: params[:user_id])
     if user_to_chat_with.nil?
       Rails.logger.debug "User not found as a member of chat with ID: #{params[:user_id]}"
       render json: { success: false, errors: ["User not found as a member"] }
       return
     end
   
-    # Create a new chat if all checks pass
     @chat = Chat.new(
-      body: nil,
-      name: "#{current_user.name} & #{user_to_chat_with.name}",
+      description: "nil",
+      name: "#{current_user.first_name} & #{user_to_chat_with.first_name}",
       project: project
     )
   
-    if @chat.save
-      UserChat.create(chat: @chat, user: current_user)
-      UserChat.create(chat: @chat, user: user_to_chat_with)
-      
-      render json: { success: true, chat_id: @chat.id }
-    else
-      render json: { success: false, errors: @chat.errors.full_messages }
+    respond_to do |format|
+      if @chat.save
+        UserChat.create(chat: @chat, user: current_user)
+        UserChat.create(chat: @chat, user: user_to_chat_with)
+        
+        format.html { redirect_to "/chat/#{@chat.project.id}/#{@chat.id}", notice: "Chat was successfully created." }
+        format.js
+      else
+        render json: { success: false, errors: @chat.errors.full_messages }
+      end
     end
   end
-  
   
 
   # POST /chats or /chats.json

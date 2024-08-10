@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :chats
   end
 
-  post 'projects/:project_id/chats/create_private_chat', to: 'chats#create_private_chat', as: :create_private_chat
+  post "projects/:project_id/chats/create_private_chat/:user_id", to: 'chats#create_private_chat', as: :create_private_chat
   get "/chat/:project_id/:chat_id"  => "chats#index"
   get "/all_users" => "users#all_users", as: :all_users
   get "/members" => "users#members", as: :members

@@ -49,21 +49,11 @@
                   <a href="/<%=member.id%>" class="col btn btn-secondary d-flex justify-content-center align-items-center" type= "button">Profile</a> 
                 </div>
                 <div class="col">
-                  <!--<a href="#" id="private_message_<%= dom_id(member)%>_<%= dom_id(current_user)%>" onclick="myFunction()" class="btn btn-primary d-flex justify-content-center align-items-center"  type="button">Message</a> -->
-                 <!-- <%= button_to 'Privately Message', '#', id: 'send-message-button', 
-                  data: { user_id: member.id, project_id: chat.project.id }, 
+                 <%= button_to 'Privately Message', create_private_chat_path(@current_users_dm,member.id), id: 'send-message-button', 
+                  data: { user_id: member.id, project_id: @current_users_dm}, 
                   method: :post, 
-                  class: 'btn btn-primary d-flex justify-content-center align-items-center' %> -->
-
-
+                  class: 'btn btn-primary d-flex justify-content-center align-items-center' %> 
                 </div>
-                <script>
-                    function myFunction() {
-
-                        console.log("Hello form script");
-
-                    }
-                    </script>
                 <div class="col btn btn-danger d-flex justify-content-center align-items-center" type= "button">
                   <% remove_user = UserChat.find_by("user_id = ? AND chat_id = ?", member.id, chat.id) %>
                   <%= link_to "Remove User", user_chat_path(remove_user), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item fw-medium"  %>
