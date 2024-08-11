@@ -38,42 +38,21 @@ class ChatsController < ApplicationController
     project = Project.find_by(id: params[:project_id])
     user_to_chat_with = User.find_by(id: params[:user_id])
   
-    # Find all private chats where the current user is a member
-    current_private_chats = Chat.joins(:user_chats)
-                                .where(user_chats: { user_id: current_user.id })
-                                .joins(:project)
-                                .where(projects: { project_type: "private" })
+    current_private_chats = Chat.joins(:user_chats).where(user_chats: { user_id: current_user.id }).joins(:project).where(projects: { project_type: "private" })
+    chats_with_user_to_chat_with = Chat.joins(:user_chats).where(user_chats: { user_id: user_to_chat_with.id }).joins(:project).where(projects: { project_type: "private" })
   
-    # Collect all chat IDs where the current user is a member
     chat_ids_with_current_user = current_private_chats.pluck(:id)
-  
-    # Find all private chats where user_to_chat_with is a member
-    chats_with_user_to_chat_with = Chat.joins(:user_chats)
-                                       .where(user_chats: { user_id: user_to_chat_with.id })
-                                       .joins(:project)
-                                       .where(projects: { project_type: "private" })
-  
-    # Collect all chat IDs where user_to_chat_with is a member
     chat_ids_with_user_to_chat_with = chats_with_user_to_chat_with.pluck(:id)
-  
-    # Find common chat IDs where both users are members
     common_chat_ids = chat_ids_with_current_user & chat_ids_with_user_to_chat_with
   
-    # Check if there is a common chat with exactly 2 members
-    chat = Chat.joins(:user_chats)
-               .where(id: common_chat_ids)
-               .group('chats.id')
-               .having('COUNT(user_chats.user_id) = 2')
-               .first
+    chat = Chat.joins(:user_chats).where(id: common_chat_ids).group('chats.id').having('COUNT(user_chats.user_id) = 2').first
   
     if chat
-      # Redirect to the existing chat
       respond_to do |format|
         format.html { redirect_to "/chat/#{chat.project.id}/#{chat.id}", alert: "You already have a private chat with this user." }
         format.js
       end
     else
-      # Create a new chat if no existing chat matches
       @chat = Chat.new(
         description: "nil",
         name: "#{current_user.first_name} & #{user_to_chat_with.first_name}",
