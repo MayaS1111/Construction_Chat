@@ -24,7 +24,7 @@ class Chat < ApplicationRecord
   has_many :chats, through: :user_chats
   has_many :members, through: :user_chats, source: :user
 
-  accepts_nested_attributes_for :project
+  # accepts_nested_attributes_for :project
   
   scope :private_projects, -> { joins(:project).where('projects.project_type = ?', "private") }
   scope :public_projects, -> { joins(:project).where('projects.project_type = ?', "public") }
