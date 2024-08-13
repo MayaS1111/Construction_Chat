@@ -1,3 +1,4 @@
+# TODO: Should I delete all of the scaffolding files im not using? (Ian)
 class ChatsController < ApplicationController
   before_action :set_project, only: %i[ index create create_private_chat]
   before_action :set_chat, only: %i[ show edit update destroy ]

@@ -22,6 +22,8 @@ class UserChat < ApplicationRecord
   belongs_to :chat
   belongs_to :user
 
+  accepts_nested_attributes_for :chat, :user
+
   after_create_commit :add_to_main_chat
 
   def create_message(added_user, current_user, chat)

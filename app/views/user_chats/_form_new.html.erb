@@ -12,19 +12,29 @@
                 <div>
                   <%= form.label :user_id, style: "display: block", class:"small mb-1"%>
                   <%= form.text_field :user_id, class: "form-control"%>
-                  <%# <div class="dropdown show ml-auto p-2"> %>
-                    <%# <a class="nav-link dropdown-toggle  ml-auto p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    </a> %>
-                    <%# <div class="dropdown-menu"> %>
-                      <%# <% users.each do |user|%> 
-                        <%# <div class="form-check"> %>
-                          <%# <button class="dropdown-item" type="button"> %>
-                            <%# <input type="checkbox" class="form-check-input"><%= user.id%>  
-                          <%# </button> %>
-                        <%# </div> %>
-                      <%# <% end %>  
-                    <%# </div> %>
-                  <%# </div> %>
+                  <div class="dropdown show ml-auto p-2">
+                    <a class="nav-link dropdown-toggle  ml-auto p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    </a>
+                    <div class="dropdown-menu">
+                      <% users.each do |user| %>
+                        <div class="form-check"> 
+                          <button class="dropdown-item" type="button"> 
+                            <input type="checkbox" class="form-check-input"><%= user.id %> 
+                            <%# check_box_tag 'outfit[outfit_items_attributes][]item_id', item.id, @outfit.items.include?(item) %>
+                          </button> 
+                        </div>
+                      <% end %>
+
+                      <!--<div>
+                        <h5>What should be included in this outfit?</h5>
+                        <p><%# form.label :outfit_items %></p>
+                          <%# current_user.items.each do |item| %>
+                            <%# check_box_tag 'outfit[outfit_items_attributes][]item_id', item.id, @outfit.items.include?(item) %>
+                            <%# item.details %>
+                          <%#end %>
+                      </div>-->
+                    </div> 
+                  </div>
                 </div>
               </div>
             </div>
