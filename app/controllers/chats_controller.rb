@@ -11,6 +11,7 @@ class ChatsController < ApplicationController
     end
     
     @private_chats = current_user.chats.private_projects
+    # TODO: What is a better way to write this? (Ian)
     @public_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.id = ?', @project)
 
     @new_chat = @project.chats.new
@@ -33,6 +34,7 @@ class ChatsController < ApplicationController
 
   def create_private_chat
     current_private_chats = current_user.chats.private_project
+    # TODO: What is a better way to write this? (Ian)
     chats_with_user_to_chat_with = Chat.joins(:user_chats).where(user_chats: { user_id: @user_chat.id }).joins(:project).where(projects: { project_type: "private" })
   
     chat_ids_with_current_user = current_private_chats.pluck(:id)
@@ -102,28 +104,27 @@ class ChatsController < ApplicationController
 
   # DELETE /chats/1 or /chats/1.json
   def destroy
-    user_chats_to_delete = UserChat.where(chat_id: @chat.id)
-    messages_to_delete = Message.where(user_chat_id: user_chats_to_delete)
+    # user_chats_to_delete = UserChat.where(chat_id: @chat.id)
+    # messages_to_delete = Message.where(user_chat_id: user_chats_to_delete)
 
-    messages_to_delete.each do |message|
-      message.destroy!
-    end
-    user_chats_to_delete.each do |user_chat|
-      user_chat.destroy!
-    end
+    # messages_to_delete.each do |message|
+    #   message.destroy!
+    # end
+    # user_chats_to_delete.each do |user_chat|
+    #   user_chat.destroy!
+    # end
 
-    #TODO: Refactor this section (use a set?)
-    @chat_list = Chat.where(project_id: @chat.project_id)
-    @chat_list_ids = [].reverse
+    # #TODO: Refactor this section (use a set?)
+    # @chat_list = Chat.where(project_id: @chat.project_id)
+    # @chat_list_ids = [].reverse
 
-    @chat_list.each do |chat|
-      @chat_list_ids << chat.id
-    end
+    # @chat_list.each do |chat|
+    #   @chat_list_ids << chat.id
+    # end
     # @chat_list_ids = Chat.where(project_id: @chat.project_id).id
 
     respond_to do |format|
       @chat.destroy!
-
       format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat_list_ids[0]}", notice: "Chat was successfully destroyed." }
       format.json { head :no_content }
     end
