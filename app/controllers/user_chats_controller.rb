@@ -17,7 +17,8 @@ class UserChatsController < ApplicationController
     @user_chats = UserChat.all
     @users = User.all
     @chats = Chat.all
-    @own_projects = Project.where(owner_id: current_user)
+    @own_projects = current_user.projects 
+    # Project.where(owner_id: current_user)
     # @own_chats =  @own_chats.where(project_id: ?) 
     
   end
@@ -41,7 +42,7 @@ class UserChatsController < ApplicationController
           end
           Message.create(body: "#{@user_chat.user.name} has been added by #{current_user.name}",  chat_id: @user_chat.chat.id , sender_id: "0")
   
-          format.html { redirect_to "/chat/#{chat.project.id}/#{chat.id}", notice: "User was successfully added." }
+          format.html { redirect_to "/chat/#{chat.project_id}/#{chat.id}", notice: "User was successfully added." }
           format.json { render :show, status: :created, location: @user_chat }
           format.js
         else
@@ -51,11 +52,11 @@ class UserChatsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to "/chat/#{chat.project.id}/#{chat.id}", alert: "User already in chat" }
+        format.html { redirect_to "/chat/#{chat.project_id}/#{chat.id}", alert: "User already in chat" }
       end  
     end
-
   end
+  
 
   # PATCH/PUT /user_chats/1 or /user_chats/1.json
   def update
@@ -72,31 +73,25 @@ class UserChatsController < ApplicationController
 
   # DELETE /user_chats/1 or /user_chats/1.json
   def destroy
-    chat_id = @user_chat.chat.id
-    @user_chat.destroy!
+    chat_id = @user_chat.chat_id
+    @user_chat.remove_message(current_user, chat_id)
+    @user_chat.destroy
 
     respond_to do |format|
-      if User.where.not(id: "0").exists?
-        bot = User.create(id: 0, first_name: "BuiltBetter", last_name: "Bot", phone_number: "0000000000", email: "builtbetter@info.com", job_title: "Helper Bot", password: "password", admin: "true", profile_image: "https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&radius=50&scale=70&shapeColor=000000&backgroundColor=D2042D")
-      end
-      if @user_chat.user == current_user
-        Message.create(body: "#{current_user.name} has left the chat",  chat_id: chat_id , sender_id: "0")
-      else
-        Message.create(body: "#{@user_chat.user.name} has been removed by #{current_user.name}",  chat_id: chat_id , sender_id: "0")
-      end
+      #TODO: when current user removes someone, dont go to dms
       format.html { redirect_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", notice: "User chat was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_user_chat
       @user_chat = UserChat.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def user_chat_params
       params.require(:user_chat).permit(:user_id, :chat_id)
     end
+    
+    
 end
