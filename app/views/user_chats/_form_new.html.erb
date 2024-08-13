@@ -1,44 +1,26 @@
 <%= form_with(model: user_chat) do |form| %>
-  <%= form.hidden_field :chat_id, value: chat.id%>
+  <%= form.hidden_field :chat_id, value: chat.id %>
+
   <div class="d-flex justify-content-center align-items-center">
-      <div class="card-body">
-        <form>
-          <div class="row gx-3 mb-3">
-            <div class="dropdown show ml-auto p-2">
-              <a class="nav-link dropdown-toggle ml-auto p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <p>Update Member List</p>
-              </a>
-              <div class="dropdown-menu" >
-                <% users.each do |user| %>
-                  <div class="form-check"> 
-                    <button class="dropdown-item" type="button"> 
-                      <%= check_box_tag 'user_chat[user_attributes][]user_id', user.id, chat.members.include?(user) %>
-                      <%= user.name %>
-                    </button> 
-                  </div>
-                <% end %>
-              </div> 
-            </div>
+    <div class="card-body">
+      <div class="row gx-3 mb-3">
+        <div class="col">
+          <div class="input-group">
+            <%= form.collection_select :user_id, User.human, :id, :name, { prompt: "Select a user" }, { class: "form-select" } %>
           </div>
-          <div class="row gx-3 mb-3">
-            <div class="md-6"> 
-              <p class="d-flex justify-content-center pb-3">Or</p>
-              <%= form.text_field :user_id, class: "form-control", placeholder: "Add by ID#"%>
-            </div>
-          </div>
-            <div class="row gx-3 mb-3">
-              <div class="mb-3"> 
-                <div>
-                  <%# form.label :chat_id, style: "display: block", class:"small mb-1"%>
-                  <%# form.text_field :chat_id, value: "#{chat.id}", class: "form-control"%>
-                </div>
-              </div>
-            </div>
-          <div class="row gx-3 mb-3">
-            <div class=""> 
-          </div>
-          <%= form.submit "Save changes", class:"btn btn-primary" %>
-        </form>
+        </div>
+      </div>
+      <div class="row gx-3 mb-3">
+        <div class="mb-3">
+          <%# form.label :chat_id, style: "display: block", class:"small mb-1"%>
+          <%# form.text_field :chat_id, value: "#{chat.id}", class: "form-control"%>
+        </div>
+      </div>
+
+      <div class="row gx-3 mb-3">
+        <div class="col-12"> 
+          <%= form.submit "Save changes", class: "btn btn-primary" %>
+        </div>
       </div>
     </div>
   </div>
