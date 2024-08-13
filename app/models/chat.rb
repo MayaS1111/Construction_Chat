@@ -28,6 +28,9 @@ class Chat < ApplicationRecord
   
   scope :private_projects, -> { joins(:project).where('projects.project_type = ?', "private") }
   scope :public_projects, -> { joins(:project).where('projects.project_type = ?', "public") }
+  scope :with_user, ->(user) { joins(:user_chats).where('user_chats.user_id = ?', user) }
+  scope :for_project, ->(project) { joins(:project).where('projects.id = ?', project) }
+  
 
   # before_create :do_this_thing
   # 

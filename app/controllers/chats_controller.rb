@@ -1,4 +1,3 @@
-# TODO: Should I delete all of the scaffolding files im not using? (Ian)
 class ChatsController < ApplicationController
   before_action :set_project, only: %i[ index create create_private_chat]
   before_action :set_chat, only: %i[ show edit update destroy ]
@@ -12,8 +11,7 @@ class ChatsController < ApplicationController
     end
     
     @private_chats = current_user.chats.private_projects
-    # TODO: What is a better way to write this? (Ian)
-    @public_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.id = ?', @project)
+    @public_chats = current_user.chats.for_project(@project)
 
     @new_chat = @project.chats.new
     @chat_bot = User.where(id: "0")
