@@ -36,7 +36,5 @@ class User < ApplicationRecord
 
   def name
    "#{self.first_name} #{self.last_name}"
-  end
-
-  # has_many :chats, class_name: "Chat", foreign_key: "user_id"   
+  end 
 end

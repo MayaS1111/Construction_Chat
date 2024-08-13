@@ -25,7 +25,7 @@ class Project < ApplicationRecord
   belongs_to :owner, class_name: "User"
   has_many :chats, class_name: "Chat", foreign_key: "project_id"
 
-  # TODO: fix
+
   has_one :main_chat, -> { order(:created_at).limit(1) }, class_name: "Chat"
   
   scope :private_type, -> { where(project_type: "private") }

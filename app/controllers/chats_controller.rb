@@ -112,7 +112,7 @@ class ChatsController < ApplicationController
       user_chat.destroy!
     end
 
-    #TO DO: Refactor this section (use a set)
+    #TODO: Refactor this section (use a set?)
     @chat_list = Chat.where(project_id: @chat.project_id)
     @chat_list_ids = [].reverse
 
@@ -130,7 +130,6 @@ class ChatsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_chat
       @chat = Chat.find(params[:id])
     end
@@ -143,7 +142,6 @@ class ChatsController < ApplicationController
       @user_chat =  UserChat.find(params[:user_id])
     end
 
-    # Only allow a list of trusted parameters through.
     def chat_params
       params.require(:chat).permit(:project_id, :name, :description, user_chats_attributes:[:chat_id, :user_id])
     end
