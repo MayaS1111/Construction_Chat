@@ -1,59 +1,45 @@
 <%= form_with(model: user_chat) do |form| %>
-  <div class="" >
-    <div class="d-flex justify-content-center align-items-center">
-        <div class="card-body">
-          <form>
-            <div class="row gx-3 mb-3">
-              <div class="md-6"> 
-              </div>
+  <%= form.hidden_field :chat_id, value: chat.id%>
+  <div class="d-flex justify-content-center align-items-center">
+      <div class="card-body">
+        <form>
+          <div class="row gx-3 mb-3">
+            <div class="dropdown show ml-auto p-2">
+              <a class="nav-link dropdown-toggle ml-auto p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <p>Add by User Name</p>
+              </a>
+              <div class="dropdown-menu" >
+                <% users.each do |user| %>
+                  <div class="form-check"> 
+                    <button class="dropdown-item" type="button"> 
+                      <%= check_box_tag 'user_chat[user_attributes][]user_id', user.id, chat.members.include?(user) %>
+                      <%= user.name %>
+                    </button> 
+                  </div>
+                <% end %>
+              </div> 
             </div>
+          </div>
+          <div class="row gx-3 mb-3">
+            <div class="md-6"> 
+              <p class="d-flex justify-content-center py-3">Or</p>
+              <%= form.text_field :user_id, class: "form-control", placeholder: "Add by ID#"%>
+            </div>
+          </div>
             <div class="row gx-3 mb-3">
-              <div class="md-6"> 
+              <div class="mb-3"> 
                 <div>
-                  <%= form.label :user_id, style: "display: block", class:"small mb-1"%>
-                  <%= form.text_field :user_id, class: "form-control", placeholder: "Add by ID#"%>
-                  <div class="dropdown show ml-auto p-2">
-                    <a class="nav-link dropdown-toggle  ml-auto p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    </a>
-                    <div class="dropdown-menu">
-                      <% users.each do |user| %>
-                        <div class="form-check"> 
-                          <button class="dropdown-item" type="button"> 
-                            <%= check_box_tag 'user_chat[user_attributes][]user_id', user.id, chat.members.include?(user) %>
-                            <%= user.name %>
-                          </button> 
-                        </div>
-                      <% end %>
-
-                      <!--<div>
-                        <h5>What should be included in this outfit?</h5>
-                        <p><%# form.label :outfit_items %></p>
-                          <%# current_user.items.each do |item| %>
-                            <%# check_box_tag 'outfit[outfit_items_attributes][]item_id', item.id, @outfit.items.include?(item) %>
-                            <%# item.details %>
-                          <%#end %>
-                      </div>-->
-                    </div> 
-                  </div>
+                  <%# form.label :chat_id, style: "display: block", class:"small mb-1"%>
+                  <%# form.text_field :chat_id, value: "#{chat.id}", class: "form-control"%>
                 </div>
               </div>
             </div>
-              <div class="row gx-3 mb-3">
-                <div class="mb-3"> 
-                  <div>
-                    <%= form.label :chat_id, style: "display: block", class:"small mb-1"%>
-                    <%= form.text_field :chat_id, value: "#{chat.id}", class: "form-control"%>
-                  
-                  </div>
-                </div>
-              </div>
-            <div class="row gx-3 mb-3">
-              <div class=""> 
-            </div>
-            <%= form.submit "Save changes", class:"btn btn-primary" %>
-          </form>
-        </div>
+          <div class="row gx-3 mb-3">
+            <div class=""> 
+          </div>
+          <%= form.submit "Save changes", class:"btn btn-primary" %>
+        </form>
       </div>
     </div>
-  </div> 
+  </div>
 <% end %>
