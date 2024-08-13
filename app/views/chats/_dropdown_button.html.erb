@@ -49,8 +49,8 @@
                   <a href="/<%=member.id%>" class="col btn btn-secondary d-flex justify-content-center align-items-center" type= "button">Profile</a> 
                 </div>
                 <div class="col">
-                 <%= button_to 'Privately Message', create_private_chat_path(@current_users_dm,member.id), id: 'send-message-button', 
-                  data: { user_id: member.id, project_id: @current_users_dm}, 
+                 <%= button_to 'Privately Message', create_private_chat_path(@private_project,member.id), id: 'send-message-button', 
+                  data: { user_id: member.id, project_id: @private_project}, 
                   method: :post, 
                   class: 'btn btn-primary d-flex justify-content-center align-items-center' %> 
                 </div>

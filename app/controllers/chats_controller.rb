@@ -1,24 +1,21 @@
 class ChatsController < ApplicationController
-  before_action :set_project
-  before_action :set_chat, only: %i[ show edit update destroy  ]
+  before_action :set_project, only: %i[ index create create_private_chat]
+  before_action :set_chat, only: %i[ show edit update destroy ]
+  before_action :set_user_chat, only: %i[ create_private_chat ]
 
   # GET /chats or /chats.json
   def index
-    if params[:project_id].present?
-      @current_project = Project.find(params[:project_id])
-    end
+    # TODO: do we need this? can we use a before_action?
     if params[:chat_id].present?
       @current_chat = Chat.find(params[:chat_id])
     end
     
-    @private_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.project_type = ?', "private")
-    @public_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.id = ?', @current_project)
-    @users_user_chats = UserChat.where(user_id: current_user.id)
+    @private_chats = current_user.chats.private_projects
+    @public_chats = Chat.all.joins(:user_chats).where('user_chats.user_id = ?', current_user).joins(:project).where('projects.id = ?', @project)
 
-    @new_chat = @current_project.chats.new
+    @new_chat = @project.chats.new
     @chat_bot = User.where(id: "0")
-
-    @current_users_dm =  Project.find_by("project_type = ? AND owner_id = ?", "private", current_user.id)
+    @private_project = current_user.projects.private_type
   end
 
   # GET /chats/1 or /chats/1.json
@@ -35,11 +32,8 @@ class ChatsController < ApplicationController
   end
 
   def create_private_chat
-    project = Project.find_by(id: params[:project_id])
-    user_to_chat_with = User.find_by(id: params[:user_id])
-  
-    current_private_chats = Chat.joins(:user_chats).where(user_chats: { user_id: current_user.id }).joins(:project).where(projects: { project_type: "private" })
-    chats_with_user_to_chat_with = Chat.joins(:user_chats).where(user_chats: { user_id: user_to_chat_with.id }).joins(:project).where(projects: { project_type: "private" })
+    current_private_chats = current_user.chats.private_project
+    chats_with_user_to_chat_with = Chat.joins(:user_chats).where(user_chats: { user_id: @user_chat.id }).joins(:project).where(projects: { project_type: "private" })
   
     chat_ids_with_current_user = current_private_chats.pluck(:id)
     chat_ids_with_user_to_chat_with = chats_with_user_to_chat_with.pluck(:id)
@@ -49,7 +43,7 @@ class ChatsController < ApplicationController
   
     if chat
       respond_to do |format|
-        format.html { redirect_to "/chat/#{chat.project.id}/#{chat.id}", alert: "You already have a private chat with this user." }
+        format.html { redirect_to "/chat/#{chat.project_id}/#{chat.id}", alert: "You already have a private chat with this user." }
         format.js
       end
     else
@@ -64,7 +58,7 @@ class ChatsController < ApplicationController
           UserChat.create(chat: @chat, user: current_user)
           UserChat.create(chat: @chat, user: user_to_chat_with)
   
-          format.html { redirect_to "/chat/#{@chat.project.id}/#{@chat.id}", notice: "Chat was successfully created." }
+          format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat.id}", notice: "Chat was successfully created." }
           format.js
         else
           format.json { render json: { success: false, errors: @chat.errors.full_messages } }
@@ -72,21 +66,17 @@ class ChatsController < ApplicationController
       end
     end
   end
-  
-  
+
 
   # POST /chats or /chats.json
   def create
-    if params[:project_id].present?
-      @current_project = Project.find(params[:project_id])
-    end
-    @chat = @current_project.chats.new(chat_params)
+    @chat = @project.chats.new(chat_params)
 
     respond_to do |format|
       if @chat.save
         UserChat.create(user_id: current_user.id, chat_id: @chat.id)
         
-        format.html { redirect_to "/chat/#{@chat.project.id}/#{@chat.id}", notice: "Chat was successfully created." }
+        format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat.id}", notice: "Chat was successfully created." }
         format.json { render :show, status: :created, location: @chat }
         format.js
       else
@@ -96,7 +86,6 @@ class ChatsController < ApplicationController
     end
   end
 
- 
 
   # PATCH/PUT /chats/1 or /chats/1.json
   def update
@@ -147,9 +136,13 @@ class ChatsController < ApplicationController
     end
 
     def set_project
-      @projects = Project.find(params[:project_id])
+      @project = Project.find(params[:project_id])
     end
   
+    def set_user_chat
+      @user_chat =  UserChat.find(params[:user_id])
+    end
+
     # Only allow a list of trusted parameters through.
     def chat_params
       params.require(:chat).permit(:project_id, :name, :description, user_chats_attributes:[:chat_id, :user_id])
