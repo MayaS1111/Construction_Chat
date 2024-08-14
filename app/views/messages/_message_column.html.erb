@@ -1,7 +1,7 @@
 
 <h4 class="font-weight-bold mb-3 text-center text-black"><%=chat.name%></h5>
 <ul class="list-unstyled text-black">
-  <div class="container overflow-auto" style= "max-height: 58vh">
+  <div id="messages-container" class="container overflow-auto" style= "max-height: 58vh">
     <% chat.messages.each do |message| %>
       <%= render "messages/message", message: message %>
     <% end %>
