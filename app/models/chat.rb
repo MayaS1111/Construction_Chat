@@ -30,7 +30,7 @@ class Chat < ApplicationRecord
   scope :public_projects, -> { joins(:project).where('projects.project_type = ?', "public") }
   scope :with_user, -> (user) { joins(:user_chats).where('user_chats.user_id = ?', user) }
   scope :for_project, -> (project) { joins(:project).where('projects.id = ?', project) }
-  # scope :, -> (user)
+  scope :with_user_chat, -> (chat_id) { joins(:user_chats).where(id: chat_id).group('chats.id').having('COUNT(user_chats.user_id) = 2')}
   
 
   # before_create :do_this_thing

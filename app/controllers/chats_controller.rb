@@ -33,17 +33,13 @@ class ChatsController < ApplicationController
 
   def create_private_chat
     current_private_chats = current_user.chats.private_projects
-    chats_with_user_to_chat_with = @user.chats.private_projects
-    chat_ids_with_current_user = current_private_chats.pluck(:id)
-    chat_ids_with_user_to_chat_with = chats_with_user_to_chat_with.pluck(:id)
-    common_chat_ids = chat_ids_with_current_user & chat_ids_with_user_to_chat_with
-  
-    chat = Chat.joins(:user_chats).where(id: common_chat_ids).group('chats.id').having('COUNT(user_chats.user_id) = 2').first
-  
+    chats_with_user = @user.chats.private_projects
+    common_chat_ids = current_private_chats & chats_with_user
+    chat = Chat.with_user_chat(common_chat_ids).first
+
     if chat
       respond_to do |format|
         format.html { redirect_to "/chat/#{chat.project_id}/#{chat.id}", alert: "You already have a private chat with this user." }
-        format.js
       end
     else
       @chat = Chat.new(
