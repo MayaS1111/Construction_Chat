@@ -24,7 +24,6 @@ class Chat < ApplicationRecord
   has_many :chats, through: :user_chats
   has_many :members, through: :user_chats, source: :user
 
-  # accepts_nested_attributes_for :project
   
   scope :private_projects, -> { joins(:project).where('projects.project_type = ?', "private") }
   scope :public_projects, -> { joins(:project).where('projects.project_type = ?', "public") }
@@ -32,7 +31,18 @@ class Chat < ApplicationRecord
   scope :for_project, -> (project) { joins(:project).where('projects.id = ?', project) }
   scope :with_user_chat, -> (chat_id) { joins(:user_chats).where(id: chat_id).group('chats.id').having('COUNT(user_chats.user_id) = 2')}
   
+  def private_chat(current_user, user, private_project)
+    chat = Chat.new(
+        description: "nil",
+        name: "#{current_user.first_name} & #{user.first_name}",
+        project: private_project.first
+      )
+    UserChat.create(chat: chat, user: current_user)
+    UserChat.create(chat: chat, user: user)
+    return chat
+  end
 
+  
   # before_create :do_this_thing
   # 
   

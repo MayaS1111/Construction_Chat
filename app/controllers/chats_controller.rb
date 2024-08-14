@@ -32,26 +32,15 @@ class ChatsController < ApplicationController
   end
 
   def create_private_chat
-    current_private_chats = current_user.chats.private_projects
-    chats_with_user = @user.chats.private_projects
-    common_chat_ids = current_private_chats & chats_with_user
-    chat = Chat.with_user_chat(common_chat_ids).first
-
-    if chat
+    common_chat = find_common_chat
+    if common_chat
       respond_to do |format|
-        format.html { redirect_to "/chat/#{chat.project_id}/#{chat.id}", alert: "You already have a private chat with this user." }
+        format.html { redirect_to "/chat/#{common_chat.project_id}/#{common_chat.id}", alert: "You already have a private chat with this user." }
       end
     else
-      @chat = Chat.new(
-        description: "nil",
-        name: "#{current_user.first_name} & #{@user.first_name}",
-        project: @private_project.first
-      )
-  
+      @chat =  Chat.new.private_chat(current_user, @user, @private_project)
       respond_to do |format|
         if @chat.save
-          UserChat.create(chat: @chat, user: current_user)
-          UserChat.create(chat: @chat, user: @user)
   
           format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat.id}", notice: "Chat was successfully created." }
         else
@@ -122,5 +111,12 @@ class ChatsController < ApplicationController
 
     def chat_params
       params.require(:chat).permit(:project_id, :name, :description, user_chats_attributes:[:chat_id, :user_id])
+    end
+
+    def find_common_chat
+      current_private_chats = current_user.chats.private_projects
+      chats_with_user = @user.chats.private_projects
+      common_chat_ids = (current_private_chats & chats_with_user).pluck(:id)
+      Chat.with_user_chat(common_chat_ids).first
     end
 end
