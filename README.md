@@ -39,6 +39,7 @@ Construction Chat is a easy to use live chat for contruction and managment teams
 Follow the on-screen instructions to use the application
 
 
+
 ## Contributing
 Contributions are welcome! Please follow these guidelines:
 
@@ -52,3 +53,7 @@ Contributions are welcome! Please follow these guidelines:
 ## Contact
 - Maya Sheriff - [maysheriff2018@gmail.com](mailto:maysheriff2018@gmail.com)
 - Project Link: [https://github.com/MayaS1111/Construction_Chat](https://github.com/MayaS1111/Construction_Chat)
+- Deployed Site: [https://builtbetter.work](https://builtbetter.work)
+- Here is a test log in for the deployed site:
+  Email: test@example.com
+  Password: password
