@@ -40,7 +40,7 @@ class ChatsController < ApplicationController
       end
     else
       @chat =  Chat.new.private_chat(current_user, @user, @private_project)
-      
+
       respond_to do |format|
         if @chat.save
           format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat.id}", notice: "Chat was successfully created." }
@@ -50,7 +50,6 @@ class ChatsController < ApplicationController
       end
     end
   end
-
 
   # POST /chats or /chats.json
   def create
