@@ -33,15 +33,16 @@ class ChatsController < ApplicationController
 
   def create_private_chat
     common_chat = find_common_chat
+
     if common_chat
       respond_to do |format|
         format.html { redirect_to "/chat/#{common_chat.project_id}/#{common_chat.id}", alert: "You already have a private chat with this user." }
       end
     else
       @chat =  Chat.new.private_chat(current_user, @user, @private_project)
+      
       respond_to do |format|
         if @chat.save
-  
           format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat.id}", notice: "Chat was successfully created." }
         else
           format.json { render json: { success: false, errors: @chat.errors.full_messages } }
