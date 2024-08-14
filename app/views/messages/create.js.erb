@@ -1,4 +1,2 @@
-console.log("create.js.erb is loaded");
-
 $('#messages-container').append('<%= j render "messages/message", message: @message %>');
 $('#messages-container').scrollTop($('#messages-container')[0].scrollHeight);
