@@ -7,7 +7,6 @@ class ChatsController < ApplicationController
 
   # GET /chats or /chats.json
   def index
-    # TODO: do we need this? can we use a before_action?
     if params[:chat_id].present?
       @current_chat = Chat.find(params[:chat_id])
     end
@@ -34,9 +33,7 @@ class ChatsController < ApplicationController
 
   def create_private_chat
     current_private_chats = current_user.chats.private_projects
-    # TODO: What is a better way to write this? (Ian)
-    chats_with_user_to_chat_with = Chat.joins(:user_chats).where(user_chats: { user_id: @user.id }).joins(:project).where(projects: { project_type: "private" })
-  
+    chats_with_user_to_chat_with = @user.chats.private_projects
     chat_ids_with_current_user = current_private_chats.pluck(:id)
     chat_ids_with_user_to_chat_with = chats_with_user_to_chat_with.pluck(:id)
     common_chat_ids = chat_ids_with_current_user & chat_ids_with_user_to_chat_with
@@ -103,25 +100,6 @@ class ChatsController < ApplicationController
 
   # DELETE /chats/1 or /chats/1.json
   def destroy
-    # user_chats_to_delete = UserChat.where(chat_id: @chat.id)
-    # messages_to_delete = Message.where(user_chat_id: user_chats_to_delete)
-
-    # messages_to_delete.each do |message|
-    #   message.destroy!
-    # end
-    # user_chats_to_delete.each do |user_chat|
-    #   user_chat.destroy!
-    # end
-
-    # #TODO: Refactor this section (use a set?)
-    # @chat_list = Chat.where(project_id: @chat.project_id)
-    # @chat_list_ids = [].reverse
-
-    # @chat_list.each do |chat|
-    #   @chat_list_ids << chat.id
-    # end
-    # @chat_list_ids = Chat.where(project_id: @chat.project_id).id
-
     respond_to do |format|
       @chat.destroy!
       format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat_list_ids[0]}", notice: "Chat was successfully destroyed." }
@@ -141,9 +119,11 @@ class ChatsController < ApplicationController
     def set_user
       @user =  User.find(params[:user_id])
     end
+
     def set_private_project
       @private_project = current_user.projects.private_type
     end
+
     def chat_params
       params.require(:chat).permit(:project_id, :name, :description, user_chats_attributes:[:chat_id, :user_id])
     end
