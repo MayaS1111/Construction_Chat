@@ -226,5 +226,9 @@ body {
     /* flips it horizontally */
     transform: scaleX(-1);
   }
+
+  .red {
+    text-color:#D2042D;
+  }
 }
                                 
