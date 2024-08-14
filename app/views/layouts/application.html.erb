@@ -10,6 +10,8 @@
     <%= render "shared/cdn_assets" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>

@@ -29,9 +29,11 @@ class MessagesController < ApplicationController
       if @message.save
         format.html { redirect_to "/chat/#{@project.id}/#{@chat.id}", notice: "Message was successfully created." }
         format.json { render :show, status: :created, location: @message }
+        format.js
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @message.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

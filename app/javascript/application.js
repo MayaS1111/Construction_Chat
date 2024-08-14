@@ -1,11 +1,24 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import { Turbo } from "@hotwired/turbo-rails"
-import "controllers"
+import { Turbo } from "@hotwired/turbo-rails";
+import $ from "jquery";
 
-Turbo.session.drive = false
+// Ensure jQuery is globally available
+window.$ = $;
 
-import jquery from "jquery";
-window.jQuery = jquery;
-window.$ = jquery;
-import Rails from "@rails/ujs"
-Rails.start();
+$(document).on('turbo:load', function() {
+  const messagesContainer = $('#messages-container');
+
+  const scrollToBottom = () => {
+    messagesContainer.scrollTop(messagesContainer[0].scrollHeight);
+  };
+
+  // Initial scroll to bottom when page loads
+  scrollToBottom();
+
+  // Handle AJAX form submission
+  $('#message-form').on('ajax:success', function(event) {
+    const [_data, _status, xhr] = event.detail;
+
+    // Scroll to bottom after receiving new message
+    scrollToBottom();
+  });
+});
