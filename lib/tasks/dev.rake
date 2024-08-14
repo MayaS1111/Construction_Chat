@@ -42,7 +42,7 @@ task({ :sample_data => :environment }) do
     bot = User.create(id: 0, first_name: "BuiltBetter", last_name: "Bot", phone_number: "0000000000", email: "builtbetter@info.com", job_title: "Helper Bot", password: "password", admin: "true", profile_image: "https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&radius=50&scale=70&shapeColor=000000&backgroundColor=D2042D")
   end
 
-  users = User.where.not(id: "0")
+  users = User.all
   users.each do |user|
     name = user.fetch(:first_name)
     project = Project.create(
@@ -65,7 +65,7 @@ task({ :sample_data => :environment }) do
   p "There are now #{User.count} users."
 
 
-  admin_users = User.where(admin: "true")
+  admin_users = User.where(admin: true).where.not(id: 0)
   admin_users.each do |user|
     num = rand(3..5)
     num.times do
@@ -91,7 +91,7 @@ task({ :sample_data => :environment }) do
     user_set = Set.new()
     
     num.times do
-      added_user = User.where.not(id: project.owner.id).sample 
+      added_user = User.where.not(id: project.owner.id).where.not(id: 0).sample 
       user_set << added_user
     end
 
@@ -146,7 +146,7 @@ task({ :sample_data => :environment }) do
 
       num2 = rand(3..5)
       num2.times do
-        added_user = User.where.not(id: project.owner.id).sample 
+        added_user = User.where.not(id: project.owner.id).where.not(id: 0).sample 
         users_in_chat << added_user
       end
   

@@ -18,11 +18,11 @@
       <% end %>
       <% remove_self = UserChat.find_by("user_id = ? AND chat_id = ?", current_user.id, chat.id) %>
       <%= link_to "Leave Chat", user_chat_path(remove_self), method: :delete,  data: { confirm: 'Are you sure?' }, class: "dropdown-item " %>
-    
     <% end %>
   </div>
 </div>
 
+<% # TODO: Is keeping these here ok? (Ian) %>
 <!-- Modals -->
 <div class="modal fade" id="<%=chat.id%>_members_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog modal-dialog-centered">
@@ -48,10 +48,12 @@
                 </div>
                 <div class="col">
                   <a href="/<%=member.id%>" class="col btn btn-secondary d-flex justify-content-center align-items-center" type= "button">Profile</a> 
-                  
                 </div>
                 <div class="col">
-                  <a href="#" class="btn btn-primary d-flex justify-content-center align-items-center" type= "button">Message</a> 
+                 <%= button_to 'Privately Message', create_private_chat_path(@private_project,member.id), id: 'send-message-button', 
+                  data: { user_id: member.id, project_id: @private_project}, 
+                  method: :post, 
+                  class: 'btn btn-primary d-flex justify-content-center align-items-center' %> 
                 </div>
                 <div class="col btn btn-danger d-flex justify-content-center align-items-center" type= "button">
                   <% remove_user = UserChat.find_by("user_id = ? AND chat_id = ?", member.id, chat.id) %>
@@ -111,10 +113,8 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel"><%=chat.name%></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-            <% users = User.all%>
-            <% user_chat_new = UserChat.new%> 
           <div class= "container ">
-            <%= render "user_chats/form_new",  users: users, user_chat: user_chat_new, chat: chat%>
+            <%= render "user_chats/form_new",  users: User.all, user_chat: UserChat.new, chat: chat%>
           </div>
           <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
