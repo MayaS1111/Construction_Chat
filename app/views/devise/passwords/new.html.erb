@@ -1,7 +1,7 @@
 <title>Forgot Password</title>
 	<div class="mb-5 d-flex justify-content-center align-items-center">
 		<div class="row">
-		<div class="login-container" style="width: 50rem;">
+		<div class="login-container">
 			<h2 class="header-red">Forgot Your Password?</h2>
 			<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
       <%= f.error_notification %>
