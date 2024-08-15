@@ -31,6 +31,14 @@ class ChatsController < ApplicationController
   def edit
   end
 
+  def messages
+    @chat = Chat.find(params[:id])
+    @messages = @chat.messages.order(:created_at)
+    respond_to do |format|
+      format.js   
+    end
+  end
+
   def create_private_chat
     common_chat = find_common_chat
 

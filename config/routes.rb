@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   resources :messages
   resources :user_chats
   resources :projects do
-    resources :chats
+    resources :chats do
+      member do
+        get :messages
+      end
+    end
   end
 
   post "projects/:project_id/chats/create_private_chat/:user_id", to: 'chats#create_private_chat', as: :create_private_chat
