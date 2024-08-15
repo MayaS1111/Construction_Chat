@@ -1,0 +1,2 @@
+$('#messages-container').html("<%= j render partial: 'messages/message', collection: @messages %>");
+$('#messages-container').scrollTop($('#messages-container')[0].scrollHeight);
