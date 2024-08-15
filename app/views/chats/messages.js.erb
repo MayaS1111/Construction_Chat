@@ -1,2 +1,18 @@
 $('#messages-container').html("<%= j render partial: 'messages/message', collection: @messages %>");
-$('#messages-container').scrollTop($('#messages-container')[0].scrollHeight);
+
+function scrollToBottomIfNewMessages() {
+  var $container = $('#messages-container');
+  var previousScrollHeight = $container.data('previous-scroll-height') || $container[0].scrollHeight;
+
+  var newScrollHeight = $container[0].scrollHeight;
+
+  if (previousScrollHeight < newScrollHeight) {
+    $container.scrollTop(newScrollHeight);
+  }
+
+  // Store the new scroll height for future comparisons
+  $container.data('previous-scroll-height', newScrollHeight);
+}
+
+// Call the function to handle scrolling
+scrollToBottomIfNewMessages();
