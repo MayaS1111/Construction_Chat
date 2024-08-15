@@ -1,40 +1,48 @@
-<div class="col-md-3">
-  <div class="row px-4">
+
+<div class="col-md-3 col-dropdown project-mb">
+  <div class="row px-4" >
     <div class="col d-flex justify-content-start">
-      <a id="chat_col_toggle" onclick="toggleSidebar()">
-        <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h5>
+      <a id="project_col_toggle" onclick="toggleSidebar()">
+        <h4 class="font-weight-bold mb-3 text-center text-black">Projects</h4>
       </a>
     </div>
     <% if current_user.admin?  %>
       <div class="col d-flex justify-content-end">
-        <a type="button" data-bs-toggle="modal" data-bs-target="#create_public_chat_Modal">
+        <a type="button" data-bs-toggle="modal" data-bs-target="#create_project_Modal">
           <i class="fa-solid fa-plus" style="font-size: 25px; width: 30px"></i>
         </a>
       </div>
     <% end %>
   </div>
-  <div class="card mask-custom" id="chat_col_box">
+  <div class="card mask-custom" id="project_col_box">
     <div class="card-body overflow-auto" style= "max-height: 85vh">
       <ul class="list-unstyled mb-0">
-          <% public_chats.each do |chat| %>
-            <%= render "chats/chat", chat: chat %>
-            <hr>
-          <% end %>
+        <% projects_displayed = Set.new() %>
+
+        <% user_chats.each do |user_chat|%>
+          <% projects_displayed << user_chat.chat.project %>
+        <% end%>
+
+        <% projects_displayed.each do |project|%>
+          <% if project.status != "Closed" %>
+            <%= render "projects/project", project: project%> 
+          <% end%>
+        <% end%> 
       </ul>
     </div>
   </div>
 </div>
 
 <!-- Modals -->
-<div class="modal fade" id="create_public_chat_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="create_project_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">New Chat</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New Project</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <%= render "chats/form_new_public", chat: @new_chat %>
+        <%= render "projects/form_new", project: current_user.projects.new%>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -45,7 +53,7 @@
 
 <script>
   function toggleSidebar() {
-    var sidebar = document.getElementById('chat_col_box');
+    var sidebar = document.getElementById('project_col_box');
     if (sidebar) {
       if (sidebar.style.display === 'none' || sidebar.style.display === '') {
         sidebar.style.display = 'block';
@@ -53,7 +61,7 @@
         sidebar.style.display = 'none';
       }
     } else {
-      console.error('Element with id "chat_col_box" not found.');
+      console.error('Element with id "project_col_box" not found.');
     }
   }
 </script>

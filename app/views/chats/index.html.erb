@@ -1,18 +1,19 @@
 <div id="full_chat_container">
   <section class="gradient-custom">
     <div class="container py-1">
-      <div class="row">
+      <div class="desk-div">
         <%= render "projects/project_column", user_chats: current_user.user_chats %>
-        <% if @project.project_type == "private" %>
-          <%= render "chats/chat_column_private", private_chats: @private_chats.order!(created_at: :desc) %>
-        <% elsif @project.project_type == "public" %>
-          <%= render "chats/chat_column_public", public_chats: @public_chats.order!(created_at: :asc) %>
-        <% end %>
-        <div class="col">
-        <%= render "messages/message_column", chat: @current_chat, user: current_user%>
+        <%= render "projects/project_column_mb", user_chats: current_user.user_chats %>
+
+          <% if @project.project_type == "private" %>
+            <%= render "chats/chat_column_private", private_chats: @private_chats.order!(created_at: :desc) %>
+          <% elsif @project.project_type == "public" %>
+            <%= render "chats/chat_column_public", public_chats: @public_chats.order!(created_at: :asc) %>
+          <% end %>
+          <div class="col">
+          <%= render "messages/message_column", chat: @current_chat, user: current_user%>
         </div>
       </div>
     </div>
   </section>
 </div>
-

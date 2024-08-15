@@ -1,7 +1,8 @@
-<div class="col-md-3">
-  <div class="row px-4">
+
+<div class="col-md-3 col-dropdown project-dt">
+  <div class="row px-4" >
     <div class="col d-flex justify-content-start">
-      <h4 class="font-weight-bold mb-3 text-center text-black">Projects</h5>
+        <h4 class="font-weight-bold mb-3 text-center text-black">Projects</h4>
     </div>
     <% if current_user.admin?  %>
       <div class="col d-flex justify-content-end">
@@ -11,7 +12,7 @@
       </div>
     <% end %>
   </div>
-  <div class="card mask-custom">
+  <div class="card mask-custom" >
     <div class="card-body overflow-auto" style= "max-height: 85vh">
       <ul class="list-unstyled mb-0">
         <% projects_displayed = Set.new() %>
