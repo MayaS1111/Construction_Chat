@@ -7,6 +7,13 @@ Construction Chat is a easy to use live chat for contruction and managment teams
 - Users name, contact information, and job titles are displayed
 - Job description can be sent easily through chats
 
+```
+Deployed Site: [https://builtbetter.work](https://builtbetter.work)
+Here is a test log in for the deployed site:
+  Email: testadmin1@gmail.com 
+  Password: admin1
+```
+
 
 ## Table of Contents
 - [Installation](#installation)
@@ -54,6 +61,3 @@ Contributions are welcome! Please follow these guidelines:
 - Maya Sheriff - [maysheriff2018@gmail.com](mailto:maysheriff2018@gmail.com)
 - Project Link: [https://github.com/MayaS1111/Construction_Chat](https://github.com/MayaS1111/Construction_Chat)
 - Deployed Site: [https://builtbetter.work](https://builtbetter.work)
-- Here is a test log in for the deployed site:
-  Email: test@example.com
-  Password: password
