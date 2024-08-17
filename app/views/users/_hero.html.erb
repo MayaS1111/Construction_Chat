@@ -1,0 +1,38 @@
+<section id="hero-856">
+  <div class="cs-container mb-5">
+    <div class="cs-content">
+      <span class="cs-topper">Modern and Professional</span>
+      <h1 class="cs-title">Live Chat for Construction and Management Teams</h1>
+      <p class="cs-text">
+        Built To Help Construction Get Things Built Better!
+      </p>
+      <% if user_signed_in? %>
+        <% if current_user&.projects&.first&.chats&.first %>
+          <%= link_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", class: "nav-link cs-button-solid" do %> 
+            Chat Here
+          <% end %> 
+        <% else %>
+          <p>No chats available.</p>
+        <% end %>
+      <% else %>
+        <div class="row">
+          <div class="col mb-2">
+            <%= link_to "Sign In", new_user_session_path, class: "nav-link cs-button-solid" %>
+          </div>
+          <div class="col mb-2">
+            <%= link_to "Make Account", new_user_registration_path, class: "nav-link cs-button-solid" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <!--Hero Image-->
+    <picture class="cs-picture">
+      <!--Mobile-->
+      <source media="(max-width: 600px)" srcset="https://i.pinimg.com/736x/4e/47/4a/4e474a7cabd7511277bde17597b63572.jpg">
+      <!--Tablet-->
+      <source media="(min-width: 601px)" srcset="https://i.pinimg.com/736x/4e/47/4a/4e474a7cabd7511277bde17597b63572.jpg">
+      <!--Desktop-->
+      <img aria-hidden="true" decoding="async" src="https://i.pinimg.com/736x/4e/47/4a/4e474a7cabd7511277bde17597b63572.jpg" alt="...." width="570" height="701">
+    </picture>
+  </div>
+</section>
