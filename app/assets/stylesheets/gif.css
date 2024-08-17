@@ -1,0 +1,5 @@
+.gif {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  max-width: 100%; /* Ensures the image is responsive */
+}
