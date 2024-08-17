@@ -1,8 +1,8 @@
-# Construction_Chat
+# Construction_Chat(BuiltBetter)
 
 
 ## Description
-Construction Chat is a easy to use live chat for contruction and managment teams.
+BuiltBetter is a user-friendly, real-time chat platform designed specifically for construction workers and management teams.
 - Multiple chats will be hosted within one construstion project
 - Users name, contact information, and job titles are displayed
 - Job description can be sent easily through chats
@@ -37,6 +37,9 @@ Here is a test log in for the deployed site:
 5. Start the server:
 `bin/dev`
 
+6. Add sample data:
+`bundle exec rake sample_data`
+
 
 ## Usage
 1. Start the server:
@@ -44,7 +47,6 @@ Here is a test log in for the deployed site:
 
 2. Open your browser and navigate to http://localhost:3000
 Follow the on-screen instructions to use the application
-
 
 
 ## Contributing
