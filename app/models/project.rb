@@ -30,6 +30,4 @@ class Project < ApplicationRecord
   
   scope :private_type, -> { where(project_type: "private") }
   scope :public_type, -> { where(project_type: "public") }
-  
-  
 end

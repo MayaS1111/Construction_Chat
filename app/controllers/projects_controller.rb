@@ -28,6 +28,7 @@ class ProjectsController < ApplicationController
     @project.owner_id = current_user.id
 
     respond_to do |format|
+      # TODO: refactor
       if @project.save
         chat = Chat.create(project_id: @project.id, name: "Main", description: "This chat is for all members")
         UserChat.create(user_id: current_user.id, chat_id: chat.id)

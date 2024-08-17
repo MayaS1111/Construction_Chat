@@ -1,6 +1,5 @@
 # Construction_Chat(BuiltBetter)
 
-
 ## Description
 BuiltBetter is a user-friendly, real-time chat platform designed specifically for construction workers and management teams.
 - Multiple chats will be hosted within one construstion project

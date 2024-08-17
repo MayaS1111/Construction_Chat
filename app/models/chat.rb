@@ -24,7 +24,6 @@ class Chat < ApplicationRecord
   has_many :chats, through: :user_chats
   has_many :members, through: :user_chats, source: :user
 
-  
   scope :private_projects, -> { joins(:project).where('projects.project_type = ?', "private") }
   scope :public_projects, -> { joins(:project).where('projects.project_type = ?', "public") }
   scope :with_user, -> (user) { joins(:user_chats).where('user_chats.user_id = ?', user) }
@@ -41,11 +40,4 @@ class Chat < ApplicationRecord
     UserChat.create(chat: chat, user: user)
     return chat
   end
-
-  
-  # before_create :do_this_thing
-  # 
-  
-  
-  # has_many :users, class_name: "User", foreign_key: "user_id" 
 end

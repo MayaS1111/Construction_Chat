@@ -34,7 +34,7 @@ class User < ApplicationRecord
   has_many :user_chats, class_name: "UserChat", foreign_key: "user_id", dependent: :destroy  
   has_many :chats, through: :user_chats
 
-  # TODO: maybe change how we id robots
+  # TODO: maybe change how we id robots and change name
   scope :human, -> { where.not(id: 0) }
 
   def name

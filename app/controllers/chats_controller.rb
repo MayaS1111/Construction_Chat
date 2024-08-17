@@ -121,6 +121,7 @@ class ChatsController < ApplicationController
       params.require(:chat).permit(:project_id, :name, :description, user_chats_attributes:[:chat_id, :user_id])
     end
 
+    # TODO: refactor
     # current_user.chats.member_count(2).with_user(@user)
     def find_common_chat
       current_private_chats = current_user.chats.private_projects
