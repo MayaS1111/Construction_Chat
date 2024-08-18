@@ -35,8 +35,7 @@ class User < ApplicationRecord
   has_many :chats, through: :user_chats
   has_one :direct_message_project, -> { order(:created_at).limit(1) }, class_name: "Project", foreign_key: "owner_id"  
 
-  # TODO: maybe change how we id robots and change name
-  scope :human, -> { where.not(id: 0) }
+  scope :non_bot, -> { where.not(id: 0) }
 
   def name
     "#{self.first_name} #{self.last_name}"
