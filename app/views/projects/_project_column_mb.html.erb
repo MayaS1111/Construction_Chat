@@ -17,6 +17,7 @@
   <div class="card mask-custom" id="project_col_box">
     <div class="card-body overflow-auto" style= "max-height: 85vh">
       <ul class="list-unstyled mb-0">
+        <!--Prevents project duplictaion if a user is in multiple chats within a singular project-->
         <% projects_displayed = Set.new() %>
 
         <% user_chats.each do |user_chat|%>

@@ -20,7 +20,6 @@
                   </div>
               </div>
             </div>
-              
             </div>
             <div class="row gx-3 mb-3">
               <div class="md-6"> 
@@ -44,7 +43,6 @@
                   <%= form.label :location, style: "display: block", class:"small mb-1" %>
                   <%= form.text_field :location, class: "form-control" %>
                 </div>
-
                 <%= form.fields_for :chats do |chat_form|%>
                   <div class="form-group">
                     <%= chat_form.hidden_field :name, value: "Main" %>
@@ -52,7 +50,6 @@
                     <%= chat_form.hidden_field :project_id, value: "57" %>
                   </div>
                 <% end %>
-
             </div>
             <%= form.submit "Create Project", class:"btn btn-primary" %>
           </form>
