@@ -2,8 +2,8 @@ class ChatsController < ApplicationController
   before_action :set_project, only: %i[ index create ]
   before_action :set_chat, only: %i[ show edit update destroy ]
   before_action :set_user, only: %i[ create_private_chat ]
-  # Setting DM project
-  before_action :set_private_project, only: %i[ index create_private_chat ]
+  # Sets DM project
+  before_action :set_direct_message_project, only: %i[ index create_private_chat ]
 
   # GET /chats or /chats.json
   def index
@@ -47,7 +47,7 @@ class ChatsController < ApplicationController
         format.html { redirect_to "/chat/#{common_chat.project_id}/#{common_chat.id}", alert: "You already have a private chat with this user." }
       end
     else
-      @chat =  Chat.new.private_chat(current_user, @user, @private_project)
+      @chat =  Chat.new.private_chat(current_user, @user, @direct_message_project)
 
       respond_to do |format|
         if @chat.save
@@ -113,8 +113,8 @@ class ChatsController < ApplicationController
       @user =  User.find(params[:user_id])
     end
 
-    def set_private_project
-      @private_project = current_user.projects.private_type
+    def set_direct_message_project
+      @direct_message_project = current_user.projects.private_type
     end
 
     def chat_params
