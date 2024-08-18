@@ -51,8 +51,8 @@ class UserChat < ApplicationRecord
   private
     def add_to_main_chat
       # TODO: create user_chat for main chat if it doesn't exist
-      # unless chat.project.chats.first.members.exist? user
-      #   chat.projects.chats.first.user_chats.create(user: user)
+      # unless chat.project.first_chat.members.exist? user
+      #   chat.projects.first_chat.user_chats.create(user: user)
       # end
     end
 end
