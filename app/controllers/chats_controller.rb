@@ -2,7 +2,6 @@ class ChatsController < ApplicationController
   before_action :set_project, only: %i[ index create ]
   before_action :set_chat, only: %i[ show edit update destroy ]
   before_action :set_user, only: %i[ create_private_chat ]
-  # Sets DM project
   before_action :set_direct_message_project, only: %i[ index create_private_chat ]
 
   # GET /chats or /chats.json
@@ -39,6 +38,7 @@ class ChatsController < ApplicationController
     end
   end
 
+  
   def create_private_chat
     common_chat = find_common_chat
 
