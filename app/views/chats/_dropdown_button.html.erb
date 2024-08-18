@@ -18,7 +18,6 @@
       <% end %>
       <% remove_self = UserChat.find_by("user_id = ? AND chat_id = ?", current_user.id, chat.id) %>
       <%= link_to "Leave Chat", user_chat_path(remove_self), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "dropdown-item fw-medium" %>
-
     <% end %>
   </div>
 </div>

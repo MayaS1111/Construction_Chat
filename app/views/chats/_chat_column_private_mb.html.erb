@@ -14,10 +14,8 @@
   <div class="card mask-custom" id="chat_col_box">
     <div class="card-body overflow-auto" style= "max-height: 85vh">
       <ul class="list-unstyled mb-0">
-          <% private_chats.each do |chat| %>
-            <%= render "chats/chat", chat: chat %>
+            <%= render partial: "chats/chat", collection: private_chats, as: :chat %>
             <hr>
-          <% end %>
       </ul>
     </div>
   </div>
