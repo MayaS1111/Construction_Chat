@@ -4,9 +4,7 @@
   <div id="messages-container" class="container overflow-auto" style="max-height: 58vh"
      data-chat-id="<%= @current_chat.id %>"
      data-project-id="<%= @current_chat.project_id %>">
-    <% chat.messages.each do |message| %>
-      <%= render "messages/message", message: message %>
-    <% end %>
+      <%= render partial: "messages/message", collection: chat.messages, as: :message %>
   </div>
   <li class="mb-3">
     <div class="container mt-1">
