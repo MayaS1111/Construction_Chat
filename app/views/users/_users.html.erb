@@ -9,31 +9,31 @@
       <p class="fw-bold mb-0"><%=user.job_title%></p>
     </div>
     <div class="pt-4 d-flex justify-content-center align-items-center">
-      <p class="small ">Email: <%=user.email%></p> 
+      <p class="small">Email: <%=user.email%></p> 
     </div>
     <div class="d-flex justify-content-center align-items-center">
-      <p class="small ">Number: <%=user.phone_number%></p>
+      <p class="small">Number: <%=user.phone_number%></p>
     </div>
     <div class="d-flex justify-content-center align-items-center">
-      <p class="small ">ID: <%=user.employee_id%></p>
+      <p class="small">ID: <%=user.employee_id%></p>
     </div>
   </div>
   <div class="row mb-3">
     <div class="col">
       <% if user.admin? %>
-        <div class=" ">
+        <div>
           <div class="btn pt-3 mt-2 d-flex" style="width: 100%;">
             <i class="fa-solid fa-star" style="color: #D2042D; font-size: 20px; width: 30px"></i>
-            <a href= "/admin/user/<%=user.id%>/edit" type="button" class="dropdown-item  d-flex justify-content-start align-items-center pb-1" >
+            <a href="/admin/user/<%=user.id%>/edit" type="button" class="dropdown-item  d-flex justify-content-start align-items-center pb-1">
               Admin
             </a>
           </div>
         </div>  
       <% else %>
-        <div class="">
+        <div>
           <div class="btn pt-3 mt-2 d-flex" style="width: 100%;">
             <i class="fa-regular fa-star" style="color: #D2042D; font-size: 20px; width: 30px"></i>
-            <a href= "/admin/user/<%=user.id%>/edit" type="button" class="dropdown-item d-flex justify-content-start align-items-center pb-1" >
+            <a href="/admin/user/<%=user.id%>/edit" type="button" class="dropdown-item d-flex justify-content-start align-items-center pb-1">
               Not Admin
             </a>
           </div>
@@ -41,9 +41,9 @@
       <% end %>
     </div>
     <div class="col">
-      <div class="m-1 ">
+      <div class="m-1">
         <div class="btn pt-3 mt-2 d-flex btn-primary" style= "width: 100%;">
-          <a href= "/<%=user.id%>" type="button" class="dropdown-item d-flex justify-content-center align-items-center pb-1" >
+          <a href="/<%=user.id%>" type="button" class="dropdown-item d-flex justify-content-center align-items-center pb-1">
             Profile
           </a>
         </div>
