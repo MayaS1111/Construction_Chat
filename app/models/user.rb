@@ -33,6 +33,7 @@ class User < ApplicationRecord
   has_many :messages, class_name: "Message", foreign_key: "sender_id"    
   has_many :user_chats, class_name: "UserChat", foreign_key: "user_id", dependent: :destroy  
   has_many :chats, through: :user_chats
+  has_one :direct_message_project, -> { order(:created_at).limit(1) }, class_name: "Project", foreign_key: "owner_id"  
 
   # TODO: maybe change how we id robots and change name
   scope :human, -> { where.not(id: 0) }
