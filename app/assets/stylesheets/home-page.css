@@ -169,6 +169,12 @@ body {
     transform: translateX(-50%);
     z-index: -1;
   }
+  .testimonial-container, p{
+    font-size: 20px;
+  }
+  .red {
+    color:#D2042D;
+  }
 }
 
 @media only screen and (min-width: 64rem) {

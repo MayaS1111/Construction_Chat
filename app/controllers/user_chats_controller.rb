@@ -69,6 +69,7 @@ class UserChatsController < ApplicationController
 
     respond_to do |format|
       #TODO: when current user removes someone, dont go to dms
+      #TODO: current_user.private_project.id
       format.html { redirect_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", notice: "User chat was successfully destroyed." }
       format.json { head :no_content }
     end
