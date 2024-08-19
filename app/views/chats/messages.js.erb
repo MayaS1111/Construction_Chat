@@ -1,3 +1,5 @@
+
+// Keeps scrollbar at bottom even when new messages are recieved
 $('#messages-container').html("<%= j render partial: 'messages/message', collection: @messages %>");
 
 function scrollToBottomIfNewMessages() {
@@ -10,9 +12,7 @@ function scrollToBottomIfNewMessages() {
     $container.scrollTop(newScrollHeight);
   }
 
-  // Store the new scroll height for future comparisons
   $container.data('previous-scroll-height', newScrollHeight);
 }
 
-// Call the function to handle scrolling
 scrollToBottomIfNewMessages();
