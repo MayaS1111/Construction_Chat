@@ -1,8 +1,8 @@
 <div class="col-md-3">
   <div class="row px-4">
     <div class="col d-flex justify-content-start">
-      <a id="chat_col_toggle" onclick="toggleSidebar()">
-        <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h5>
+      <a id="chat_col_toggle_public" href="javascript:void(0);">
+        <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h4>
       </a>
     </div>
     <% if current_user.admin?  %>
@@ -13,10 +13,10 @@
       </div>
     <% end %>
   </div>
-  <div class="card mask-custom" id="chat_col_box">
+  <div class="card mask-custom" id="chat_col_box_public">
     <div class="card-body overflow-auto" style= "max-height: 85vh">
       <ul class="list-unstyled mb-0">
-        <%= render partial: "chats/chat", collection: private_chats, as: :chat %>
+        <%= render partial: "chats/chat", collection: public_chats, as: :chat %>
         <hr>
       </ul>
     </div>
@@ -41,18 +41,58 @@
   </div>
 </div>
 
-<!--TODO: move this-->
-<script>
-  function toggleSidebar() {
-    var sidebar = document.getElementById('chat_col_box');
-    if (sidebar) {
-      if (sidebar.style.display === 'none' || sidebar.style.display === '') {
-        sidebar.style.display = 'block';
-      } else {
-        sidebar.style.display = 'none';
-      }
-    } else {
-      console.error('Element with id "chat_col_box" not found.');
-    }
+<!--Tryed moving this section multiple differnt ways, but I could only get it to work here-->
+<style>
+  #chat_col_box_public.closed {
+    display: none;
   }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function initializepublicSidebar() {
+      function togglepublicChatSidebar() {
+        var sidebar = document.getElementById('chat_col_box_public');
+        if (sidebar) {
+          var isClosed = sidebar.classList.contains('closed');
+          if (isClosed) {
+            sidebar.classList.remove('closed');
+            localStorage.setItem('chatSidebarState', 'open');
+          } else {
+            sidebar.classList.add('closed');
+            localStorage.setItem('chatSidebarState', 'closed');
+          }
+        } else {
+          console.error('Element with id "chat_col_box_public" not found.');
+        }
+      }
+
+      function loadpublicChatSidebarState() {
+        var sidebar = document.getElementById('chat_col_box_public');
+        var sidebarState = localStorage.getItem('chatSidebarState');
+        if (sidebar) {
+          if (sidebarState === 'closed') {
+            sidebar.classList.add('closed');
+          } else {
+            sidebar.classList.remove('closed');
+          }
+        }
+      }
+
+      // Load sidebar state on page load
+      loadpublicChatSidebarState();
+
+      // Attach the toggle function to the button
+      var toggleButton = document.getElementById('chat_col_toggle_public');
+      if (toggleButton) {
+        toggleButton.addEventListener('click', togglepublicChatSidebar);
+      }
+    }
+
+    // Initialize functionality
+    initializepublicSidebar();
+
+    // Handle route changes for Turbolinks or Turbo
+    document.addEventListener('turbolinks:load', initializepublicSidebar); // For Turbolinks
+    document.addEventListener('turbo:load', initializepublicSidebar); // For Turbo
+  });
 </script>

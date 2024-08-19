@@ -1,7 +1,7 @@
 <div class="col-md-3">
   <div class="row px-4">
     <div class="col d-flex justify-content-start">
-      <a id="chat_col_toggle" href="javascript:void(0);">
+      <a id="chat_col_toggle_private" href="javascript:void(0);">
         <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h4>
       </a>
     </div>
@@ -11,7 +11,7 @@
       </a>
     </div>
   </div>
-  <div class="card mask-custom" id="chat_col_box">
+  <div class="card mask-custom" id="chat_col_box_private">
     <div class="card-body overflow-auto" style="max-height: 85vh">
       <ul class="list-unstyled mb-0">
         <%= render partial: "chats/chat", collection: private_chats, as: :chat %>
@@ -41,47 +41,56 @@
 
 <!--Tryed moving this section multiple differnt ways, but I could only get it to work here-->
 <style>
-  #chat_col_box.closed {
+  #chat_col_box_private.closed {
     display: none;
   }
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    function toggleChatSidebar() {
-      var sidebar = document.getElementById('chat_col_box');
-      if (sidebar) {
-        var isClosed = sidebar.classList.contains('closed');
-        if (isClosed) {
-          sidebar.classList.remove('closed');
-          localStorage.setItem('chatSidebarState', 'open');
+    function initializePrivateSidebar() {
+      function togglePrivateChatSidebar() {
+        var sidebar = document.getElementById('chat_col_box_private');
+        if (sidebar) {
+          var isClosed = sidebar.classList.contains('closed');
+          if (isClosed) {
+            sidebar.classList.remove('closed');
+            localStorage.setItem('chatSidebarState', 'open');
+          } else {
+            sidebar.classList.add('closed');
+            localStorage.setItem('chatSidebarState', 'closed');
+          }
         } else {
-          sidebar.classList.add('closed');
-          localStorage.setItem('chatSidebarState', 'closed');
+          console.error('Element with id "chat_col_box_private" not found.');
         }
-      } else {
-        console.error('Element with id "chat_col_box" not found.');
+      }
+
+      function loadPrivateChatSidebarState() {
+        var sidebar = document.getElementById('chat_col_box_private');
+        var sidebarState = localStorage.getItem('chatSidebarState');
+        if (sidebar) {
+          if (sidebarState === 'closed') {
+            sidebar.classList.add('closed');
+          } else {
+            sidebar.classList.remove('closed');
+          }
+        }
+      }
+
+      // Load sidebar state on page load
+      loadPrivateChatSidebarState();
+
+      // Attach the toggle function to the button
+      var toggleButton = document.getElementById('chat_col_toggle_private');
+      if (toggleButton) {
+        toggleButton.addEventListener('click', togglePrivateChatSidebar);
       }
     }
 
-    function loadChatSidebarState() {
-      var sidebar = document.getElementById('chat_col_box');
-      var sidebarState = localStorage.getItem('chatSidebarState');
-      if (sidebar) {
-        if (sidebarState === 'closed') {
-          sidebar.classList.add('closed');
-        } else {
-          sidebar.classList.remove('closed');
-        }
-      }
-    }
+    // Initialize functionality
+    initializePrivateSidebar();
 
-    // Load sidebar state on page load
-    loadChatSidebarState();
-
-    // Attach the toggle function to the button
-    var toggleButton = document.getElementById('chat_col_toggle');
-    if (toggleButton) {
-      toggleButton.addEventListener('click', toggleChatSidebar);
-    }
+    // Handle route changes for Turbolinks or Turbo
+    document.addEventListener('turbolinks:load', initializePrivateSidebar); // For Turbolinks
+    document.addEventListener('turbo:load', initializePrivateSidebar); // For Turbo
   });
 </script>
