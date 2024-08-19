@@ -42,17 +42,10 @@ class UserChat < ApplicationRecord
     end
   end
 
+  # This is temporary! Render does not re-run seed files. This will be removed when deploying the app again.
   def create_bot_user
     return if User.exists?(id: 0)
 
-    User.create(id: 0, first_name: "BuiltBetter", last_name: "Bot", phone_number: "0000000000", email: "builtbetter@info.com", job_title: "Helper Bot", password: "password", admin: true, profile_image: "https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&backgroundColor=D2042D&radius=50&eyesColor=000000&mouthColor=000000&shapeColor=ffffff&scale=70")
+    User.create!(id: 0, first_name: "BuiltBetter", last_name: "Bot", phone_number: "(000)000-0000", email: "builtbetter@info.com", job_title: "Helper Bot", password: "password", admin: "true", profile_image: "https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&radius=50&scale=70&shapeColor=000000&backgroundColor=D2042D")
   end
-
-  private
-    def add_to_main_chat
-      # TODO: create user_chat for main chat if it doesn't exist
-      # unless chat.project.first_chat.members.exist? user
-      #   chat.projects.first_chat.user_chats.create(user: user)
-      # end
-    end
 end
