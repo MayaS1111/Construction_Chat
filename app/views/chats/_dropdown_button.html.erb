@@ -22,8 +22,9 @@
   </div>
 </div>
 
-<% # TODO: Is keeping these here ok? (Ian) %>
+
 <!-- Modals -->
+<!-- Members List -->
 <div class="modal fade" id="<%=chat.id%>_members_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -41,6 +42,7 @@
         <div class="row card-deck">
           <% chat.members.each do |member|%>
             <% if member != current_user %>
+            <!--TODO: move this to partial-->
               <div class="card col-md-6 p-2">
                 <div class="col d-flex justify-content-center align-items-center p-2">
                     <img src="<%=member.profile_image%>" alt="avatar" class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
@@ -50,7 +52,7 @@
                   <a href="/<%=member.id%>" class="col btn btn-secondary d-flex justify-content-center align-items-center" type= "button">Profile</a> 
                 </div>
                 <div class="col">
-                 <%= button_to 'Privately Message', create_private_chat_path(@direct_message_project,member.id), id: 'send-message-button', 
+                 <%= button_to 'Privately Message', create_private_chat_path(@direct_message_project, member.id), id: 'send-message-button', 
                   data: { user_id: member.id, project_id: @direct_message_project}, 
                   method: :post, 
                   class: 'btn btn-primary d-flex justify-content-center align-items-center' %> 
@@ -58,7 +60,6 @@
                 <div class="col btn btn-danger d-flex justify-content-center align-items-center" type= "button">
                   <% remove_user = UserChat.find_by("user_id = ? AND chat_id = ?", member.id, chat.id) %>
                   <%= link_to "Remove User", user_chat_path(remove_user), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "dropdown-item fw-medium" %>
-
                 </div>
               </div>
             <%else%> 
@@ -90,6 +91,7 @@
   </div>
 </div>
 
+<!-- Edit Chat -->
 <div class="modal fade" id="<%=chat.id%>_chat_edit_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -107,6 +109,7 @@
   </div>
 </div>
 
+<!-- Add User -->
 <div class="modal fade" id="<%=chat.id%>_add_user_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog modal-dialog-centered">
     <div class="modal-content">
