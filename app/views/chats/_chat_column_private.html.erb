@@ -76,7 +76,6 @@
         }
       }
 
-      // Load sidebar state on page load
       loadPrivateChatSidebarState();
 
       // Attach the toggle function to the button
@@ -86,11 +85,10 @@
       }
     }
 
-    // Initialize functionality
     initializePrivateSidebar();
 
     // Handle route changes for Turbolinks or Turbo
-    document.addEventListener('turbolinks:load', initializePrivateSidebar); // For Turbolinks
-    document.addEventListener('turbo:load', initializePrivateSidebar); // For Turbo
+    document.addEventListener('turbolinks:load', initializePrivateSidebar); 
+    document.addEventListener('turbo:load', initializePrivateSidebar); 
   });
 </script>

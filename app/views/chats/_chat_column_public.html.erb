@@ -78,7 +78,6 @@
         }
       }
 
-      // Load sidebar state on page load
       loadpublicChatSidebarState();
 
       // Attach the toggle function to the button
@@ -88,11 +87,10 @@
       }
     }
 
-    // Initialize functionality
     initializepublicSidebar();
 
     // Handle route changes for Turbolinks or Turbo
-    document.addEventListener('turbolinks:load', initializepublicSidebar); // For Turbolinks
-    document.addEventListener('turbo:load', initializepublicSidebar); // For Turbo
+    document.addEventListener('turbolinks:load', initializepublicSidebar); 
+    document.addEventListener('turbo:load', initializepublicSidebar); 
   });
 </script>
