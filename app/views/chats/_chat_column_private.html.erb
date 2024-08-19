@@ -1,18 +1,18 @@
-<div class="col-md-3 ">
+<div class="col-md-3">
   <div class="row px-4">
     <div class="col d-flex justify-content-start">
-      <a id="chat_col_toggle" onclick="toggleSidebar()">
-        <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h5>
+      <a id="chat_col_toggle" href="javascript:void(0);">
+        <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h4>
       </a>
     </div>
-     <div class="col d-flex justify-content-end">
+    <div class="col d-flex justify-content-end">
       <a type="button" data-bs-toggle="modal" data-bs-target="#create_private_chat_Modal">
         <i class="fa-solid fa-plus" style="font-size: 25px; width: 30px"></i>
       </a>
     </div>
   </div>
   <div class="card mask-custom" id="chat_col_box">
-    <div class="card-body overflow-auto" style= "max-height: 85vh">
+    <div class="card-body overflow-auto" style="max-height: 85vh">
       <ul class="list-unstyled mb-0">
         <%= render partial: "chats/chat", collection: private_chats, as: :chat %>
         <hr>
@@ -30,7 +30,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <%= render "chats/form_new_private",chat: @new_chat %> 
+        <%= render "chats/form_new_private", chat: @new_chat %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -39,3 +39,49 @@
   </div>
 </div>
 
+<!--Tryed moving this section multiple differnt ways, but I could only get it to work here-->
+<style>
+  #chat_col_box.closed {
+    display: none;
+  }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function toggleChatSidebar() {
+      var sidebar = document.getElementById('chat_col_box');
+      if (sidebar) {
+        var isClosed = sidebar.classList.contains('closed');
+        if (isClosed) {
+          sidebar.classList.remove('closed');
+          localStorage.setItem('chatSidebarState', 'open');
+        } else {
+          sidebar.classList.add('closed');
+          localStorage.setItem('chatSidebarState', 'closed');
+        }
+      } else {
+        console.error('Element with id "chat_col_box" not found.');
+      }
+    }
+
+    function loadChatSidebarState() {
+      var sidebar = document.getElementById('chat_col_box');
+      var sidebarState = localStorage.getItem('chatSidebarState');
+      if (sidebar) {
+        if (sidebarState === 'closed') {
+          sidebar.classList.add('closed');
+        } else {
+          sidebar.classList.remove('closed');
+        }
+      }
+    }
+
+    // Load sidebar state on page load
+    loadChatSidebarState();
+
+    // Attach the toggle function to the button
+    var toggleButton = document.getElementById('chat_col_toggle');
+    if (toggleButton) {
+      toggleButton.addEventListener('click', toggleChatSidebar);
+    }
+  });
+</script>

@@ -1,13 +1,11 @@
-
-
 <div class="col-md-3 col-dropdown project-mb">
   <div class="row px-4" >
     <div class="col d-flex justify-content-start">
-      <a id="project_col_toggle" onclick="toggleSidebar()">
+      <a id="project_col_toggle" href="javascript:void(0);">
         <h4 class="font-weight-bold mb-3 text-center text-black">Projects</h4>
       </a>
     </div>
-    <% if current_user.admin?  %>
+    <% if current_user.admin? %>
       <div class="col d-flex justify-content-end">
         <a type="button" data-bs-toggle="modal" data-bs-target="#create_project_Modal">
           <i class="fa-solid fa-plus" style="font-size: 25px; width: 30px"></i>
@@ -16,20 +14,17 @@
     <% end %>
   </div>
   <div class="card mask-custom" id="project_col_box">
-    <div class="card-body overflow-auto" style= "max-height: 85vh">
+    <div class="card-body overflow-auto" style="max-height: 85vh">
       <ul class="list-unstyled mb-0">
-        <!--Prevents project duplictaion if a user is in multiple chats within a singular project-->
         <% projects_displayed = Set.new() %>
-
-        <% user_chats.each do |user_chat|%>
+        <% user_chats.each do |user_chat| %>
           <% projects_displayed << user_chat.chat.project %>
-        <% end%>
-
-        <% projects_displayed.each do |project|%>
+        <% end %>
+        <% projects_displayed.each do |project| %>
           <% if project.status != "Closed" %>
-            <%= render "projects/project", project: project%> 
-          <% end%>
-        <% end%> 
+            <%= render "projects/project", project: project %>
+          <% end %>
+        <% end %>
       </ul>
     </div>
   </div>
@@ -44,7 +39,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <%= render "projects/form_new", project: current_user.projects.new%>
+        <%= render "projects/form_new", project: current_user.projects.new %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -60,34 +55,42 @@
   }
 </style>
 <script>
-  function toggleSidebar() {
-    var sidebar = document.getElementById('project_col_box');
-    if (sidebar) {
-      var isClosed = sidebar.classList.contains('closed');
-      if (isClosed) {
-        sidebar.classList.remove('closed');
-        localStorage.setItem('sidebarState', 'open');
+  document.addEventListener('DOMContentLoaded', function() {
+    function toggleProjectSidebar() {
+      var sidebar = document.getElementById('project_col_box');
+      if (sidebar) {
+        var isClosed = sidebar.classList.contains('closed');
+        if (isClosed) {
+          sidebar.classList.remove('closed');
+          localStorage.setItem('projectSidebarState', 'open');
+        } else {
+          sidebar.classList.add('closed');
+          localStorage.setItem('projectSidebarState', 'closed');
+        }
       } else {
-        sidebar.classList.add('closed');
-        localStorage.setItem('sidebarState', 'closed');
-      }
-    } else {
-      console.error('Element with id "project_col_box" not found.');
-    }
-  }
-
-  function loadSidebarState() {
-    var sidebar = document.getElementById('project_col_box');
-    var sidebarState = localStorage.getItem('sidebarState');
-    if (sidebar) {
-      if (sidebarState === 'closed') {
-        sidebar.classList.add('closed');
-      } else {
-        sidebar.classList.remove('closed');
+        console.error('Element with id "project_col_box" not found.');
       }
     }
-  }
 
-  // Load sidebar state on page load
-  window.onload = loadSidebarState;
+    function loadProjectSidebarState() {
+      var sidebar = document.getElementById('project_col_box');
+      var sidebarState = localStorage.getItem('projectSidebarState');
+      if (sidebar) {
+        if (sidebarState === 'closed') {
+          sidebar.classList.add('closed');
+        } else {
+          sidebar.classList.remove('closed');
+        }
+      }
+    }
+
+    // Load sidebar state on page load
+    loadProjectSidebarState();
+
+    // Attach the toggle function to the button
+    var toggleButton = document.getElementById('project_col_toggle');
+    if (toggleButton) {
+      toggleButton.addEventListener('click', toggleProjectSidebar);
+    }
+  });
 </script>
