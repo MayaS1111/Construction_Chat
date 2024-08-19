@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: messages
@@ -20,5 +22,5 @@
 #
 class Message < ApplicationRecord
   belongs_to :chat
-  belongs_to :sender, class_name: "User"
+  belongs_to :sender, class_name: 'User'
 end

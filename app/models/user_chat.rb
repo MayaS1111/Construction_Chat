@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: user_chats
@@ -24,21 +26,20 @@ class UserChat < ApplicationRecord
 
   accepts_nested_attributes_for :chat, :user
 
-  after_create_commit :add_to_main_chat
-
   def create_message(added_user, current_user, chat)
     create_bot_user unless User.exists?(id: 0)
 
-    Message.create(body: "#{added_user.name} has been added by #{current_user.name}",  chat_id: chat, sender_id: "0")
+    Message.create(body: "#{added_user.name} has been added by #{current_user.name}", chat_id: chat, sender_id: '0')
   end
 
   def remove_message(current_user, chat_id)
     create_bot_user unless User.exists?(id: 0)
 
-    if self.user == current_user
-      Message.create(body: "#{current_user.name} has left the chat",  chat_id: chat_id , sender_id: "0")
+    if user == current_user
+      Message.create(body: "#{current_user.name} has left the chat", chat_id:, sender_id: '0')
     else
-      Message.create(body: "#{self.user.name} has been removed by #{current_user.name}",  chat_id: chat_id , sender_id: "0")
+      Message.create(body: "#{user.name} has been removed by #{current_user.name}", chat_id:,
+                     sender_id: '0')
     end
   end
 
@@ -46,6 +47,7 @@ class UserChat < ApplicationRecord
   def create_bot_user
     return if User.exists?(id: 0)
 
-    User.create!(id: 0, first_name: "BuiltBetter", last_name: "Bot", phone_number: "(000)000-0000", email: "builtbetter@info.com", job_title: "Helper Bot", password: "password", admin: "true", profile_image: "https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&radius=50&scale=70&shapeColor=000000&backgroundColor=D2042D")
+    User.create!(id: 0, first_name: 'BuiltBetter', last_name: 'Bot', phone_number: '(000)000-0000',
+                 email: 'builtbetter@info.com', job_title: 'Helper Bot', password: 'password', admin: 'true', profile_image: 'https://api.dicebear.com/9.x/thumbs/svg?seed=Sam&radius=50&scale=70&shapeColor=000000&backgroundColor=D2042D')
   end
 end

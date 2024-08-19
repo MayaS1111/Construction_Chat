@@ -2,10 +2,10 @@
   <div class="row px-4">
     <div class="col d-flex justify-content-start">
       <a id="chat_col_toggle" onclick="toggleSidebarChat()">
-       <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h5>
+        <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h5>
       </a>
     </div>
-     <div class="col d-flex justify-content-end">
+    <div class="col d-flex justify-content-end">
       <a type="button" data-bs-toggle="modal" data-bs-target="#create_private_chat_Modal">
         <i class="fa-solid fa-plus" style="font-size: 25px; width: 30px"></i>
       </a>
@@ -14,8 +14,8 @@
   <div class="card mask-custom" id="chat_col_box">
     <div class="card-body overflow-auto" style= "max-height: 85vh">
       <ul class="list-unstyled mb-0">
-            <%= render partial: "chats/chat", collection: private_chats, as: :chat %>
-            <hr>
+        <%= render partial: "chats/chat", collection: private_chats, as: :chat %>
+        <hr>
       </ul>
     </div>
   </div>
@@ -30,7 +30,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <%= render "chats/form_new_private",chat: @new_chat %> 
+        <%= render "chats/form_new_private",chat: @new_chat %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -38,4 +38,3 @@
     </div>
   </div>
 </div>
-
