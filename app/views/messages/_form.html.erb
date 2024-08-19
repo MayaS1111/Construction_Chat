@@ -1,11 +1,9 @@
 <%= form_with(model: message, remote: true, id: 'message-form') do |form| %>
   <%= form.hidden_field :chat_id, value: chat.id %>
-
   <div class="mb-3">
     <%= form.label :body, class: "sr-only" %>
     <%= form.text_area :body, class: "form-control", style:"height: 100px"%>
   </div>
-
   <div class="actions">
     <%= form.submit "Send", class: "btn btn-dark btn-lg btn-rounded float-end" %>
   </div>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: chats
@@ -18,26 +20,28 @@
 #  project_id  (project_id => projects.id)
 #
 class Chat < ApplicationRecord
-  belongs_to :project, required: true, class_name: "Project", foreign_key: "project_id"
-  has_many :messages, class_name: "Message", foreign_key: "chat_id"    
+  belongs_to :project, required: true, class_name: 'Project', foreign_key: 'project_id'
+  has_many :messages, class_name: 'Message', foreign_key: 'chat_id'
   has_many :user_chats
   has_many :chats, through: :user_chats
   has_many :members, through: :user_chats, source: :user
 
-  scope :private_projects, -> { joins(:project).where('projects.project_type = ?', "private") }
-  scope :public_projects, -> { joins(:project).where('projects.project_type = ?', "public") }
-  scope :with_user, -> (user) { joins(:user_chats).where('user_chats.user_id = ?', user) }
-  scope :for_project, -> (project) { joins(:project).where('projects.id = ?', project) }
-  scope :with_user_chat, -> (chat_id) { joins(:user_chats).where(id: chat_id).group('chats.id').having('COUNT(user_chats.user_id) = 2')}
-  
+  scope :private_projects, -> { joins(:project).where('projects.project_type = ?', 'private') }
+  scope :public_projects, -> { joins(:project).where('projects.project_type = ?', 'public') }
+  scope :with_user, ->(user) { joins(:user_chats).where('user_chats.user_id = ?', user) }
+  scope :for_project, ->(project) { joins(:project).where('projects.id = ?', project) }
+  scope :with_user_chat, lambda { |chat_id|
+                           joins(:user_chats).where(id: chat_id).group('chats.id').having('COUNT(user_chats.user_id) = 2')
+                         }
+
   def private_chat(current_user, user, private_project)
     chat = Chat.new(
-        description: "nil",
-        name: "#{current_user.first_name} & #{user.first_name}",
-        project: private_project.first
-      )
-    UserChat.create(chat: chat, user: current_user)
-    UserChat.create(chat: chat, user: user)
-    return chat
+      description: 'nil',
+      name: "#{current_user.first_name} & #{user.first_name}",
+      project: private_project.first
+    )
+    UserChat.create(chat:, user: current_user)
+    UserChat.create(chat:, user:)
+    chat
   end
 end

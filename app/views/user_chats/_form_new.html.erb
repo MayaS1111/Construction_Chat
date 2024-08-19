@@ -1,12 +1,11 @@
 <%= form_with(model: user_chat) do |form| %>
   <%= form.hidden_field :chat_id, value: chat.id %>
-
   <div class="d-flex justify-content-center align-items-center">
     <div class="card-body">
       <div class="row gx-3 mb-3">
         <div class="col">
           <div class="input-group">
-            <%= form.collection_select :user_id, User.human, :id, :name, { prompt: "Select a user" }, { class: "form-select" } %>
+            <%= form.collection_select :user_id, User.non_bot, :id, :name, { prompt: "Select a user" }, { class: "form-select" } %>
           </div>
         </div>
       </div>
@@ -14,7 +13,6 @@
         <div class="mb-3">
         </div>
       </div>
-
       <div class="row gx-3 mb-3">
         <div class="col-12"> 
           <%= form.submit "Save changes", class: "btn btn-primary" %>

@@ -1,42 +1,41 @@
 <% if project.project_type == "private" && project.owner == current_user || project.project_type == "public" %>
-    <%# <% if projects_displayed.include?()%> 
-    <li class="p-2 border-bottom" style="border-bottom: 1px solid rgba(255,255,255,.3) !important;">
-      <a href= "/chat/<%=project.id%>/<%=project.chats.first.id%>" class="d-flex justify-content-between link-dark text-decoration-none">
-        <div class="d-flex fjustify-content-start align-items-center">
-          <img src="https://api.dicebear.com/9.x/icons/svg?seed=Casper&backgroundColor=D2042D" alt="avatar"
-            class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60"> 
-          <div class="col pt-1 ">
-            <div class="row">
-              <p class="fw-bold mb-0"><%=project.name%></p>
+  <li class="p-2 border-bottom" style="border-bottom: 1px solid rgba(255,255,255,.3) !important;">
+    <a href= "/chat/<%=project.id%>/<%=project.chats.first.id%>" class="d-flex justify-content-between link-dark text-decoration-none">
+      <div class="d-flex fjustify-content-start align-items-center">
+        <img src="https://api.dicebear.com/9.x/icons/svg?seed=Casper&backgroundColor=D2042D" alt="avatar"
+          class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60"> 
+        <div class="col pt-1 ">
+          <div class="row">
+            <p class="fw-bold mb-0"><%=project.name%></p>
+          </div>
+          <div class="row">
+            <% if project.status != "nil" %>
+              <% if project.status == "Open" %>
+                <p class="fw-bold mb-0 text-primary"><%=project.status%></p>  
+              <% elsif project.status == "In Progress"%>  
+                <p class="fw-bold mb-0 text-warning"><%=project.status%></p> 
+              <% elsif project.status == "Closed"%>  
+                <p class="fw-bold mb-0 text-danger"><%=project.status%></p> 
+              <% end %> 
+            <% end %>
+          </div>
+        </div>
+        <% if project.project_type == "public"%>
+          <div class="col">
+            <div class="d-flex d-flex justify-content-center">
+              <a type="button" data-bs-toggle="modal" data-bs-target="#<%=project.id%>_project_info_Modal">
+                <i class="fa-solid fa-circle-info"></i>
+              </a>
             </div>
-            <div class="row">
-              <% if project.status != "nil" %>
-                <% if project.status == "Open" %>
-                  <p class="fw-bold mb-0 text-primary"><%=project.status%></p>  
-                <% elsif project.status == "In Progress"%>  
-                  <p class="fw-bold mb-0 text-warning"><%=project.status%></p> 
-                <% elsif project.status == "Closed"%>  
-                  <p class="fw-bold mb-0 text-danger"><%=project.status%></p> 
-                <% end %> 
-              <% end %>
+            <div class="d-flex">
+              <%= render "projects/dropdown_button", project: project%>
             </div>
           </div>
-          <% if project.project_type == "public"%>
-            <div class="col">
-              <div class="d-flex d-flex justify-content-center">
-                <a type="button" data-bs-toggle="modal" data-bs-target="#<%=project.id%>_project_info_Modal">
-                  <i class="fa-solid fa-circle-info"></i>
-                </a>
-              </div>
-              <div class="d-flex">
-                <%= render "projects/dropdown_button", project: project%>
-              </div>
-            </div>
-          <% end %>  
-        </div>
-      </a>
-    </li>
-    <hr>
+        <% end %>  
+      </div>
+    </a>
+  </li>
+  <hr>
 <% end %>
 
 
