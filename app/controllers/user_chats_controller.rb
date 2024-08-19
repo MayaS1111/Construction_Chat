@@ -34,7 +34,6 @@ class UserChatsController < ApplicationController
           @user_chat.create_message(user, current_user, chat.id)
           format.html { redirect_to "/chat/#{chat.project_id}/#{chat.id}", notice: 'User was successfully added.' }
           format.json { render :show, status: :created, location: @user_chat }
-          format.js
         else
           format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @user_chat.errors, status: :unprocessable_entity }
