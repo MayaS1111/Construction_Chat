@@ -1,4 +1,5 @@
 
+
 <div class="col-md-3 col-dropdown project-mb">
   <div class="row px-4" >
     <div class="col d-flex justify-content-start">
@@ -52,18 +53,41 @@
   </div>
 </div>
 
-<!--TODO: move this-->
+<!--Tryed moving this section multiple differnt ways, but I could only get it to work here-->
+<style>
+  #project_col_box.closed {
+    display: none;
+  }
+</style>
 <script>
   function toggleSidebar() {
     var sidebar = document.getElementById('project_col_box');
     if (sidebar) {
-      if (sidebar.style.display === 'none' || sidebar.style.display === '') {
-        sidebar.style.display = 'block';
+      var isClosed = sidebar.classList.contains('closed');
+      if (isClosed) {
+        sidebar.classList.remove('closed');
+        localStorage.setItem('sidebarState', 'open');
       } else {
-        sidebar.style.display = 'none';
+        sidebar.classList.add('closed');
+        localStorage.setItem('sidebarState', 'closed');
       }
     } else {
       console.error('Element with id "project_col_box" not found.');
     }
   }
+
+  function loadSidebarState() {
+    var sidebar = document.getElementById('project_col_box');
+    var sidebarState = localStorage.getItem('sidebarState');
+    if (sidebar) {
+      if (sidebarState === 'closed') {
+        sidebar.classList.add('closed');
+      } else {
+        sidebar.classList.remove('closed');
+      }
+    }
+  }
+
+  // Load sidebar state on page load
+  window.onload = loadSidebarState;
 </script>

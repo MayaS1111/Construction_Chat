@@ -3,7 +3,7 @@ import $ from "jquery";
 
 window.$ = $;
 
-/* Scrolls messages to bottom when the page renders so user doesn't have to */ 
+// Scrolls messages to bottom when the page renders so user doesn't have to  
 $(document).on('turbo:load', function() {
   const messagesContainer = $('#messages-container');
 
@@ -20,7 +20,7 @@ $(document).on('turbo:load', function() {
   });
 });
 
-/* Waits for new messages then scrolls to bottom so chat updates automaticaly */ 
+// Waits for new messages then scrolls to bottom so chat updates automaticaly 
 $(document).ready(function() {
   function fetchMessages() {
     var chatId = $('#messages-container').data('chat-id');
