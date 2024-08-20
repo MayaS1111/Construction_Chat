@@ -1,14 +1,14 @@
-<section id="hero-856">
+<section id="hero-856" aria-labelledby="hero_heading" aria-describedby="hero_description">
   <div class="cs-container mb-5">
     <div class="cs-content">
-      <span class="cs-topper">Modern and Professional</span>
-      <h1 class="cs-title">Live Construction Chat</h1>
-      <p class="cs-text">
+      <span id="hero_topper" class="cs-topper">Modern and Professional</span>
+      <h1 id="hero_heading" class="cs-title">Live Construction Chat</h1>
+      <p id="hero_description" class="cs-text">
         Built To Help Construction Get Things Built Better!
       </p>
       <% if user_signed_in? %>
         <% if current_user&.projects&.first&.chats&.first %>
-          <%= link_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", class: "nav-link cs-button-solid" do %> 
+          <%= link_to "/chat/#{current_user.projects.first.id}/#{current_user.projects.first.chats.first.id}", class: "nav-link cs-button-solid", role: "button", label: "Start chating here" do %> 
             Chat Here
           <% end %> 
         <% else %>
@@ -17,20 +17,20 @@
       <% else %>
         <div class="row">
           <div class="col mb-2">
-            <%= link_to "Sign In", new_user_session_path, class: "nav-link cs-button-solid" %>
+            <%= link_to "Sign In", new_user_session_path, class: "nav-link cs-button-solid", role: "button",label: "Sign in to your account" %>
           </div>
           <div class="col mb-2">
-            <%= link_to "Create Account", new_user_registration_path, class: "nav-link cs-button-solid" %>
+            <%= link_to "Create Account", new_user_registration_path, class: "nav-link cs-button-solid", role: "button", label: "Create a new account" %>
           </div>
         </div>
       <% end %>
     </div>
     <picture class="cs-picture">
-      <!--Mobile-->
-      <source media="(max-width: 600px)" srcset="https://i.pinimg.com/736x/4e/47/4a/4e474a7cabd7511277bde17597b63572.jpg">
-      <!--Tablet-->
-      <source media="(min-width: 601px)" srcset="https://i.pinimg.com/736x/4e/47/4a/4e474a7cabd7511277bde17597b63572.jpg">
-      <!--Desktop-->
+      <!-- Mobile -->
+      <source media="(max-width: 600px)" srcset="https://i.pinimg.com/736x/4e/47/4a/4e474a7cabd7511277bde17597b63572.jpg" alt="Construction hat and tools">
+      <!-- Tablet -->
+      <source media="(min-width: 601px)" srcset="https://i.pinimg.com/736x/4e/47/4a/4e474a7cabd7511277bde17597b63572.jpg" alt="Construction hat and tools">
+      <!-- Desktop -->
       <img aria-hidden="true" decoding="async" src="https://i.pinimg.com/736x/4e/47/4a/4e474a7cabd7511277bde17597b63572.jpg" alt="Construction hat and tools" width="570" height="701">
     </picture>
   </div>
