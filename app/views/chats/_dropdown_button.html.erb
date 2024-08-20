@@ -8,7 +8,7 @@
     </a>
     <% if chat.project.project_type == "private" && chat.members.exists?(@chat_bot) %>
     <% elsif chat.project.project_type == "public" || chat.project.project_type == "private" %>
-      <% if current_user.admin? || chat.project.owner == current_user %> 
+      <% if current_user.admin? || chat.project.owner == current_user %> <!--owner and private then you can see -->
         <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_chat_edit_Modal">
           Edit Chat
         </a>
@@ -56,10 +56,12 @@
                   method: :post, 
                   class: 'btn btn-primary d-flex justify-content-center align-items-center' %> 
                 </div>
-                <div class="col btn btn-danger d-flex justify-content-center align-items-center" type= "button">
-                  <% remove_user = UserChat.find_by("user_id = ? AND chat_id = ?", member.id, chat.id) %>
-                  <%= link_to "Remove User", user_chat_path(remove_user), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "dropdown-item fw-medium" %>
-                </div>
+                <%if !chat.members.exists?(@chat_bot)%>
+                  <div class="col btn btn-danger d-flex justify-content-center align-items-center" type= "button">
+                    <% remove_user = UserChat.find_by("user_id = ? AND chat_id = ?", member.id, chat.id) %>
+                    <%= link_to "Remove User", user_chat_path(remove_user), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "dropdown-item fw-medium" %> 
+                  </div>
+                <%end%> 
               </div>
             <%else%> 
               <div class="card col-md-6 p-2">
