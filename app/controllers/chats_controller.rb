@@ -15,6 +15,11 @@ class ChatsController < ApplicationController
 
     @new_chat = @project.chats.new
     @chat_bot = User.where(id: '0')
+
+    @highlighted_project_id = params[:selected_project]
+    @highlighted_chat_id = params[:selected_chat]
+    # selected_project_id = params[:selected]
+    # @selected_project = Project.find_by(id: selected_project_id) if selected_project_id.present?
   end
 
   # GET /chats/1 or /chats/1.json

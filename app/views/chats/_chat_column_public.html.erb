@@ -16,7 +16,7 @@
   <div class="card mask-custom" id="chat_col_box_public">
     <div class="card-body overflow-auto" style= "max-height: 85vh">
       <ul class="list-unstyled mb-0">
-        <%= render partial: "chats/chat", collection: public_chats, as: :chat %>
+        <%= render partial: "chats/chat", collection: public_chats, as: :chat, highlighted_chat_id: @highlighted_chat_id %>
       </ul>
     </div>
   </div>

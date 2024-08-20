@@ -24,7 +24,7 @@
 
         <% projects_displayed.each do |project|%>
           <% if project.status != "Closed" %>
-            <%= render "projects/project", project: project%> 
+            <%= render "projects/project", project: project, highlighted_project_id: @highlighted_project_id %> 
           <% end%>
         <% end%> 
       </ul>
