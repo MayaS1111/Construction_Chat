@@ -6,8 +6,9 @@
     <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_members_Modal">
       Members
     </a>
-    <% if chat.project.project_type == "public" || chat.project.project_type == "private" %>
-      <% if current_user.admin? || chat.project.owner == current_user %>
+    <% if chat.project.project_type == "private" && chat.members.exists?(@chat_bot) %>
+    <% elsif chat.project.project_type == "public" || chat.project.project_type == "private" %>
+      <% if current_user.admin? || chat.project.owner == current_user %> 
         <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_chat_edit_Modal">
           Edit Chat
         </a>
