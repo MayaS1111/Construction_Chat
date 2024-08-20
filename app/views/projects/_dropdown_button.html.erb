@@ -1,13 +1,13 @@
 <div class="dropdown show ml-auto p-2">
-  <% if current_user.admin?%>
-    <a class="nav-link dropdown-toggle  ml-auto p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <% if current_user.admin? %>
+    <a class="nav-link dropdown-toggle ml-auto p-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Project options menu">
     </a>
-    <div class="dropdown-menu">
-      <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%=project.id%>_project_edit_Modal">
+    <div class="dropdown-menu" role="menu">
+      <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#<%= project.id %>_project_edit_Modal">
         Edit Project
       </a>
     </div>
-  <% end %>  
+  <% end %>
 </div>
 
 <!-- Modals -->

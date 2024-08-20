@@ -1,12 +1,11 @@
 <% if project.project_type == "private" && project.owner == current_user || project.project_type == "public" %>
-  <li class="p-2 border-bottom project-item <%='selected_project' if project.id.to_s == params[:selected_project]%>" style="border-bottom: 1px solid rgba(255,255,255,.3) !important;">
-    <a href="/chat/<%= project.id %>/<%= project.first_chat.id %>?selected_project=<%= project.id %>&selected_chat=<%= project.first_chat.id %>" class="d-flex justify-content-between link-dark text-decoration-none">
-      <div class="d-flex fjustify-content-start align-items-center">
-        <img src="https://api.dicebear.com/9.x/icons/svg?seed=Casper&backgroundColor=D2042D" alt="avatar"
-          class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60"> 
-        <div class="col pt-1 ">
+  <li class="p-2 border-bottom project-item <%='selected_project' if project.id.to_s == params[:selected_project]%>" style="border-bottom: 1px solid rgba(255,255,255,.3) !important;" role="listitem" aria-labelledby="project_<%= project.id %>">
+    <a href="/chat/<%= project.id %>/<%= project.first_chat.id %>?selected_project=<%= project.id %>&selected_chat=<%= project.first_chat.id %>" class="d-flex justify-content-between link-dark text-decoration-none" role="link">
+      <div class="d-flex justify-content-start align-items-center">
+        <img src="https://api.dicebear.com/9.x/icons/svg?seed=Casper&backgroundColor=D2042D" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60" aria-hidden="true">
+        <div class="col pt-1">
           <div class="row">
-            <p class="fw-bold mb-0"><%=project.name%></p>
+            <p class="fw-bold mb-0" id="project_<%= project.id %>"><%=project.name%></p>
           </div>
           <div class="row">
             <% if project.status != "nil" %>
@@ -22,9 +21,9 @@
         </div>
         <% if project.project_type == "public"%>
           <div class="col">
-            <div class="d-flex d-flex justify-content-center">
-              <a type="button" data-bs-toggle="modal" data-bs-target="#<%=project.id%>_project_info_Modal">
-                <i class="fa-solid fa-circle-info"></i>
+            <div class="d-flex justify-content-center">
+              <a type="button" data-bs-toggle="modal" data-bs-target="#<%=project.id%>_project_info_Modal" aria-label="More information about <%= project.name %>">
+                <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
               </a>
             </div>
             <div class="d-flex">
@@ -38,24 +37,22 @@
   <hr>
 <% end %>
 
-
 <!-- Modals -->
-<div class="modal fade" id="<%=project.id%>_project_info_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="<%=project.id%>_project_info_Modal" tabindex="-1" aria-labelledby="modal_<%=project.id%>_label" aria-hidden="true">
   <div class="modal-dialog modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"> <%=project.name%></h1>
+        <h1 class="modal-title fs-5" id="modal_<%=project.id%>_label"> <%=project.name%></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <%=project.description%>
+        <p><%=project.description%></p>
       </div>
       <div class="modal-body">
-        Location: 
-        <a href= "https://www.google.com/maps/search/<%=project.location%>"><%=project.location%></a>
+        <p>Location: <a href="https://www.google.com/maps/search/<%=project.location%>" aria-label="Google Maps location of <%=project.name%>"><%=project.location%></a></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close modal">Close</button>
       </div>
     </div>
   </div>
