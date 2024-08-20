@@ -2,16 +2,20 @@
   <section class="gradient-custom">
     <div class="container py-1">
       <div class="desk-div">
+        <!-- Render project columns for desktop and mobile -->
         <%= render "projects/project_column", user_chats: current_user.user_chats, project: @project %>
         <%= render "projects/project_column_mb", user_chats: current_user.user_chats %>
 
-          <% if @project.project_type == "private" %>
-            <%= render "chats/chat_column_private", private_chats: @private_chats.order!(created_at: :desc) %>
-          <% elsif @project.project_type == "public" %>
-            <%= render "chats/chat_column_public", public_chats: @public_chats.order!(created_at: :asc) %>
-          <% end %>
-          <div class="col">
-          <%= render "messages/message_column", chat: @current_chat, user: current_user%>
+        <!-- Render chat columns based on project type -->
+        <% if @project.project_type == "private" %>
+          <%= render "chats/chat_column_private", private_chats: @private_chats.order(created_at: :desc) %>
+        <% elsif @project.project_type == "public" %>
+          <%= render "chats/chat_column_public", public_chats: @public_chats.order(created_at: :asc) %>
+        <% end %>
+
+        <!-- Render message column -->
+        <div class="col">
+          <%= render "messages/message_column", chat: @current_chat, user: current_user %>
         </div>
       </div>
     </div>
