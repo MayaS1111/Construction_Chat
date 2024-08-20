@@ -18,7 +18,6 @@ class ChatsController < ApplicationController
 
     @highlighted_project_id = params[:selected_project]
     @highlighted_chat_id = params[:selected_chat]
-    
   end
 
   # GET /chats/1 or /chats/1.json
