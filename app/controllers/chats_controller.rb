@@ -18,8 +18,6 @@ class ChatsController < ApplicationController
 
     @highlighted_project_id = params[:selected_project]
     @highlighted_chat_id = params[:selected_chat]
-    # selected_project_id = params[:selected]
-    # @selected_project = Project.find_by(id: selected_project_id) if selected_project_id.present?
   end
 
   # GET /chats/1 or /chats/1.json
@@ -64,6 +62,7 @@ class ChatsController < ApplicationController
 
   # POST /chats or /chats.json
   def create
+    @current_chat = @chat
     @chat = @project.chats.new(chat_params)
 
     respond_to do |format|
@@ -73,7 +72,9 @@ class ChatsController < ApplicationController
         format.html { redirect_to "/chat/#{@chat.project_id}/#{@chat.id}", notice: 'Chat was successfully created.' }
         format.json { render :show, status: :created, location: @chat }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html do
+          redirect_to "/chat/#{current_user.direct_message_project.id}/#{current_user.direct_message_project.first_chat.id}", alert: 'Chat needs name to be created', status: :unprocessable_entity
+        end
         format.json { render json: @chat.errors, status: :unprocessable_entity }
       end
     end
