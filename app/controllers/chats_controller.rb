@@ -43,8 +43,7 @@ class ChatsController < ApplicationController
     if common_chat
       respond_to do |format|
         format.html do
-          redirect_to "/chat/#{common_chat.project_id}/#{common_chat.id}",
-                      alert: 'You already have a private chat with this user.'
+          redirect_to "/chat/#{common_chat.project_id}/#{common_chat.id}", alert: 'You already have a private chat with this user.'
         end
       end
     else

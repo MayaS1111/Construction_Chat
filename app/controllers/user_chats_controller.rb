@@ -22,7 +22,6 @@ class UserChatsController < ApplicationController
 
   # POST /user_chats or /user_chats.json
   def create
-    # TODO: Can this be refactored more? (Ian)
     user = User.find_by(id: params.dig(:user_chat, :user_id))
     chat = Chat.find(params.dig(:user_chat, :chat_id))
 
@@ -61,16 +60,13 @@ class UserChatsController < ApplicationController
 
   # DELETE /user_chats/1 or /user_chats/1.json
   def destroy
-    chat_id = @user_chat.chat_id
-    @user_chat.remove_message(current_user, chat_id)
+    chat = @user_chat.chat
+    @user_chat.remove_message(current_user, chat.id)
     @user_chat.destroy
 
     respond_to do |format|
-      # TODO: when current user removes someone, dont go to dms
-      # TODO: current_user.private_project.id
       format.html do
-        redirect_to "/chat/#{current_user.direct_message_project.id}/#{current_user.direct_message_project.first_chat.id}",
-                    notice: 'User chat was successfully destroyed.'
+        redirect_to "/chat/#{chat.project_id}/#{chat.project.first_chat.id}?selected_project=#{chat.project_id}&selected_chat=#{chat.project.first_chat.id}", notice: "Successfully removal from #{chat.name} Chat"
       end
       format.json { head :no_content }
     end
