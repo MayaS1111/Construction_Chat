@@ -1,6 +1,6 @@
 <li class="p-2 border-bottom chat-item <%= 'selected_chat' if chat.id.to_s == params[:selected_chat] %>" style="border-bottom: 1px solid rgba(255,255,255,.3) !important;">
   <a href="/chat/<%= chat.project_id %>/<%= chat.id %>?selected_project=<%= chat.project_id %>&selected_chat=<%= chat.id %>" 
-     class="d-flex justify-content-between link-dark text-decoration-none" 
+     class="d-flex justify-content-between link-dark text-decoration-none chat-item-ancher" 
      aria-selected="<%= chat.id.to_s == params[:selected_chat] ? 'true' : 'false' %>">
     <div class="d-flex justify-content-start align-items-center">
       <img src="https://api.dicebear.com/9.x/icons/svg?seed=Bob&backgroundColor=D2042D" 

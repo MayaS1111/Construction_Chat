@@ -1,6 +1,6 @@
 <% if project.project_type == "private" && project.owner == current_user || project.project_type == "public" %>
   <li class="p-2 border-bottom project-item <%='selected_project' if project.id.to_s == params[:selected_project]%>" style="border-bottom: 1px solid rgba(255,255,255,.3) !important;" role="listitem" aria-labelledby="project_<%= project.id %>">
-    <a href="/chat/<%= project.id %>/<%= project.first_chat.id %>?selected_project=<%= project.id %>&selected_chat=<%= project.first_chat.id %>" class="d-flex justify-content-between link-dark text-decoration-none" role="link">
+    <a href="/chat/<%= project.id %>/<%= project.first_chat.id %>?selected_project=<%= project.id %>&selected_chat=<%= project.first_chat.id %>" class="d-flex justify-content-between link-dark text-decoration-none project-item-ancher" role="link">
       <div class="d-flex justify-content-start align-items-center">
         <img src="https://api.dicebear.com/9.x/icons/svg?seed=Casper&backgroundColor=D2042D" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60" aria-hidden="true">
         <div class="col pt-1">
