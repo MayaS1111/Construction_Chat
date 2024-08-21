@@ -11,10 +11,11 @@ Rails.application.routes.draw do
     mount RailsAdmin::Engine, at: 'admin', as: 'rails_admin'
   end
 
-  resources :messages
-  resources :user_chats
-  resources :projects do
-    resources :chats do
+
+  resources :messages, only: [:create, :update]
+  resources :user_chats, only: [:create, :update, :destroy]
+  resources :projects, only: [:create, :update] do
+    resources :chats,  except: [:show, :new, :edit] do
       member do
         get :messages
       end
