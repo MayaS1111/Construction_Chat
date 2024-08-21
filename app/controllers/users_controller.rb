@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:home]
   before_action :set_user, only: %i[profile all_users]
   before_action :set_profile_user, only: %i[profile]
-  before_action :authorize_admin, only: [:all_users]
+  before_action :authorize_all_users, only: [:all_users]
 
   def home; end
   def all_users; end
@@ -28,9 +28,7 @@ class UsersController < ApplicationController
                     end
   end
 
-  def authorize_admin
-    unless current_user.admin?
-      redirect_to "#", alert: 'You are not authorized to access this page.'
-    end
+  def authorize_all_users
+    authorize User, :all_users?
   end
 end
