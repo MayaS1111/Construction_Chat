@@ -4,17 +4,13 @@ class MessagesController < ApplicationController
   before_action :set_message, only: %i[show edit update destroy]
 
   # GET /messages or /messages.json
-  def index
-    @messages = Message.all
-  end
+  def index; end
 
   # GET /messages/1 or /messages/1.json
   def show; end
 
   # GET /messages/new
-  def new
-    @message = Message.new
-  end
+  def new; end
 
   # GET /messages/1/edit
   def edit; end
