@@ -24,9 +24,7 @@ class ChatsController < ApplicationController
   def show; end
 
   # GET /chats/new
-  def new
-    @chat = Chat.new
-  end
+  def new;end
 
   # GET /chats/1/edit
   def edit; end
@@ -84,7 +82,7 @@ class ChatsController < ApplicationController
     respond_to do |format|
       if @chat.update(chat_params)
         format.html do
-          redirect_to "/projects/#{@chat.project_id}/chats/#{@chat.id}", notice: 'Chat was successfully updated.'
+          redirect_to "/chat/#{@chat.project_id}/#{@chat.id}", notice: 'Chat was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @chat }
       else

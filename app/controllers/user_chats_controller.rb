@@ -4,18 +4,13 @@ class UserChatsController < ApplicationController
   before_action :set_user_chat, only: %i[show edit update destroy]
 
   # GET /user_chats or /user_chats.json
-  def index
-    @user_chats = UserChat.all
-    @users = User.all
-  end
+  def index; end
 
   # GET /user_chats/1 or /user_chats/1.json
   def show; end
 
   # GET /user_chats/new
-  def new
-    @user_chat = UserChat.new
-  end
+  def new; end
 
   # GET /user_chats/1/edit
   def edit; end

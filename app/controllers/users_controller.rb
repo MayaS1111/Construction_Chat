@@ -4,8 +4,10 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:home]
   before_action :set_user, only: %i[profile all_users]
   before_action :set_profile_user, only: %i[profile]
+  before_action :authorize_all_users, only: [:all_users]
 
   def home; end
+  def all_users; end
 
   private
 
@@ -24,5 +26,9 @@ class UsersController < ApplicationController
                     else
                       User.find_by!(id: params.fetch(:user))
                     end
+  end
+
+  def authorize_all_users
+    authorize User, :all_users?
   end
 end

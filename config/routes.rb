@@ -11,10 +11,11 @@ Rails.application.routes.draw do
     mount RailsAdmin::Engine, at: 'admin', as: 'rails_admin'
   end
 
-  resources :messages
-  resources :user_chats
-  resources :projects do
-    resources :chats do
+
+  resources :messages, only: [:create, :update]
+  resources :user_chats, only: [:create, :update, :destroy]
+  resources :projects, only: [:create, :update] do
+    resources :chats,  except: [:show, :new, :edit] do
       member do
         get :messages
       end
@@ -24,7 +25,7 @@ Rails.application.routes.draw do
   post 'projects/:project_id/chats/create_private_chat/:user_id', to: 'chats#create_private_chat',
                                                                   as: :create_private_chat
   get '/chat/:project_id/:chat_id' => 'chats#index'
-  get '/all_users' => 'users#all_users', as: :all_users
   get '/home' => 'users#home', as: :home
+  get '/all_users' => 'users#all_users', as: :all_users
   get ':user' => 'users#profile', as: :profile
 end
