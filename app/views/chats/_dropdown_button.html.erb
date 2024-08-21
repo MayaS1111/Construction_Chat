@@ -77,7 +77,7 @@
       </div> 
 
       <% if chat.project.project_type == "private" && chat.members.exists?(@chat_bot) %>
-      <% else %>
+      <% elsif current_user.admin? || chat.project.owner == current_user || chat.project.project_type == "private"%>
         <div class="col mx-2">
           <a type="button" class="btn btn-primary d-flex justify-content-center align-items-center mb-4" data-bs-toggle="modal" data-bs-target="#<%=chat.id%>_add_user_Modal">
             Add User
