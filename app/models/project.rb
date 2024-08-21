@@ -24,6 +24,7 @@
 #  owner_id  (owner_id => users.id)
 #
 class Project < ApplicationRecord
+  validates :name, presence: true
   belongs_to :owner, class_name: 'User'
   has_many :chats, class_name: 'Chat', foreign_key: 'project_id'
   has_one :first_chat, -> { order(:created_at).limit(1) }, class_name: 'Chat'

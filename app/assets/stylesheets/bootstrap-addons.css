@@ -42,3 +42,7 @@
 .mb-30{
   margin-bottom: 30em;
 }
+
+.max-height-85{
+  max-height: 85vh;
+}

@@ -1,18 +1,18 @@
 <div class="col-md-3">
   <div class="row px-4">
     <div class="col d-flex justify-content-start">
-      <a id="chat_col_toggle_private" href="javascript:void(0);">
+      <a id="chat_col_toggle_private" href="javascript:void(0);" aria-label="Toggle private chat column">
         <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h4>
       </a>
     </div>
     <div class="col d-flex justify-content-end">
-      <a type="button" data-bs-toggle="modal" data-bs-target="#create_private_chat_Modal">
+      <a type="button" data-bs-toggle="modal" data-bs-target="#create_private_chat_Modal" aria-label="Create new private chat">
         <i class="fa-solid fa-plus" style="font-size: 25px; width: 30px"></i>
       </a>
     </div>
   </div>
-  <div class="card mask-custom" id="chat_col_box_private">
-    <div class="card-body overflow-auto" style="max-height: 85vh">
+  <div class="card mask-custom" id="chat_col_box_private" role="region" aria-labelledby="chat_col_toggle_private">
+    <div class="card-body card-body-custom">
       <ul class="list-unstyled mb-0">
         <%= render partial: "chats/chat", collection: private_chats, as: :chat %>
       </ul>
@@ -21,11 +21,11 @@
 </div>
 
 <!-- Modals -->
-<div class="modal fade" id="create_private_chat_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog modal-dialog-centered">
+<div class="modal fade" id="create_private_chat_Modal" tabindex="-1" aria-labelledby="createPrivateChatModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">New Chat</h1>
+        <h1 class="modal-title fs-5" id="createPrivateChatModalLabel">New Chat</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -38,13 +38,18 @@
   </div>
 </div>
 
-<!--Tryed moving this section multiple differnt ways, but I could only get it to work here-->
+<!-- Custom Styles -->
 <style>
   #chat_col_box_private.closed {
     display: none;
   }
+  .card-body-custom {
+    max-height: 85vh;
+    overflow: auto;
+  }
 </style>
 
+<!-- JavaScript for Sidebar Toggle -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     function initializePrivateSidebar() {

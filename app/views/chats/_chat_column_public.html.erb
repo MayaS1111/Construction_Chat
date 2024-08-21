@@ -1,33 +1,33 @@
 <div class="col-md-3">
   <div class="row px-4">
     <div class="col d-flex justify-content-start">
-      <a id="chat_col_toggle_public" href="javascript:void(0);">
+      <a id="chat_col_toggle_public" href="javascript:void(0);" role="button" aria-label="Toggle Chat Column">
         <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h4>
       </a>
     </div>
     <% if current_user.admin?  %>
       <div class="col d-flex justify-content-end">
-        <a type="button" data-bs-toggle="modal" data-bs-target="#create_public_chat_Modal">
-          <i class="fa-solid fa-plus" style="font-size: 25px; width: 30px"></i>
+        <a type="button" data-bs-toggle="modal" data-bs-target="#create_public_chat_Modal" aria-label="Create New Public Chat">
+          <i class="fa-solid fa-plus" style="font-size: 25px; width: 30px" aria-hidden="true"></i>
         </a>
       </div>
     <% end %>
   </div>
-  <div class="card mask-custom" id="chat_col_box_public">
-    <div class="card-body overflow-auto" style= "max-height: 85vh">
+  <div class="card mask-custom" id="chat_col_box_public" aria-labelledby="chat_col_toggle_public">
+    <div class="card-body overflow-auto" style="max-height: 85vh">
       <ul class="list-unstyled mb-0">
-        <%= render partial: "chats/chat", collection: public_chats, as: :chat %>
+        <%= render partial: "chats/chat", collection: public_chats, as: :chat, highlighted_chat_id: @highlighted_chat_id %>
       </ul>
     </div>
   </div>
 </div>
 
 <!-- Modals -->
-<div class="modal fade" id="create_public_chat_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="create_public_chat_Modal" tabindex="-1" aria-labelledby="create_public_chat_Modal_Label" aria-hidden="true">
   <div class="modal-dialog modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">New Chat</h1>
+        <h1 class="modal-title fs-5" id="create_public_chat_Modal_Label">New Chat</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -40,7 +40,7 @@
   </div>
 </div>
 
-<!--Tryed moving this section multiple differnt ways, but I could only get it to work here-->
+<!-- Style and Script -->
 <style>
   #chat_col_box_public.closed {
     display: none;

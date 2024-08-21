@@ -1,23 +1,24 @@
- <li class="d-flex justify-content-between mb-4">
+<li class="d-flex justify-content-between mb-4" role="listitem" aria-live="polite">
   <% if current_user != message.sender %>
-    <img src="<%=message.sender.profile_image%>" alt="avatar"
-      class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
+    <img src="<%=message.sender.profile_image%>" alt="<%=message.sender.name %>'s profile picture" 
+      class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60" aria-hidden="true">
   <% end %>
 
-  <div class="card mask-custom w-100">
+  <div class="card mask-custom w-100" aria-labelledby="message_header_<%= message.id %>">
     <div class="card-header d-flex justify-content-between p-3"
       style="border-bottom: 1px solid rgba(255,255,255,.3);">
-      <p class="fw-bold mb-0"><%=message.sender.name%></p>
-      <p class="text-dark small mb-0"><i class="far fa-clock"></i> <%=time_ago_in_words(message.created_at)%> ago</p>
+      <p id="message_header_<%= message.id %>" class="fw-bold mb-0"><%=message.sender.name%></p>
+      <p class="text-dark small mb-0"><i class="far fa-clock" aria-hidden="true"></i> <%=time_ago_in_words(message.created_at)%> ago</p>
     </div>
     <div class="card-body">
       <p class="mb-0"><%=message.body%></p>
     </div>
   </div>
 
-  <% if current_user ==  message.sender %>
-  <div class="ps-3">
-    <img src="<%=message.sender.profile_image%>" alt="avatar"
-      class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
+  <% if current_user == message.sender %>
+    <div class="ps-3">
+      <img src="<%=message.sender.profile_image%>" alt="<%=message.sender.name %>'s profile picture" 
+        class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60" aria-hidden="true">
+    </div>
   <% end %>
 </li>

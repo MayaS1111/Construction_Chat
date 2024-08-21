@@ -1,0 +1,53 @@
+.features-section {
+  padding: 40px 0;
+}
+
+.home-page h3 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.service-item {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: box-shadow 0.3s ease;
+}
+.service-item:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.icon {
+  font-size: 2rem;
+  color: #007bff;
+}
+
+.title {
+  font-size: 1.25rem;
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.description {
+  font-size: 1rem;
+}
+
+@media (max-width: 576px) {
+  .features-section h3 {
+    font-size: 2rem;
+  }
+
+  .service-item {
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 1.125rem;
+  }
+
+  .description {
+    font-size: 0.875rem;
+  }
+}

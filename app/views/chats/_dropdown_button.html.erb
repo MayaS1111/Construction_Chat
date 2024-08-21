@@ -22,7 +22,6 @@
   </div>
 </div>
 
-
 <!-- Modals -->
 <!-- Members List -->
 <div class="modal fade" id="<%=chat.id%>_members_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -57,10 +56,12 @@
                   method: :post, 
                   class: 'btn btn-primary d-flex justify-content-center align-items-center' %> 
                 </div>
-                <div class="col btn btn-danger d-flex justify-content-center align-items-center" type= "button">
-                  <% remove_user = UserChat.find_by("user_id = ? AND chat_id = ?", member.id, chat.id) %>
-                  <%= link_to "Remove User", user_chat_path(remove_user), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "dropdown-item fw-medium" %>
-                </div>
+                <%if !chat.members.exists?(@chat_bot)%>
+                  <div class="col btn btn-danger d-flex justify-content-center align-items-center" type= "button">
+                    <% remove_user = UserChat.find_by("user_id = ? AND chat_id = ?", member.id, chat.id) %>
+                    <%= link_to "Remove User", user_chat_path(remove_user), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "dropdown-item fw-medium" %> 
+                  </div>
+                <%end%> 
               </div>
             <%else%> 
               <div class="card col-md-6 p-2">

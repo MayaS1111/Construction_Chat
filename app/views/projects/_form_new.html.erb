@@ -1,8 +1,6 @@
 <%= form_with(model: project) do |form| %>
-  <div>
     <div class="d-flex justify-content-center align-items-center ">
         <div class="card-body">
-          <form>
             <div class="row gx-3 mb-3 ">
               <div class="row md-6 d-flex justify-content-center"> 
                 <div class="col">
@@ -52,9 +50,7 @@
                 <% end %>
             </div>
             <%= form.submit "Create Project", class:"btn btn-primary" %>
-          </form>
         </div>
       </div>
     </div>
-  </div> 
 <% end %>

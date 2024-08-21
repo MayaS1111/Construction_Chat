@@ -5,11 +5,10 @@
     <meta property="og:image" content="meta-image.png">
     <meta name="description" content="Construction Chat. Built to help construction get things Built Better!">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    <%= render "shared/meta_tags" %>
     <%= render "shared/cdn_assets" %>
     <%= render "shared/fonts" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= render "shared/styles" %>
     <%= javascript_importmap_tags %>
   </head>
 

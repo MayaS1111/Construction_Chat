@@ -1,5 +1,50 @@
-.gif {
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  max-width: 100%; /* Ensures the image is responsive */
+
+.features-section {
+  padding: 40px 20px; 
+}
+
+.features-section h3 {
+  font-size: 2rem; 
+  color: #333;
+  font-weight: 700;
+}
+
+.features-section .gif {
+  max-width: 100%;
+  height: auto;
+}
+
+.features-section .text-center {
+  text-align: center; 
+}
+
+.features-section .py-4 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.features-section .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.features-section p {
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.6;
+  margin: 0.5rem 0;
+  font-weight: 400; 
+  text-align: center; 
+  max-width: 600px; 
+  margin-left: auto; 
+  margin-right: auto; 
+}
+
+@media (max-width: 576px) {
+  .features-section h3 {
+    font-size: 1.5rem; 
+  }
+  .features-section p {
+    font-size: 0rem; 
+  }
 }

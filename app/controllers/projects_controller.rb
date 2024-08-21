@@ -38,7 +38,9 @@ class ProjectsController < ApplicationController
         end
         format.json { render :show, status: :created, location: @project }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html do
+          redirect_to "/chat/#{current_user.direct_message_project.id}/#{current_user.direct_message_project.first_chat.id}", alert: 'Project needs name to be created', status: :unprocessable_entity
+        end
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
