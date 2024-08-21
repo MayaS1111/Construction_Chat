@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def home; end
   def all_users; end
+  def admin;end
 
   private
 

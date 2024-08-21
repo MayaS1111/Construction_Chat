@@ -42,8 +42,4 @@ class User < ApplicationRecord
   def name
     "#{first_name} #{last_name}"
   end
-
-  def admin?
-    self.admin == true  # Adjust based on your role logic
-  end
 end
