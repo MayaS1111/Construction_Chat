@@ -22,9 +22,12 @@
   </section>
 </div>
 
-<!--Tryed moving this section multiple differnt ways, but I could only get it to work here-->
 <script>
-  $('.chat-item a').on('click', function(event) {
+  console.log('Turbo load event triggered');
+  console.log('Turbolinks load event triggered');
+
+
+$('.chat-item a').on('click', function(event) {
     event.preventDefault(); // Prevent the default link behavior
 
     const url = $(this).attr('href'); // Get the URL from the href attribute
@@ -61,4 +64,5 @@
       }
     });
   });
+
 </script>
