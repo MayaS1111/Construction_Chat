@@ -9,6 +9,8 @@ gem 'simple_form'
 
 gem 'rails_admin', '~> 3.0'
 
+gem 'pundit'
+
 gem 'sassc-rails'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.1.3', '>= 7.1.3.2'
