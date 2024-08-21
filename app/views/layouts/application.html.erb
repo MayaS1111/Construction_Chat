@@ -9,10 +9,12 @@
     <%= render "shared/cdn_assets" %>
     <%= render "shared/fonts" %>
     <%= render "shared/styles" %>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"> </script>
+    <script type="module" src="/assets/application.js"></script>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body id="full-page">
     <%= render "shared/navbar" %>
     <div class="container">
       <div class="row mb-2">

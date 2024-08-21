@@ -21,3 +21,44 @@
     </div>
   </section>
 </div>
+
+<!--Tryed moving this section multiple differnt ways, but I could only get it to work here-->
+<script>
+  $('.chat-item a').on('click', function(event) {
+    event.preventDefault(); // Prevent the default link behavior
+
+    const url = $(this).attr('href'); // Get the URL from the href attribute
+
+    // Perform an AJAX request to fetch the content
+    $.ajax({
+      url: url,
+      method: 'GET',
+      success: function(response) {
+        // Update the content of a specific part of the page
+        $('#full-page').html(response); // Insert the new content
+      },
+      error: function() {
+        alert('An error occurred while loading the chat content.');
+      }
+    });
+  });
+
+  $('.project-item a').on('click', function(event) {
+    event.preventDefault(); // Prevent the default link behavior
+
+    const url = $(this).attr('href'); // Get the URL from the href attribute
+
+    // Perform an AJAX request to fetch the content
+    $.ajax({
+      url: url,
+      method: 'GET',
+      success: function(response) {
+        // Update the content of a specific part of the page
+        $('#full-page').html(response); // Insert the new content
+      },
+      error: function() {
+        alert('An error occurred while loading the chat content.');
+      }
+    });
+  });
+</script>
