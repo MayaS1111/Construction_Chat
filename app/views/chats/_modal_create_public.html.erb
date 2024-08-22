@@ -1,0 +1,18 @@
+<div class="modal fade" id="create_private_chat_Modal" tabindex="-1" aria-labelledby="createPrivateChatModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createPrivateChatModalLabel">New Chat</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render "chats/form_new_private", chat: chat %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render "chats/modal_create_public", chat: @new_chat%>
