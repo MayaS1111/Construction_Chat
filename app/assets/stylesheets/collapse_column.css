@@ -5,3 +5,7 @@
   max-height: 85vh;
   overflow: auto;
 }
+
+#chat_column_box_public.closed {
+  display: none;
+}
