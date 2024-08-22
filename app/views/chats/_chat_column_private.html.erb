@@ -1,7 +1,7 @@
 <div class="col-md-3">
   <div class="row px-4">
     <div class="col d-flex justify-content-start">
-      <a id="chat_col_toggle_private" href="javascript:void(0);" aria-label="Toggle private chat column">
+      <a id="chat_column_toggle_private" href="javascript:void(0);" aria-label="Toggle private chat column">
         <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h4>
       </a>
     </div>
@@ -11,7 +11,7 @@
       </a>
     </div>
   </div>
-  <div class="card mask-custom" id="chat_col_box_private" role="region" aria-labelledby="chat_col_toggle_private">
+  <div class="card mask-custom" id="chat_column_box_private" role="region" aria-labelledby="chat_column_toggle_private">
     <div class="card-body card-body-custom">
       <ul class="list-unstyled mb-0">
         <%= render partial: "chats/chat", collection: private_chats, as: :chat %>

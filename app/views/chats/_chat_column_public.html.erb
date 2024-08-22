@@ -1,7 +1,7 @@
 <div class="col-md-3">
   <div class="row px-4">
     <div class="col d-flex justify-content-start">
-      <a id="chat_col_toggle_public" href="javascript:void(0);" role="button" aria-label="Toggle Chat Column">
+      <a id="chat_column_toggle_public" href="javascript:void(0);" role="button" aria-label="Toggle Chat Column">
         <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h4>
       </a>
     </div>
@@ -13,7 +13,7 @@
       </div>
     <% end %>
   </div>
-  <div class="card mask-custom" id="chat_column_box_public" aria-labelledby="chat_col_toggle_public">
+  <div class="card mask-custom" id="chat_column_box_public" aria-labelledby="chat_column_toggle_public">
     <div class="card-body overflow-auto" style="max-height: 85vh">
       <ul class="list-unstyled mb-0">
         <%= render partial: "chats/chat", collection: public_chats, as: :chat, highlighted_chat_id: @highlighted_chat_id %>
@@ -41,5 +41,3 @@
     </div>
   </div>
 </div>
-
-

@@ -40,9 +40,9 @@ function initializeSidebar(sidebarId, toggleButtonId, stateKey) {
 
 // Initialization function
 function initializeSidebars() {
-  initializeSidebar('project_col_box', 'project_col_toggle', 'projectSidebarState');
-  initializeSidebar('chat_col_box_private', 'chat_col_toggle_private', 'chatSidebarStatePrivate');
-  initializeSidebar('chat_column_box_public', 'chat_col_toggle_public', 'chatSidebarStatePublic');
+  initializeSidebar('project_column_box', 'project_column_toggle', 'projectSidebarState');
+  initializeSidebar('chat_column_box_private', 'chat_column_toggle_private', 'chatSidebarStatePrivate');
+  initializeSidebar('chat_columnumn_box_public', 'chat_column_toggle_public', 'chatSidebarStatePublic');
 }
 
 // Event listeners
