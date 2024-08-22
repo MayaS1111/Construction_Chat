@@ -30,38 +30,4 @@
 </li>
 <hr>
 
-<!--Tryed moving this section multiple differnt ways, but I could only get it to work here-->
-
-<!-- Modal -->
-<div class="modal fade" id="<%= chat.id %>_chat_info_Modal" tabindex="-1" aria-labelledby="chatInfoModalLabel_<%= chat.id %>" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="chatInfoModalLabel_<%= chat.id %>"><%= chat.name %></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p><%= chat.description %></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Custom Styles -->
-<style>
-  .chat-item {
-    padding: 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-  .chat-item.selected_chat {
-    background-color: #f2f2f2; 
-    font-weight: bold;
-  }
-  .chat-item:hover {
-    background-color: #e9ecef;
-  }
-</style>
+<%= render "chats/modal_info", chat: chat%>

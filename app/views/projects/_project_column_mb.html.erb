@@ -1,7 +1,7 @@
 <div class="col-md-3 col-dropdown project-mb">
   <div class="row px-4">
     <div class="col d-flex justify-content-start">
-      <a id="project_col_toggle" href="javascript:void(0);" aria-label="Toggle project column">
+      <a id="project_column_toggle" href="javascript:void(0);" aria-label="Toggle project column">
         <h4 class="font-weight-bold mb-3 text-center text-black">Projects</h4>
       </a>
     </div>
@@ -13,7 +13,7 @@
       </div>
     <% end %>
   </div>
-  <div class="card mask-custom" id="project_col_box">
+  <div class="card mask-custom" id="project_column_box">
     <div class="card-body overflow-auto" style="max-height: 85vh">
       <ul class="list-unstyled mb-0">
         <% projects_displayed = Set.new %>
@@ -30,77 +30,4 @@
   </div>
 </div>
 
-<!--Tryed moving this section multiple differnt ways, but I could only get it to work here-->
-
-<!-- Modals -->
-<div class="modal fade" id="create_project_Modal" tabindex="-1" aria-labelledby="createProjectModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="createProjectModalLabel">New Project</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= render "projects/form_new", project: current_user.projects.new %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<style>
-  #project_col_box.closed {
-    display: none;
-  }
-</style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Function to initialize or reapply functionality
-    function initializeSidebar() {
-      function toggleProjectSidebar() {
-        var sidebar = document.getElementById('project_col_box');
-        if (sidebar) {
-          var isClosed = sidebar.classList.contains('closed');
-          if (isClosed) {
-            sidebar.classList.remove('closed');
-            localStorage.setItem('projectSidebarState', 'open');
-          } else {
-            sidebar.classList.add('closed');
-            localStorage.setItem('projectSidebarState', 'closed');
-          }
-        } else {
-          console.error('Element with id "project_col_box" not found.');
-        }
-      }
-
-      function loadProjectSidebarState() {
-        var sidebar = document.getElementById('project_col_box');
-        var sidebarState = localStorage.getItem('projectSidebarState');
-        if (sidebar) {
-          if (sidebarState === 'closed') {
-            sidebar.classList.add('closed');
-          } else {
-            sidebar.classList.remove('closed');
-          }
-        }
-      }
-
-      loadProjectSidebarState();
-
-      var toggleButton = document.getElementById('project_col_toggle');
-      if (toggleButton) {
-        toggleButton.addEventListener('click', toggleProjectSidebar);
-      }
-    }
-
-    // Initialize functionality
-    initializeSidebar();
-
-    // Handle route changes for Turbolinks or Turbo
-    document.addEventListener('turbolinks:load', initializeSidebar); // For Turbolinks
-    document.addEventListener('turbo:load', initializeSidebar); // For Turbo
-  });
-</script>
+<%= render "projects/modal_create", project: current_user.projects.new %>

@@ -1,7 +1,7 @@
 <div class="col-md-3">
   <div class="row px-4">
     <div class="col d-flex justify-content-start">
-      <a id="chat_col_toggle_private" href="javascript:void(0);" aria-label="Toggle private chat column">
+      <a id="chat_column_toggle_private" href="javascript:void(0);" aria-label="Toggle private chat column">
         <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h4>
       </a>
     </div>
@@ -11,7 +11,7 @@
       </a>
     </div>
   </div>
-  <div class="card mask-custom" id="chat_col_box_private" role="region" aria-labelledby="chat_col_toggle_private">
+  <div class="card mask-custom" id="chat_column_box_private" role="region" aria-labelledby="chat_column_toggle_private">
     <div class="card-body card-body-custom">
       <ul class="list-unstyled mb-0">
         <%= render partial: "chats/chat", collection: private_chats, as: :chat %>
@@ -20,82 +20,4 @@
   </div>
 </div>
 
-<!--Tryed moving this section multiple differnt ways, but I could only get it to work here-->
-
-<!-- Modals -->
-<div class="modal fade" id="create_private_chat_Modal" tabindex="-1" aria-labelledby="createPrivateChatModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="createPrivateChatModalLabel">New Chat</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= render "chats/form_new_private", chat: @new_chat %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Custom Styles -->
-<style>
-  #chat_col_box_private.closed {
-    display: none;
-  }
-  .card-body-custom {
-    max-height: 85vh;
-    overflow: auto;
-  }
-</style>
-
-<!-- JavaScript for column Toggle -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    function initializePrivateSidebar() {
-      function togglePrivateChatSidebar() {
-        var sidebar = document.getElementById('chat_col_box_private');
-        if (sidebar) {
-          var isClosed = sidebar.classList.contains('closed');
-          if (isClosed) {
-            sidebar.classList.remove('closed');
-            localStorage.setItem('chatSidebarState', 'open');
-          } else {
-            sidebar.classList.add('closed');
-            localStorage.setItem('chatSidebarState', 'closed');
-          }
-        } else {
-          console.error('Element with id "chat_col_box_private" not found.');
-        }
-      }
-
-      function loadPrivateChatSidebarState() {
-        var sidebar = document.getElementById('chat_col_box_private');
-        var sidebarState = localStorage.getItem('chatSidebarState');
-        if (sidebar) {
-          if (sidebarState === 'closed') {
-            sidebar.classList.add('closed');
-          } else {
-            sidebar.classList.remove('closed');
-          }
-        }
-      }
-
-      loadPrivateChatSidebarState();
-
-      // Attach the toggle function to the button
-      var toggleButton = document.getElementById('chat_col_toggle_private');
-      if (toggleButton) {
-        toggleButton.addEventListener('click', togglePrivateChatSidebar);
-      }
-    }
-
-    initializePrivateSidebar();
-
-    // Handle route changes for Turbolinks or Turbo
-    document.addEventListener('turbolinks:load', initializePrivateSidebar);
-    document.addEventListener('turbo:load', initializePrivateSidebar);
-  });
-</script>
+<%= render "chats/modal_create_private", chat: @new_chat%>

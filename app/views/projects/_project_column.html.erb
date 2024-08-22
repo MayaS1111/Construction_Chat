@@ -31,22 +31,4 @@
   </div>
 </div>
 
-<!--Tryed moving this section multiple differnt ways, but I could only get it to work here-->
-
-<!-- Modals -->
-<div class="modal fade" id="create_project_Modal" tabindex="-1" aria-labelledby="createProjectModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="createProjectModalLabel">New Project</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= render "projects/form_new", project: current_user.projects.new %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render "projects/modal_create", project: current_user.projects.new %>

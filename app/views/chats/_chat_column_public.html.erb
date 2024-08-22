@@ -1,7 +1,7 @@
 <div class="col-md-3">
   <div class="row px-4">
     <div class="col d-flex justify-content-start">
-      <a id="chat_col_toggle_public" href="javascript:void(0);" role="button" aria-label="Toggle Chat Column">
+      <a id="chat_column_toggle_public" href="javascript:void(0);" role="button" aria-label="Toggle Chat Column">
         <h4 class="font-weight-bold mb-3 text-center text-black">Chats</h4>
       </a>
     </div>
@@ -13,7 +13,7 @@
       </div>
     <% end %>
   </div>
-  <div class="card mask-custom" id="chat_col_box_public" aria-labelledby="chat_col_toggle_public">
+  <div class="card mask-custom" id="chat_column_box_public" aria-labelledby="chat_column_toggle_public">
     <div class="card-body overflow-auto" style="max-height: 85vh">
       <ul class="list-unstyled mb-0">
         <%= render partial: "chats/chat", collection: public_chats, as: :chat, highlighted_chat_id: @highlighted_chat_id %>
@@ -41,59 +41,3 @@
     </div>
   </div>
 </div>
-
-<!-- Style and Script -->
-<style>
-  #chat_col_box_public.closed {
-    display: none;
-  }
-</style>
-
-<!-- JavaScript for column Toggle -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    function initializepublicSidebar() {
-      function togglepublicChatSidebar() {
-        var sidebar = document.getElementById('chat_col_box_public');
-        if (sidebar) {
-          var isClosed = sidebar.classList.contains('closed');
-          if (isClosed) {
-            sidebar.classList.remove('closed');
-            localStorage.setItem('chatSidebarState', 'open');
-          } else {
-            sidebar.classList.add('closed');
-            localStorage.setItem('chatSidebarState', 'closed');
-          }
-        } else {
-          console.error('Element with id "chat_col_box_public" not found.');
-        }
-      }
-
-      function loadpublicChatSidebarState() {
-        var sidebar = document.getElementById('chat_col_box_public');
-        var sidebarState = localStorage.getItem('chatSidebarState');
-        if (sidebar) {
-          if (sidebarState === 'closed') {
-            sidebar.classList.add('closed');
-          } else {
-            sidebar.classList.remove('closed');
-          }
-        }
-      }
-
-      loadpublicChatSidebarState();
-
-      // Attach the toggle function to the button
-      var toggleButton = document.getElementById('chat_col_toggle_public');
-      if (toggleButton) {
-        toggleButton.addEventListener('click', togglepublicChatSidebar);
-      }
-    }
-
-    initializepublicSidebar();
-
-    // Handle route changes for Turbolinks or Turbo
-    document.addEventListener('turbolinks:load', initializepublicSidebar); 
-    document.addEventListener('turbo:load', initializepublicSidebar); 
-  });
-</script>
