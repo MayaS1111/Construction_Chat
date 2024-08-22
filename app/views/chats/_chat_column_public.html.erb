@@ -13,7 +13,7 @@
       </div>
     <% end %>
   </div>
-  <div class="card mask-custom" id="chat_col_box_public" aria-labelledby="chat_col_toggle_public">
+  <div class="card mask-custom" id="chat_column_box_public" aria-labelledby="chat_col_toggle_public">
     <div class="card-body overflow-auto" style="max-height: 85vh">
       <ul class="list-unstyled mb-0">
         <%= render partial: "chats/chat", collection: public_chats, as: :chat, highlighted_chat_id: @highlighted_chat_id %>
@@ -44,7 +44,7 @@
 
 <!-- Style and Script -->
 <style>
-  #chat_col_box_public.closed {
+  #chat_column_box_public.closed {
     display: none;
   }
 </style>
@@ -54,7 +54,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     function initializepublicSidebar() {
       function togglepublicChatSidebar() {
-        var sidebar = document.getElementById('chat_col_box_public');
+        var sidebar = document.getElementById('chat_column_box_public');
         if (sidebar) {
           var isClosed = sidebar.classList.contains('closed');
           if (isClosed) {
@@ -65,12 +65,12 @@
             localStorage.setItem('chatSidebarState', 'closed');
           }
         } else {
-          console.error('Element with id "chat_col_box_public" not found.');
+          console.error('Element with id "chat_column_box_public" not found.');
         }
       }
 
       function loadpublicChatSidebarState() {
-        var sidebar = document.getElementById('chat_col_box_public');
+        var sidebar = document.getElementById('chat_column_box_public');
         var sidebarState = localStorage.getItem('chatSidebarState');
         if (sidebar) {
           if (sidebarState === 'closed') {

@@ -1,7 +1,7 @@
  document.addEventListener('DOMContentLoaded', function() {
     function initializePrivateSidebar() {
       function togglePrivateChatSidebar() {
-        var sidebar = document.getElementById('chat_col_box_private');
+        var sidebar = document.getElementById('chat_column_box_private');
         if (sidebar) {
           var isClosed = sidebar.classList.contains('closed');
           if (isClosed) {
@@ -12,12 +12,12 @@
             localStorage.setItem('chatSidebarState', 'closed');
           }
         } else {
-          console.error('Element with id "chat_col_box_private" not found.');
+          console.error('Element with id "chat_column_box_private" not found.');
         }
       }
 
       function loadPrivateChatSidebarState() {
-        var sidebar = document.getElementById('chat_col_box_private');
+        var sidebar = document.getElementById('chat_column_box_private');
         var sidebarState = localStorage.getItem('chatSidebarState');
         if (sidebar) {
           if (sidebarState === 'closed') {
