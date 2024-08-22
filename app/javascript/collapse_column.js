@@ -1,93 +1,51 @@
-document.addEventListener('DOMContentLoaded', function() {
-  function initializePrivateSidebar() {
-    function togglePrivateChatSidebar() {
-      var sidebar = document.getElementById('chat_col_box_private');
-      if (sidebar) {
-        var isClosed = sidebar.classList.contains('closed');
-        if (isClosed) {
-          sidebar.classList.remove('closed');
-          localStorage.setItem('chatSidebarState', 'open');
-        } else {
-          sidebar.classList.add('closed');
-          localStorage.setItem('chatSidebarState', 'closed');
-        }
-      } else {
-        console.error('Element with id "chat_column_box_private" not found.');
-      }
+// Utility functions
+function toggleSidebar(sidebarId, stateKey) {
+  var sidebar = document.getElementById(sidebarId);
+  if (sidebar) {
+    var isClosed = sidebar.classList.contains('closed');
+    if (isClosed) {
+      sidebar.classList.remove('closed');
+      localStorage.setItem(stateKey, 'open');
+    } else {
+      sidebar.classList.add('closed');
+      localStorage.setItem(stateKey, 'closed');
     }
+  } else {
+    console.error(`Element with id "${sidebarId}" not found.`);
+  }
+}
 
-    function loadPrivateChatSidebarState() {
-      var sidebar = document.getElementById('chat_col_box_private');
-      var sidebarState = localStorage.getItem('chatSidebarState');
-      if (sidebar) {
-        if (sidebarState === 'closed') {
-          sidebar.classList.add('closed');
-        } else {
-          sidebar.classList.remove('closed');
-        }
-      }
-    }
-
-    loadPrivateChatSidebarState();
-
-    // Attach the toggle function to the button
-    var toggleButton = document.getElementById('chat_col_toggle_private');
-    if (toggleButton) {
-      toggleButton.addEventListener('click', togglePrivateChatSidebar);
+function loadSidebarState(sidebarId, stateKey) {
+  var sidebar = document.getElementById(sidebarId);
+  var sidebarState = localStorage.getItem(stateKey);
+  if (sidebar) {
+    if (sidebarState === 'closed') {
+      sidebar.classList.add('closed');
+    } else {
+      sidebar.classList.remove('closed');
     }
   }
+}
 
-  initializePrivateSidebar();
+function initializeSidebar(sidebarId, toggleButtonId, stateKey) {
+  loadSidebarState(sidebarId, stateKey);
 
-  // Handle route changes for Turbolinks or Turbo
-  document.addEventListener('turbolinks:load', initializePrivateSidebar);
-  document.addEventListener('turbo:load', initializePrivateSidebar);
-});
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  function initializepublicSidebar() {
-    function togglepublicChatSidebar() {
-      var sidebar = document.getElementById('chat_column_box_public');
-      if (sidebar) {
-        var isClosed = sidebar.classList.contains('closed');
-        if (isClosed) {
-          sidebar.classList.remove('closed');
-          localStorage.setItem('chatSidebarState', 'open');
-        } else {
-          sidebar.classList.add('closed');
-          localStorage.setItem('chatSidebarState', 'closed');
-        }
-      } else {
-        console.error('Element with id "chat_column_box_public" not found.');
-      }
-    }
-
-    function loadpublicChatSidebarState() {
-      var sidebar = document.getElementById('chat_column_box_public');
-      var sidebarState = localStorage.getItem('chatSidebarState');
-      if (sidebar) {
-        if (sidebarState === 'closed') {
-          sidebar.classList.add('closed');
-        } else {
-          sidebar.classList.remove('closed');
-        }
-      }
-    }
-
-    loadpublicChatSidebarState();
-
-    // Attach the toggle function to the button
-    var toggleButton = document.getElementById('chat_col_toggle_public');
-    if (toggleButton) {
-      toggleButton.addEventListener('click', togglepublicChatSidebar);
-    }
+  var toggleButton = document.getElementById(toggleButtonId);
+  if (toggleButton) {
+    toggleButton.addEventListener('click', function() {
+      toggleSidebar(sidebarId, stateKey);
+    });
   }
+}
 
-  initializepublicSidebar();
+// Initialization function
+function initializeSidebars() {
+  initializeSidebar('project_col_box', 'project_col_toggle', 'projectSidebarState');
+  initializeSidebar('chat_col_box_private', 'chat_col_toggle_private', 'chatSidebarStatePrivate');
+  initializeSidebar('chat_column_box_public', 'chat_col_toggle_public', 'chatSidebarStatePublic');
+}
 
-  // Handle route changes for Turbolinks or Turbo
-  document.addEventListener('turbolinks:load', initializepublicSidebar); 
-  document.addEventListener('turbo:load', initializepublicSidebar); 
-});
+// Event listeners
+document.addEventListener('DOMContentLoaded', initializeSidebars);
+document.addEventListener('turbolinks:load', initializeSidebars); 
+document.addEventListener('turbo:load', initializeSidebars);

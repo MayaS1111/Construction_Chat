@@ -1,11 +1,15 @@
+#project_col_box.closed {
+  display: none;
+}
+
 #chat_col_box_private.closed {
   display: none;
 }
+#chat_column_box_public.closed {
+  display: none;
+}
+
 .card-body-custom {
   max-height: 85vh;
   overflow: auto;
-}
-
-#chat_column_box_public.closed {
-  display: none;
 }
