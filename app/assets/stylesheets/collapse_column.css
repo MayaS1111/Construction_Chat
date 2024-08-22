@@ -1,0 +1,7 @@
+#chat_col_box_private.closed {
+  display: none;
+}
+.card-body-custom {
+  max-height: 85vh;
+  overflow: auto;
+}
