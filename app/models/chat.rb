@@ -26,14 +26,23 @@ class Chat < ApplicationRecord
   has_many :user_chats
   has_many :chats, through: :user_chats
   has_many :members, through: :user_chats, source: :user
-
+ 
   scope :private_projects, -> { joins(:project).where('projects.project_type = ?', 'private') }
   scope :public_projects, -> { joins(:project).where('projects.project_type = ?', 'public') }
   scope :with_user, ->(user) { joins(:user_chats).where('user_chats.user_id = ?', user) }
   scope :for_project, ->(project) { joins(:project).where('projects.id = ?', project) }
-  scope :with_user_chat, lambda { |chat_id|
-                           joins(:user_chats).where(id: chat_id).group('chats.id').having('COUNT(user_chats.user_id) = 2')
-                         }
+  scope :with_member_count, ->(count) { joins(:user_chats).group('chats.id')
+                                        .having('COUNT(user_chats.user_id) = ?', count)}   
+  scope :common_for_users, ->(user1, user2) { joins(:user_chats).where(user_chats: { user_id: user1.id })
+                                        .where(id: Chat.joins(:user_chats)
+                                        .where(user_chats: { user_id: user2.id })
+                                        .select(:id))}  
+
+   def self.filtered_common_private_chats(current_user, user)
+    private_projects
+      .common_for_users(current_user, user)
+      .with_member_count(2)
+  end   
 
   def private_chat(current_user, user, private_project)
     chat = Chat.new(

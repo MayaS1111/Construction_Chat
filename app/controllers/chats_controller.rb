@@ -36,12 +36,12 @@ class ChatsController < ApplicationController
   end
 
   def create_private_chat
-    common_chat = find_common_chat
+    common_private_chat = current_user.chats.filtered_common_private_chats(current_user, @user).first
 
-    if common_chat
+    if common_private_chat
       respond_to do |format|
         format.html do
-          redirect_to "/chat/#{common_chat.project_id}/#{common_chat.id}", alert: 'You already have a private chat with this user.'
+          redirect_to "/chat/#{common_private_chat.project_id}/#{common_private_chat.id}", alert: 'You already have a private chat with this user.'
         end
       end
     else
@@ -123,14 +123,5 @@ class ChatsController < ApplicationController
 
   def chat_params
     params.require(:chat).permit(:project_id, :name, :description, user_chats_attributes: %i[chat_id user_id])
-  end
-
-  # TODO: Refactor Section
-  # Possibly to something like: current_user.chats.member_count(2).with_user(@user)
-  def find_common_chat
-    current_private_chats = current_user.chats.private_projects
-    chats_with_user = @user.chats.private_projects
-    common_chat_ids = (current_private_chats & chats_with_user).pluck(:id)
-    Chat.with_user_chat(common_chat_ids).first
   end
 end
