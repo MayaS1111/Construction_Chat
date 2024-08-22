@@ -1,0 +1,25 @@
+.project-item {
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+.project-item.selected_project {
+  background-color: #f2f2f2; 
+  font-weight: bold;
+}
+.project-item:hover {
+  background-color: #e9ecef;
+}
+
+.chat-item {
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+.chat-item.selected_chat {
+  background-color: #f2f2f2; 
+  font-weight: bold;
+}
+.chat-item:hover {
+  background-color: #e9ecef;
+}

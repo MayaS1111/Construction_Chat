@@ -37,20 +37,4 @@
   <hr>
 <% end %>
 
-<!-- Custom Styles -->
-<style>
-  .project-item {
-    padding: 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-  .project-item.selected_project {
-    background-color: #f2f2f2; 
-    font-weight: bold;
-  }
-  .project-item:hover {
-    background-color: #e9ecef;
-  }
-</style>
-
 <%= render "projects/modal_info", project: project%>
