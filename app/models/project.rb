@@ -33,4 +33,10 @@ class Project < ApplicationRecord
 
   scope :private_type, -> { where(project_type: 'private') }
   scope :public_type, -> { where(project_type: 'public') }
+
+
+  def create_main_chat(current_user)
+    chat = Chat.create(project_id: self.id, name: 'Main', description: 'This chat is for all members')
+    UserChat.create(user_id: current_user.id, chat_id: chat.id)
+  end
 end

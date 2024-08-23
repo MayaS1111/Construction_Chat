@@ -24,9 +24,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        chat = Chat.create(project_id: @project.id, name: 'Main', description: 'This chat is for all members')
-        UserChat.create(user_id: current_user.id, chat_id: chat.id)
-
+        @project.create_main_chat(current_user)
         format.html do
           redirect_to "/chat/#{@project.id}/#{@project.first_chat.id}", notice: 'Project was successfully created.'
         end
