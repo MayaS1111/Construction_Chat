@@ -45,7 +45,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update(project_params)
         format.html do
-          redirect_to "/chat/#{@project.id}/#{current_user.projects.first.chats.first.id}",
+          redirect_to "/chat/#{@project.id}/#{@project.first_chat.id}",
                       notice: 'Project was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @project }
