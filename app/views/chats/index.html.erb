@@ -3,7 +3,7 @@
     <div class="container py-1">
       <div class="desk-div">
         <!-- Render project columns for desktop and mobile -->
-        <%= render "projects/project_column", user_chats: current_user.user_chats, project: @project %>
+        <%= render "projects/project_column", user_chats: current_user.user_chats %>
         <%= render "projects/project_column_mb", user_chats: current_user.user_chats %>
 
         <!-- Render chat columns based on project type -->
