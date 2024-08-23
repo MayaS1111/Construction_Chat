@@ -38,7 +38,7 @@ class Chat < ApplicationRecord
                                         .where(user_chats: { user_id: user2.id })
                                         .select(:id))}  
 
-   def self.filtered_common_private_chats(current_user, user)
+  def self.filtered_common_private_chats(current_user, user)
     private_projects
       .common_for_users(current_user, user)
       .with_member_count(2)
