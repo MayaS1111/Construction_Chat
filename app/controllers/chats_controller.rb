@@ -32,6 +32,7 @@ class ChatsController < ApplicationController
   def messages
     @chat = Chat.find(params[:id])
     @messages = @chat.messages.order(:created_at)
+    # this line could maybe use a comment - unclear what's happening here exactly
     respond_to(&:js)
   end
 
